@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+/* cssOrder,html에 연결되어있다. */
+
+div{
+	boarder: dotted 3px navy !important; /* 테두리 : 실선 두께 (3px) 진한청색 강제로 최우선한다. */
+	font-size: 20pt;   /* 글자 크기*/
+	
+}   

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>  
+<meta charset="UTF-8">
+<title>css(Cascading Style Sheets)의 우선순위에 대해서 알아본다.</title>
+
+<link rel="stylesheet" href="mycss.css">    <!-- mycss.css에서의 조건을 불러온다 -->
+
+
+<style type="text/css">
+/*css의 주석문*/ 
+/*
+	=== CSS(Cascading Style Sheets)의 우선순위 ===
+	!important(css 강제적용) > 해당 태그에 직접준것(인라인방식) > HTML 파일에서 준 style 태그(임베디드방식) > 외부에 있는 .css 파일을 로드한것(예: <link rel="stylesheet" href="mycss.css">)
+*/
+
+div{
+	border: solid 1px blue; /* 테두리: 실선모양 1픽셀 색상 파랑색 */
+	background: #cce6ff !important;    /* 배경색 : 연한파랑색 */		/* 강제로 최우선하는 것은 !important 이다 */
+	
+	color : red;  /* 글자색 */  /* 모든 부분에 글자색 빨강 똑같은 것이 있다면 body 에 있는것이 실행된다.  !important 를 붙이면 css 이곳이 더 우선으로 결과가 나온다.*/ 
+}
+
+</style>
+
+
+</head>  
+<body>
+
+<!-- HTML의 body 주석문    주석문은 ctrl + shift + /-->
+
+<div style="border: dotted 1px red; background: #ffffe6;">나는 div1</div>    <!-- 빨간색 테두리 1픽셀이 나온다(dotted는 점선모양, soild는 실선). background 는 배경색-->
+<div>나는 div2</div>   <!--  여기는 css를 따라 갈것임 --> 
+
+</body>
+</html>
