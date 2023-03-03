@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>id와 class 에 대해서 알아본다.</title>
+
+
+<style type="text/css">
+
+	/* CSS Selector (선택자) */
+	/* 전체부분 */
+	div{
+		background-color: navy;   /* 배경색은 진한 청색 */
+		color: white;             /* 글자색은 흰색 */
+		font-size: 16pt           /* 글자 크기 16 point */
+	}	
+	
+	/* 해당 아이디 부분 */
+	div#div1{     /* div#아이디 를 쓰면 아이디에 해당하는 것만 바꿈 */
+		border: solid 6px green;
+		width: 100px;
+		height: 300px;
+	}
+	
+	/*          이렇게 쓰면 안된다.
+	#div1{      div#아이디 를 쓰면 아이디에 해당하는 것만 바꿈 
+		border: solid 6px green;
+		width: 100px;
+		height: 300px;
+	*/
+	
+	
+	/* 해당 아이디 부분 */
+	div#div2{     /* div#아이디 를 쓰면 아이디에 해당하는 것만 바꿈 */
+		border: dotted 5px #b30086;  /* 적포도주색 */
+		width: 50%;
+		height: 200px;
+	}
+	
+	
+	/* span 태크에서 클래스가 foodName 부분을 변경하자  */
+	span.foodName {
+		font-family: 궁서;   /* 모든 부분 궁서체로 변경 */
+		font-size: 20pt;    /* px, pt 등등 다됨 */
+		border: solid 4px orange;  /* 오랜지 색깔 */
+		display: inline-block;   /* 밑에 두개 쓰려면 이게 필요하다 */
+		width: 20%;	
+		height: 50px;
+		text-align: right;   /* 오른쪽 맞춤 */ /* 가로기준 가운데 정렬 center */
+	}
+	
+	
+	
+	/*                   이렇게 쓰면 안된다. (지정을 해줘야 한다.)
+	.foodName {
+		font-family: 궁서; 
+		font-size: 20pt;   
+		border: solid 4px orange; 
+		display: inline-block;   
+		width: 20%;	
+		height: 50px;
+		text-align: right;   
+	}
+	*/
+	
+	
+	
+	h1#h1 {
+		text-decoration: underline;   /* line-through는 취소 표시할때 overline은 위에 줄이 그어진다., underline 밑줄이 그어진다. */
+	}
+	
+	/* 클래스 h 부분 */
+	.h{
+		text-decoration: line-through;
+	}
+	
+	
+	
+	/*
+		=== CSS 우선순위 ===
+		
+		아이디(#) > 클래스(.) > 태그 
+	*/
+	div#myid {
+		color: red;             /* 글자색은 빨간색 */
+		font-weight: bold;          /* 글자 굵기 */ 
+	}
+	
+	
+	div.myclass {
+		background-color: #ccffe6;   /* 배경색은 연한 초록색 */
+		color: blue;             /* 글자색은 파란색 */
+		background-color: #ffffcc;   /* 배경색은 연한 노랑색  뒤에있는 것이 덮어씌워서 실행한다.*/    
+	}
+	
+	/*
+		=== CSS 우선순위 ===
+		
+		동일한 태그 또는 동일한 클래스 또는 동일한 아이디 내에서는 
+		맨 마지막 기술된 css 내용이 더 우선한다(즉, 덮어씌운다.)
+	*/
+
+</style>
+
+</head>
+<body>
+
+	<h1>▷ block 방식 - 세로로 떨어지는 방식 ◁</h1>
+	
+	<h1 id="h1">h1은 display의 기본값은 block 방식이다.</h1>    <!-- h1은 해드 라인을 말한다. 1부터 6까지만 존재한다. display: block은 기본값이다.(안써도 default 되어있음) --> 
+	<h2 id="div1">h2은 display의 기본값은 block 방식이다.</h2>
+	<h3 class="h">h3은 display의 기본값은 block 방식이다.</h3>   <!-- inline은 옆으로간다. block은 줄을 바꾼다. -->
+	<h4 class="h">h4은 display의 기본값은 block 방식이다.</h4>
+	<h5 class="foodName">h5은 display의 기본값은 block 방식이다.</h5>
+	<h6 class="foodName">h6은 display의 기본값은 block 방식이다.</h6>
+	
+	<br>   <!-- 줄 바꿈 -->
+	
+	<div id="div1"> div는 display가 block방식이다.</div>
+	<div id="div2"> div는 display가 block방식이다.</div>
+	
+	<hr>   <!-- 수평선 : 선이 그어져서 나온다.--> 
+	
+	<h1>▷ inline 방식 - 가로로 떨어지는 방식 ◁</h1>
+	
+	
+	
+	<div> inline 방식의 테그는 &lt;a&gt;, &lt;label&gt;, &lt;span&gt; 이 있다. </div>
+	<!-- 
+           &lt;    부등호(<)
+           
+           &gt;    부등호(>)
+           
+           &nbsp;  " " 공백(스페이스)1개를 의미한다.
+           
+           &amp;   앰퍼샌드(&)기호
+           
+           &quot;  쌍따옴표(")
+           
+           &#039;  홑따옴표(')
+           
+           &#035;  sharp(#)
+       -->
+       
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	
+	JSP&Servlet,              "ORACLE" ,                 She's         <!-- 공백을 아무리 많이 줘도 한개만 작동한다. -->
+	<br>   <!-- 줄 바꿈 -->
+	JSP&Servlet,&nbsp;&nbsp;&nbsp; "ORACLE" ,&nbsp;&nbsp;&nbsp;She's   <!-- 공백을 사용하려면 &nbsp; 사용 -->
+	<br>   <!-- 줄 바꿈 -->
+	JSP&amp;Servlet,&nbsp;&nbsp;&nbsp; &quot;ORACLE&quot; ,&nbsp;&nbsp;&nbsp;She&#039;s  <!-- 위와 결과가 같다 --> 
+	
+	
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	<a href="http://www.naver.com" > 네이버 </a> 		<!-- a는 옆으로 나온다, -->
+	<a href="http://www.daum.net"> 다음 </a> 
+	<a href="http://www.nate.com"> 네이트 </a> 
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	<label>레이블1 label 테그는 display가 inline 방식이다. </label>	<!-- 옆으로 계속 나온다 -->
+	<label>레이블2 label 테그는 display가 inline 방식이다. </label>
+	<label>레이블3 label 테그는 display가 inline 방식이다. </label>
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	<span>스펜1 label 테그는 display가 inline 방식이다. </span>	<!-- 옆으로 계속 나온다 -->
+	<span>스펜2 label 테그는 display가 inline 방식이다. </span>
+	<span>스펜3 label 테그는 display가 inline 방식이다. </span>
+	
+	<hr>   <!-- 수평선 : 선이 그어져서 나온다.--> 
+	
+	
+	<div style="border: solid 1px red; width: 100px; height: 300px;"> DIV 1 블럭요소(BLOCK element)은 width 및 height 가 적용된다. </div>
+	<div style="border: solid 1px blue; width: 50%; height: 300%;"> DIV 2 블럭요소(BLOCK element)은 width 및 height 가 적용된다. </div>
+	
+	<!-- width는 기본값이 100%이다. -->
+	<!-- 길이와 너비를 px(픽셀) 또는 %(퍼센트) 로 설정할 수 있다. 퍼센트는 height는 기능하지 않는다(즉 width만 작동한다.) -->
+	
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	<!-- 하나의 span 마다 박스를 쳐주었다 즉 내용물 만큼 빨간줄이 나온다.  -->
+	<!-- 높이 너비를 하더라도 작동하지 랂고 원본상태를 유지한다. -->
+	<!-- span의 defualt 는 inline이다. wigth와 height 는 block 만 기능한다.-->
+	
+	<span style="border: solid 1px red; wigth: 150px; height: 150px;">span1 인라인요소(inline element)는 width 및 height 가 적용안된다. </span>
+	<span style="border: solid 1px red; wigth: 250px; height: 250px;">span2 인라인요소(inline element)는 width 및 height 가 적용안된다. </span>
+	<span style="border: solid 1px red; wigth: 150px; height: 150px;">span3 인라인요소(inline element)는 width 및 height 가 적용안된다. </span>
+	
+	<br>   <!-- 줄 바꿈 -->
+	<hr>   <!-- 수평선 : 선이 그어져서 나온다.-->
+	
+	
+	<span style="display: inline; border: solid 1px red; width: 150px; height: 100px;"> 짜장면1 </span>
+	<span style="display: inline; border: solid 1px red; width: 200px; height: 150px;"> 탕수육1 </span>
+	<span style="display: inline; border: solid 1px red; width: 250px; height: 200px;"> 팔보채1 </span>
+	<!-- display: inline; 은 가로형태로 보여주는 것이고, 또헌 width 및 height 가 적용이 안된다. -->
+	
+	
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	<!-- id는 한개를 바꾸는거에 비해 class는 여러개를 바꾸는데에 좋다 이곳은 class를 사용하였다. -->
+	<span class="foodName"> 짜장면2 </span>
+	<span class="foodName"> 탕수육2 </span>
+	<span class="foodName"> 팔보채2 </span>
+
+	
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	<!-- inline-block를 해보기 -->
+	
+	<!-- inline-block 은 wigth 와 height를 줄수 있다. -->
+	
+	<span style="display: inline-block; border: solid 1px red; width: 150px; height: 100px;"> 짜장면3 </span>
+	<span style="display: inline-block; border: solid 1px red; width: 200px; height: 150px;"> 탕수육3 </span>
+	<span style="display: inline-block; border: solid 1px red; width: 250px; height: 200px;"> 팔보채3 </span>
+	<!-- inline element 인 span 테그를 inline-block 형식으로 변경함, 가로형태로 보여주면서, width, height 를 부여할 수 있게 한다. -->
+	
+	
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	<div id="myid" class="myclass"> CSS 우선순위에 대해서 알아봅니다.</div>
+	
+	<br>   <!-- 줄 바꿈 -->
+	<br>   <!-- 줄 바꿈 -->
+	
+	
+	
+</body>
+</html>

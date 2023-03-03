@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+* {
+	font-family: Arial, "MS Trebuchet", sans-serif;    /* 글자모양 첫번째꺼가 적용됨 */
+}
+
+
+/* 여백 설정 */
+body{
+	
+	margin: 0;
+	padding: 0;
+	
+	word-break: break-all;      /* 공백없이 영어로만 되어질 경우 해당 구역을 뚷고 빠져나가므로 이것을 막기 위해서 사용한다. */
+	
+	border: soild 0px red;
+}
+
+div#wrop {
+	border: solid 0px navy;
+	width: 70%;
+	margin: 0 auto;  /* auto 는 균등 분할  */
+	
+}
+
+/* ui 태그 부분 */  /* 기호 제거 부분 */
+header#page_header > nav > ul, 					/* , 는 또는   */
+footer#page_footer > nav > ul ,
+section#siderbar > nav > ul         {  			/* > 는 자식 테이블  */
+	list-style-type: none;			/* 기호 제거 */
+	padding: 0;						/* 기호를 제거하더라도 자리가 남아있으므로 padding 한다 */
+	border: solid 0px gray;
+}
+
+/* li 태그 부분 */   /* inline-block으로 변경 */
+header#page_header > nav > ul > li , 
+footer#page_footer > nav > ul > li   { 			 /* , 는 또는   */
+	border: solid 0px red;
+	display: inline-block;   /* display 방식을 inline-block으로 변경 */
+	width: 100px;
+	margin-right: 20px;		 /* margin: 0 20px 0 0; 과 같다 */
+	
+}
+
+/* a 태그의 밑줄을 제거하기 */
+a {
+	text-decoration: none;    /* 밑 줄이 사라진다. */
+}
+
+
+/* a 테그에 방문하기전의 링크 */
+a:link{
+	color: blue;
+}
+
+/* a 테그에 방문한 후의 링크 */
+a:visited{
+	color: blue;
+}
+
+
+/* a 태그에 마우스 포인터를 올려 놓았을 때 */
+header#page_header > nav > ul > li > a:hover {
+	background-color: red;
+	color: yellow;
+	font-weight: bolder;   /* 글자 굵기 굵게 */
+}
+
+
+/* hr 줄 한줄 긋기에 대한 조건 설정 */
+hr {
+	border: solid 2px blue;
+	margin-top: 30px;
+}
+
+/* section 태그의 첫번째부분 */
+section#pasts {
+	border: solid 0px red;
+	float: left;   /* 가로 방향으로 표시하는데 출발점은 왼쪽에서 출발한다. */
+	width: 72%;
+}
+
+
+/* aside 부분을 변경하기 위해 설정하자 */
+section#pasts  aside {  /*   section#pasts > article > aside 원래 이렇게 사용함 하지만 자식이든 손자이든 상관없이 aside 부분에 바꾸고 싶다면 저렇게 사용 */
+	border: solid 0px green; 
+	
+	float: right;  /* 가로방향으로 표시하는데 출발점은 오른쪽에서 출발한다. */
+	width: 35%;
+	margin-left: 20px;
+	
+	font-size: 20px;
+	font-weight: bolder;
+	color: #b30059;
+	line-height: 40px;    /* 줄 간격 */
+}
+
+
+
+
+
+/* section 태그의 두번째부분 */
+section#sidebar{
+	/* border: solid 1px blue; */
+	float: right;   /* 가로 방향으로 표시하는데 출발점은 오른쪽에서 출발한다. */
+	width: 24%;
+	border-left: solid 1px gray;
+	padding-left: 1%;					/* 여백 주기 */
+}
+
+
+
+/* 두번째 태그에서의 li부분 */
+section#sidebar > nav > ul > li {
+	line-height: 40px;    /* 줄간격 40px */	
+}
+
+
+
+
+/* 첫번째 자식 부분만 바꿈 */ 
+section#sidebar > nav > ul > li:first-child {  /* 첫번째 자식 부분만 바꿈 */ 
+	border: solid 1px red;
+}
+
+/* 세번째 자식 부분만 바꿈 */ 
+section#sidebar > nav > ul > li:nth-child(3) {  /* 세번째 자식 부분만 바꿈 */ 
+	border: solid 1px orange;
+}
+
+
+/* 마지막 자식 부분만 바꿈 */ 
+section#sidebar > nav > ul > li:last-child {  /* 마지막 자식 부분만 바꿈 */ 
+	border: solid 1px green;
+}
+
+
+/* 다섯번째 자식 부분만 바꿈 */ 
+section#sidebar > nav > ul > li:nth-child(5) > ul > li {  /* 다섯째 자식 부분만 바꿈 그리고 li손자부분을 바꿈 */ 
+	/* border: solid 1px blue; */
+	line-height: 25px;   /* 줄간격 25px */
+}
+
+
+/* nth-last-child() 는 아래에서부터 센다 */
+
+
+/* 마지막 부분 */
+footer#page_footer {
+	border: solid 0px orange;
+	
+	clear: both;    /* 앞에서 float 을 해제해서 페이지 하단에 안착시킨다. */
+	text-align: center; /* 가로기준 정렬 */
+	padding: 50px 0 60px 0;/* 상 우 하 좌  */
+
+}
+
+/* 모든 p 테그 */
+p {
+	border: solid 0px yellow;
+	margin: 0 0 20px 0;   /* 밑 부분 20px 띄운다 */
+}
+
+/* 특정 p 태그만 줄간격 늘린다 */
+section#posts > article > p {
+	line-height: 30px;
+}
+
+
+
+

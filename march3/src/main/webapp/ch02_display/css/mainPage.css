@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+body{			/* 모든 내용물 */
+	font-family: Arial, "MS Trebuchet", sans-serif;    /* 글자모양 첫번째꺼가 적용됨 */
+	
+	border: solid 0px gray;	/* 	테두리 설정  */
+	
+	
+	/* 03_mainPage 에서 BODY 를 여러번썼을경우 해결법 */
+	word-break: break-all;      /* 공백없이 영어로만 되어질 경우 해당 구역을 뚷고 빠져나가므로 이것을 막기 위해서 사용한다. */
+	
+	
+	
+	
+	/* == 여백 설정 === */
+	/* == margin 은 바깥여백이다. == */
+	/* margin: 100px 200px 50px 150px;*/    /* 상 우 하 좌 순으로 여백이 생긴다. 시계 방향 */
+	/* margin: 50px;				  */	/* 상 우 하 좌 가 모두 50px로 여백이 생긴다. */
+	/*margin: 100px 50px;			  */	/* 상 하는 바깥여백을 100px을 주고 우 좌 는 바깥여백을 50px 주었다*/
+	margin: 0;								/* 기본적인 바깥여백을 없애버린다. 즉 상 우 하 좌 가 모두 0으로 여백이 생긴다.*/
+
+	
+	/* == padding 은 안쪽여백 이다. == */
+	/* padding: 100px 200px 3000px 50px; */ /* 상 우 하 좌 순으로 여백이 생긴다. 시계 방향 */
+	/*padding: 50px;   */                   /* 상 우 하 좌 가 모두 50px로 안쪽 여백이 생긴다. */
+	/*padding: 100px  50px;	*/				/* 상 하는 안쪽여백을 100px을 주고 우 좌 는 안쪽여백을 50px 주었다*/
+	padding: 0;								/* 기본적인 안쪽여백을 없애버린다. 즉 상 우 하 좌 가 모두 0으로 여백이 생긴다.*/
+	
+}	
+
+	div#container{
+		border: solid 0px purple;
+		width: 80%;          /* 너비 80% */
+		margin: 20px auto;		/* 상,하는 바깥여백 20px  우,좌는 남은 20%에서 좌우로 균등하게 주겠다. 즉, 화면의 가운데로 위치하겠다는 말이다. */
+	}
+	
+	div#header {
+		border: solid 0px red;
+		height: 100px;			/* CONTAINER 안에서 높이 100px 설정 */
+		background-color: #ccc;  /* #ccc; 은 #cccccc; 이다.  즉 글자가 반복하면 줄일수 있다.*/
+		/*margin: 100px 0 0 0   */   /* 상 우 하 좌 시계방향 */
+		margin-top: 50px;        /* margin-top: 50px;은 위의 margin: 100px 0 0 0 와 같은것으로써 상 여백만 할 수 있는 것이다. */
+		/*margin-bottom: 50px;  */	/*margin-bottom: 50px; 아래쪽 공백 */
+		/*margin-left:  50px;   */	/*margin-left:  50px; 왼쪽 공백 */
+		/*margin-right: 50px;   */	/*margin-right: 50px; 오른쪽 공백 */
+	}	
+	
+	div#side {
+		border: solid 0px blue;
+		width: 30%;
+		background-color: #888;   /* 진한 회색 */
+	}
+	
+	div#contents {
+		border: solid 0px yellow;
+		width: 68%;
+		background-color: #eee;   /* 연한 회색 */
+	}
+	
+	div#footer {
+		border: solid 0px green;
+		height: 80px;	
+		background-color: #ddd;   /* 회색 */
+		}
+	
+	div.customDisplay {
+		display:inline-block;    /* height 가 작동한다.*/ 
+		height : 400px; 
+	}
