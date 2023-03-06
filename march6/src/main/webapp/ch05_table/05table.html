@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테이블 만들기 5[thead, tbody, tfoot, colspan(가로병합)]</title>
+
+
+<style type="text/css">
+
+	div#container {
+		/*border: solid 1px gray;*/
+		width: 40%;
+		margin: 50px auto;	/* auto 는 나머지 가운데 */
+	} 
+	
+	table {    /* 테이블의 테두리는 값이 끝나는 지점까지 간다 */
+		width: 100%;				/* width 100%를 사용하면 전체 끝까지 나오도록 설정이 가능하다. */
+		/*border: solid 1px #fcb558; */
+	}
+
+	table, th, td {					/* th 는 테이블의 머리부분 , td 는 테이블의 데이터 베이스 */ 
+		border: solid 1px #fcb558; 
+		border-collapse: collapse;	/* border collapse는 테두리와 테두리 경계를 허물어 버린다.(table 안에 써야한다.) */
+	}
+	
+	th {
+		background-color: #ccc;			/* 배경색 회색 */
+		height: 30px;					/* 높이 30px */
+	}
+	
+	td {
+		height: 25px; 
+	}
+	
+	td.mycenter {
+		text-align: center;   /* 가운데 정렬 */ 
+	}
+	
+	td.myright {
+		text-align: right;   /* 오른쪽 정렬 */ 
+	}
+
+	
+</style>
+
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<table>			<!-- 테이블 태그 -->
+
+			<!-- thead 태그와 tfoot 태그는 테이블에서 오로지 1번만 사용한다. 
+				 thead 태그는 표의 타이틀 용도로 쓰이고
+				 tfoot 태그는 표의 마지막 요약데이터나 총계등을 보여줄 때 사용한다.
+				 tbody 태그는 표의 데이터를 표시하는 용도로 쓰인다.-->
+				 
+			<thead>     <!-- 테이블의 머리 부분을 나타내는 것이다. -->
+				
+				<tr>			<!-- 테이블 레코드 -->
+				
+					<th width="50%">제품 이름과 설명</th> 		<!-- 테이블 해더 (제목) 가운데 정렬에 글자 굵게 -->
+					<th width="25%">개당 가격</th> 
+					<th width="25%">박스당 개수</th> 
+				</tr>
+			</thead>
+			
+			<tbody>		<!-- 테이블의 데이터 부분 -->
+				<tr>
+					<td class="mycenter">블라우스 - 붉은색 실크</td>  <!-- 테이블 데이터 기본은 왼쪽정렬  여기는 가운데 정렬-->
+					<td class="myright">20,000원</td>
+					<td class="mycenter">150</td>
+				</tr>
+				
+				<tr>
+					<td class="mycenter">바지 - 검은색 원단</td>  <!-- 테이블 데이터 -->
+					<td class="myright">4,000원</td>
+					<td class="mycenter">300</td>
+				</tr>
+
+			
+			</tbody>
+			
+			<tfoot>
+			
+				<tr>
+					
+					 <!-- colspan 은 열 병합하는 것이다. 여기는 2개의 열을 하나로 병합을 하는 것이다.-->
+					<td colspan = "2" class="mycenter">총박스개수</td>   
+					<td class="mycenter">450</td>
+					
+				</tr>
+				
+			</tfoot>
+		</table>
+	
+	</div>
+
+
+</body>
+</html>

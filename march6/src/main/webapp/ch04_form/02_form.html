@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>form 에 대해서 알아봅니다. -2</title>
+
+<style type="text/css">
+	
+	body{
+		border: solid 0px gray;
+		margin: 0;
+		padding: 0;
+		font-family: Arial, "MS Trebuchet", sans-serif;    /* 글자모양 첫번째꺼가 적용됨 */
+		word-break: break-all;      /* 공백없이 영어로만 되어질 경우 해당 구역을 뚷고 빠져나가므로 이것을 막기 위해서 사용한다. */
+	}
+	
+	div#container {
+		border: solid 0px blue;
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	legend {
+		font-size: 20pt;
+	}
+	
+	form {
+		margin: 50px 0;  /* 상 하 50px, 좌우 0 */
+	}
+	
+	ul {
+		border: solid 0px red;
+		list-style-type: none; 	/* 기호 제거 */
+		padding: 0;
+	}
+	
+	label.title {						/* 라벨 테그에서 클래스가 title인 부분만 설정 */
+		border: solid 0px blue;
+		display: inline-block;		/* 타입을 변경하고 width 사용 */
+		width: 100px;				/* 너비 설정 */
+		color: navy;				/* 색상 */
+		font-weight: bold;			/* 글자 굵기 */
+	}
+	
+	ul > li {		/* ul > 빼도 무방 */
+		line-height: 40px;     /*  줄간격  */
+	}
+			
+	input.myinput {			/* myinput 클래스부분만 변경 */
+		height: 20px;    /* 높이 설정 */
+	}
+	
+	label[for="female"] {  			/* 라벨 태그에 속성값을 사용하면 id와 class 처럼 지정하여 변경이 가능하다. */
+		/*border: solid 1px red; 
+		color: red; */
+		padding-left: 50px;			/* 여백을 주어서 남자와 여자 사이를 벌려준다 */
+	}
+	
+	input[type="checkbox"] {		/* 속성값이 type="checkbox" 이면 변경한다. */
+		/*box-shadow: 0 0 0 1px red;*/   /* 글자의 그림자를 나타낸다. 순서는 상, 우, 하, 좌 */
+		margin-right: 30px;			/* 옆에 조금씩 벌린다. */
+	}
+	
+	select.myselect {			/* select에 25px 높이를 지정한다. */
+		height: 25px;
+	}
+	
+	fieldset > ul > li:last-child > input {			/* 마지막 li에 있는 input을 나타낸다. */
+		width: 100px;
+	   	height: 40px;
+	   	font-size: 16pt;
+	    border: none;
+	    margin: 20px 0 0 40px;
+	}
+	
+	/* 확인 부분 */
+	#container > form > fieldset > ul > li:last-child > input[type="submit"]:nth-child(1) {
+		background-color: navy;
+		color: white;
+		font-style: italic;	/* 글자 기울이기 */
+	}
+	
+	/* 취소 부분 */
+	#container > form > fieldset > ul > li:last-child > input[type=reset]:nth-child(2) {
+		background-color: red;
+		color: yellow;
+		font-style: italic;  /* 글자 기울이기 */
+	}
+	
+
+</style>
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<form action = "register.do">
+		
+			<fieldset>
+			
+				<legend>회원가입정보</legend>
+				
+				<ul>
+				
+					<li>			<!-- 아이디 부분을 text 로 설정  -->
+					
+						<label class="title" for = "userid">아이디</label>   
+						<input class="myinput" type="text" id="userid" size="20" maxlength="20" autofocus required />  <!-- 필수 입력부분  -->
+						<!-- text 타입, 아이디 userid, 사이즈 20, 최대 길이 20, 자동포커스, 필수입력 -->
+					
+					</li>
+					
+					<li>		<!-- text와 다르게 암호는 보이지 않는다. -->
+					
+						<label class="title" for = "passwd1">암호</label>
+						<input class="myinput" type="password" id="passwd1" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- text와 다르게 암호는 보이지 않는다. -->
+					
+						<label class="title" for = "passwd2">암호확인</label>
+						<input class="myinput" type="password" id="passwd2" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- 이름 부분 을 text로  -->
+					
+						<label class="title" for = "name">성명</label>
+						<input class="myinput" type="text" id="name" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- 이메일 부분   -->
+					
+						<label class="title" for = "email">이메일</label>
+						<input class="myinput" id="email" type="email" size="40" maxlength="40" placeholder="예: hongkd@gmail.com" required />
+					
+					</li>
+					
+					<li>		<!-- 성별 남,여 부분   -->
+					
+						<label class="title" >성별</label>
+						<label for="male">남자 </label>			<!-- 남자를 누르면 자동으로 체크되게 설정하기 위해 id와 같게 함 -->
+						<input id="male" type="radio" name="gender" />	<!-- 이름을 똑같이 설정했을때만 radio는 한개만 설정 가능하다. -->
+						<label for="female">여자 </label>			<!-- 여자를 누르면 자동으로 체크되게 설정하기 위해 id와 같게 함 -->
+						<input id="female" type="radio" name="gender" />   
+						<!-- <input id="female" type="radio" name="gender" checked />   checked 는 처음부터 체크되게 나온다.-->
+						
+						<!-- radio 는 체크할 수 잇는 부분을 나타낸다. (한개만 체크 ) -->
+					
+					</li>
+					
+					<li>		<!-- 체크박스 부분 다중 선택 가능하다. -->
+					
+						<label class="title">취미</label>
+						<label for="game"> 게임 </label> <input id="game" type="checkbox"  />
+						<label for="movie"> 영화감상 </label> <input id="movie" type="checkbox"  />
+						<label for="writing"> 글쓰기 </label> <input id="writing" type="checkbox"  />
+						<label for="music"> 음악감상 </label> <input id="music" type="checkbox"  />
+					
+					</li>
+					
+					<li>		<!-- 최종학력 부분 (선택 할 수 있게 나온다. 한개만 ) -->
+					
+						<label class="title">최종학력</label>
+						<select class="myselect">					<!-- 한개만 선택 할 수 있게 나온다. -->
+						
+							<option>고졸</option>
+							<option>초대졸</option>
+							<option selected>대졸</option>    <!-- selected 는 기본값을 대졸로 변경해준다. 이것이 없으면 가장 위인 고졸이 기본값 -->
+							<option>대학원졸</option>
+						</select>	
+					</li>
+					
+					<li>		<!-- 선호음식 부분 (선택 할 수 있게 나온다. 복수개 ) -->
+					
+						<label class="title">선호음식</label>
+						<select size="3" multiple>		<!-- multiple은 복수개를 선택 할 수 있게 나온다. -->
+						
+							<option>짜장면</option>
+							<option>파스타</option>
+							<option>파타이</option>    
+							<option>부대찌개</option>
+							<option>떡볶이</option>
+							<option>치킨</option>
+						</select>	
+					</li>
+					
+					<li>		<!-- 선호프로그램 부분 optgroup -->
+					
+						<label class="title">선호프로그램</label>
+						<select class="myselect">		
+						
+							<optgroup label="데이터베이스">		<!-- optgroup은 선택 부분에 타이틀 같은 역할을 한다.  -->
+								<option>Oracle</option>
+								<option>MSSQL</option>
+								<option>SyBase</option> 
+							</optgroup>
+							
+							 <optgroup label="개발언어"> 		 <!-- optgroup은 선택 부분에 타이틀 같은 역할을 한다.  -->
+								<option>Java</option>
+								<option>JSP</option>
+								<option>Spring</option>
+								<option>C/C++</option>
+							</optgroup>
+							
+						</select>	
+					</li>
+					
+					
+					<li>		<!-- 웹 브라우저 부분 list (list에 없는 부분은 직접 타이핑 하면 된다 예시 네이버웨일)-->
+					
+						<label class="title" for="browsername" >웹브라우저</label>
+						<input id="browsername" list="browserType" />	
+						<datalist id="browserType">						<!-- 리스트에 있는것을 나타내기 위해  -->
+							<option value="크롬"> 
+							<option value="엣지"> 
+							<option value="파이어폭스"> 
+							<option value="사파리"> 
+							<option value="오폐라"> 
+						</datalist>
+						
+					</li>
+					
+					<li>		<!-- 파일 첨부 부분 -->
+					
+						<label class="title" for="addfile" >파일첨부</label>
+						<input id="addfile" type="file" />
+						<!-- file은 파일 첨부 할 수 있는 것이다.  -->
+						
+					</li>
+					
+					
+					<li>		<!-- textarea 부분 -->
+					
+						<label class="title" for="registerComment" >가입인사말</label>
+						<textarea id= "registerComment" rows="5" cols="30"  placeholder="하고 싶은 말을 쓰세요"></textarea>
+						<!-- textarea 는 글을 쓸수 있는 곳을 만든다. rows 는 5 줄 cols 는 30 컬럼 (30글자씩)  -->
+						
+					</li>
+					
+					<li>
+						<input type="submit" value="확인" />
+						<input type="reset" value="취소" />
+					
+					</li>
+					
+				
+				</ul>
+				
+			</fieldset>
+		
+		</form>
+	
+	</div>
+
+
+</body>
+</html>

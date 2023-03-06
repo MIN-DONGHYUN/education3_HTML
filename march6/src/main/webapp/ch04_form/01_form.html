@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>form 에 대해서 알아봅니다. -1</title>
+
+
+<style type="text/css">
+
+	body {
+		background-color: #fff;		/* 흰색 */
+	}
+	
+	div#container {			/* div 태그는 기본적으로 block 이므로 width 사용 가능 */
+		
+		border: solid 0px gray;
+		width: 80%;
+		margin : 0 auto  /* 좌우로 균등분할 */ 
+	}
+	
+	form {
+		margin-top: 100px;		/* form 태그에 대해서 100px 외부 여백 */ 
+	}
+	
+	legend{
+		font-size: 20pt   /* 폰트 사이즈 */ 
+	}
+	
+	ul {				
+		border: solid 0px red;
+		list-style-type: none;   /* 기호 제거 */
+		padding: 0;				/* 여백 제거 */
+	}
+	
+	label {
+		border: solid 0px blue;
+		display: inline-block;	/* width 를 하기 위해 변경 */
+		width: 150px;			/* 여기서는 width 가 안먹음 왜냐하면 label 태그는 기본적으로 inline 이다. inline-block 팔요*/
+		
+	}
+	
+	li {			/* 하나하나의 줄을 뜻함 -> 프로젝트명 중요도 완료뎨상시간 등등이 하나의 li */
+		border: solid 0px green;
+		line-height: 30px;    /* 줄간격을 뜻한다 */
+		
+	}
+	
+
+
+</style>
+
+
+</head>
+<body>
+
+	<div id = "container">
+	
+	
+		<!-- form 태그 -->
+		<form action="register.do">     <!-- 처리해주는 URL -->   
+			
+			
+			<!-- fieldset 태그는 form을 그룹핑(묶어주는것)을 하는 역할 -->
+			<fieldset>				
+			
+			
+				<!-- 제목을 넣는 부분 -->
+				<!-- legend 태그는 fieldset에 대한 제목을 지정하는 것이다. -->
+				<legend> 프로젝트 정보 </legend>
+			
+				
+				<ul>
+				
+					<li>					<!-- 키보드로 입력 할 수 있는 것을 생성   -->	
+									
+						<label for="prjname">프로젝트명</label>	    <!-- 이렇게 쓰면 프로젝트명 누르면 입력칸에 쓸수있게 커서가 생김  -->
+						
+						<input type="text" id="prjname" size="20" maxlength="30" autofocus placeholder="예: 인사관리프로젝트" required />					<!-- input 태그는 다른것과 다르게 <input /> 으로 사용한다. -->
+						<!-- placeholder 은 예시 "예: 인사관리프로젝트"를 입력하는 곳에 밑에 예시를 보여줄 수 있다.  , size는 입력 칸 크기를 설정한다.-->
+						<!-- maxlength 는 DB의 varchar2, Nvarcher2 기능을 한다 /// 지금은 최대 길이 30을 제한했다.  -->
+						<!-- autofocus : 패이지 로드시 자동 포커스 지정  -->
+						<!-- required : 입력 필수 지정  즉, 반드시 입력해야 하는 것이다.  -->
+					
+					</li>
+					
+					<li>		<!-- 막대를 이용하여 중요도를 표시할 수 있도록 출력 -->
+					
+						<label for="priority">중요도</label>     <!-- 이렇게 쓰면 중요도 누르면 커서가 생김  -->
+						<input type="range" id="priority" min="1" max="10" value="5" step="1" />      <!-- min최소  max최대  value 초기값 5  step 올라갈때마다 1씩 증가 -->
+						<!-- range : 슬라이드 막대로 표시하는 숫자 필드   -->
+						
+					</li>	
+						
+						
+					<li>		<!-- 숫자를 입력할 수 있도록 출력  -->
+						
+							<label for="estimatehours">완료예상시간</label>	     <!-- 이렇게 쓰면 완료예상시간 누르면 입력칸에 쓸수있게 커서가 생김 (옆 화살표로 나타낼수도 있음)  -->
+							<input type="number" id="estimatehours" min="1" max="100" value="10" step="1" />		<!-- min최소  max최대  value 초기값 10  step 올라갈때마다 1씩 증가 -->
+							<!-- number : 숫자필드  -->
+					</li>
+					
+					<li>			<!-- 달력에서 시작날짜를 표시하도록 출력  -->
+						
+						<label for="startdate">시작날짜</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="date" id="startdate" />
+						<!-- date : 날짜필드  -->
+						
+					</li>
+					
+					<li>			<!-- 달력에서 월단위 출력하자  -->
+						
+						<label for="month">월</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="month" id="month" />
+						<!-- month : 월단위 날짜필드   -->
+						
+					</li>
+					
+					<li>			<!-- 달력에서 주단위 출력하자  -->
+						
+						<label for="week">주</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="week" id="week" />
+						<!-- week : 주단위 날짜필드  -->
+						
+					</li>
+					
+					<li>			<!-- 시간단위 출력하기  -->
+						
+						<label for="time">시간</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="time" id="time" />
+						<!-- time : 시간필드  -->
+						
+					</li>
+					
+					<li>			<!-- 이메일 출력하기  -->
+						
+						<label for="email">이메일</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="email" id="email" required />
+						<!-- email : 이메일필드  -->
+						
+					</li>
+					
+					<li>			<!-- URL 출력하기  -->
+						
+						<label for="url">URL</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="url" id="url" required />
+						<!-- url : url 필드  -->
+						
+					</li>
+					
+					<li>			<!-- search 출력하기  -->
+						
+						<label for="search">검색</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="search" id="search" />
+						<!-- search : 검색 필드  (text와 같다.)-->
+						
+					</li>
+					
+					<li>			<!-- color 출력하기  -->
+						
+						<label for="projectcolor">프로젝트 색상</label>      <!-- 이렇게 쓰면 시작날짜 누르면 날짜를 설정할 수 있도록 커서가 생김  -->
+						<input type="color" id="projectcolor" />
+						<!-- color : 색상지정 필드  -->
+						
+					</li>
+					
+					<li>			<!-- 전송 부분  무조건 form 태그 안에 해야 한다.  -->
+						
+						<input type="submit" value="전송" />		<!-- 전송부분  -->
+						<input type="reset" value="취소" />		<!-- 취소부분 써왔던 것들이 취소되어 초기화 됨  -->
+					</li>
+					
+					
+					
+					
+				
+				</ul>
+			
+			
+			</fieldset>
+		
+		</form>
+	
+	
+	
+	</div>
+
+
+
+
+</body>
+</html>
