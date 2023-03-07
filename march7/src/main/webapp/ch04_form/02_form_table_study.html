@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+
+	tr {
+		vertical-align: top;
+		line-height: 40px;
+	}
+	
+	tr td:first-child {
+		
+		color: blue;
+		font-size: 12pt;
+		font-weight: bold;
+	}
+	
+	tr:nth-child(6) > td:nth-child(2), 
+	tr:nth-child(6) > td:nth-child(3),
+	tr:nth-child(7) > td:nth-child(1) ~ td{
+		padding-left: 5px; 
+	}
+
+	
+	
+</style>
+
+
+</head>
+<body>
+	<div id="container">
+	
+		<form action = "register.do">
+		
+			<fieldset>
+			
+			<legend>회원가입정보</legend>
+		
+			<table>
+				<tr>
+					<td> 아이디 </td>
+					<td><input type="text"> </td>
+				</tr>
+				
+				<tr>
+					<td> 암호 </td>
+					<td><input type="password" > </td>
+				</tr>
+				
+				<tr>
+					<td> 암호확인 </td>
+					<td><input type="password" > </td>
+				</tr>
+				
+				<tr>
+					<td> 성명 </td>
+					<td><input type="text" > </td>
+				</tr>
+				
+				<tr>
+					<td> 이메일 </td>
+					<td><input type="email" placeholder="예) mdh2057@naver.com" > </td>
+				</tr>
+				
+				<tr>
+					<td> 성별 </td>
+					<td> 남자 <input type="radio" name="gender"> </td>
+					<td> 여자 <input type="radio" name="gender"> </td>
+				</tr>
+				
+				<tr>
+					<td> 취미 </td>
+					<td> 게임 <input type="checkbox"> </td>
+					<td> 영화감상 <input type="checkbox"> </td>
+					<td> 글쓰기 <input type="checkbox"> </td>
+					<td> 음악감상 <input type="checkbox"> </td>
+				</tr>
+				
+				<tr>
+					<td> 최종학력 </td>
+					<td>
+						<select> 
+							<option>고졸</option> 
+							<option>초대졸</option>
+							<option>대졸</option>
+							<option>대학원졸</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td> 선호음식 </td>
+					<td>
+						<select size="4" multiple> 
+							<option>부대찌개</option> 
+							<option>감자탕</option>
+							<option>볶음밥</option>
+							<option>비빔밥</option>
+							<option>돈가스</option>
+							<option>소고기</option>
+							<option>생선</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td> 선호프로그램 </td>
+					<td>
+						<select> 
+						
+							<optgroup label="데이터 베이스">
+								<option>Oracle</option> 
+								<option>MSSQL</option>
+							</optgroup>
+							
+							<optgroup label="개발 언어">
+								<option>JAVA</option>
+								<option>C/C++</option>
+								<option>아두이노</option>
+								<option>파이썬</option>
+							</optgroup>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td> 웹 브라우저  </td>
+					<td> <input id="browsername" list="browserType" />
+						<datalist id="browserType">						<!-- 리스트에 있는것을 나타내기 위해  -->
+							<option value="크롬"> 
+							<option value="엣지"> 
+							<option value="파이어폭스"> 
+							<option value="사파리"> 
+							<option value="오폐라"> 
+						</datalist>
+					 </td>
+					
+				</tr>
+				
+				
+				<tr>
+					<td> 파일 첨부 </td>
+					<td> <input type="file"> </td>
+					
+				</tr>
+				
+				<tr>
+					<td> 가입인사말 </td>
+					<td> <textarea id= "registerComment" rows="5" cols="30"  placeholder="하고 싶은 말을 쓰세요"></textarea> </td>
+					
+				</tr>
+				
+				<tr>
+					<td> <input type="submit" value="확인"> </td>
+					<td> <input type="reset" value="취소"> </td>
+				</tr>
+				
+				
+			</table>
+			
+			</fieldset>
+			
+		</form>
+	
+	</div>
+	
+</body>
+</html>

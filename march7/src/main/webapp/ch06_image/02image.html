@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 더 알아보기</title>
+
+<style type="text/css">
+
+	div#container {
+		border:solid 1px gray;
+		width: 80%;
+		margin: 0 auto;  	/* 균등 분할 */	
+	}
+	
+	div#container > div {
+		/*border:solid 1px red;*/ 
+		padding: 20px 0;  /* 상하 20px, 좌우 0 */
+	}
+	
+	div.mydiv {
+		float: left;			/* 옆으로 간다 */
+		color: blue;
+		font-weight: bold;
+	}
+
+	div#container > div:nth-child(5) {   /* 다섯번째 자식인 div 태그이다. */
+		margin-right: 50px;
+	}
+	
+	div#mydiv_2 {
+		clear: both;			/* 왼쪽이든 오른쪽이든 영향을 받지 않겠다 (원상복구)*/
+	}
+
+</style>
+
+</head>
+<body>
+
+	<div id="container">
+		<h1 align="center"> 멋진 숲속의 아침을 감상하세요 </h1>
+		
+		<div>
+			<!-- img태그는 기본적으로 옆으로 나온다.(아래로 안나옴) -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">   <!-- ./ 생략 가능 -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- img태그는 옆으로 나온다.(아래로 안나옴) -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침1
+		</div>
+		
+		<div>				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침2
+		</div>
+		
+		<div>				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침3
+		</div>
+		
+		<div class="mydiv">				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침4
+		</div>
+		
+		<div class="mydiv">				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침5
+		</div>
+		
+							<!-- 앞에 div 영향으로 옆으로 나온다... 하지만 style에 clear: both 사용하면 정상적으로 돌아간다.-->		
+		<div id="mydiv_2">				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침6
+		</div>
+		
+		<div>				<!-- div는 무조건 block 방식이므로 아래로 떨어진다. -->
+			<img src="./images/숲속의 아침.jpg" width="300px" height="200px">	<!-- 여기 img태그는 div때문에 아래로 나옴 -->
+			<br> 		<!-- 한줄 띄우기  -->
+			숲속의 아침7
+		</div>
+		
+	</div>
+</body>
+</html>

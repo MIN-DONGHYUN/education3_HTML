@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>position 사용하기(fixed position) 및 flex 사용하기</title>
+
+<style type="text/css">
+	
+	body{
+		/*border: solid 1px gray;*/
+		width: 80%;
+		margin: 0 auto;
+	}  
+	
+	div#container {
+		border: solid 1px red;
+		width: 100%;
+		margin: 0 auto;
+	}
+	
+	div#parent, div#other {
+		border: solid 2px green;
+		margin: 10px;   /* 상우하좌 모두 10px */
+	}
+	
+	div#parent {
+		width: 50%;
+		background-color: #ffcccc;   	/* 분홍색 */ 
+	}
+	
+	div.me {
+		background-color: yellow;
+		}
+	
+	div.you {
+		background-color: cyan;
+	}
+	
+	/*
+		>>> !!! div 에 새로 정렬을 시키려면 !!! <<< 
+		div의 display를 flex 로 하고, flex item 에서 margin: auto; 로 지정해주면 된다.
+	*/
+	div#div_flex {
+		
+		display: flex;
+			
+		position: fixed;		/* 포지션 고정 */
+		top: 800px;
+		left: 800px;
+		
+		width: 80px;
+		height: 80px;
+		background-color: navy;
+		border-radius: 50%;		/* 절반씩 깍음*/
+	}
+	
+	div#div_flex a {
+		text-decoration: none;		/* 밑줄을 없애버린다 */
+		margin: auto;				/* !!! 중요 !!! 상우하좌 딱 가운데 들어온다 */
+	}
+	
+	div#div_flex a:link,
+	div#div_flex a:visited,
+	div#div_flex a:active {
+	
+		color: white;
+		/* a:link    : 방문 전 링크 상태이다.
+	       a:visited : 방문 후 링크 상태이다.
+	       a:hover   : 마우스 오버 했을 때 링크 상태이다.
+	       a:active  : 클릭 했을 때 링크 상태이다.
+	    */ 
+	}
+	
+	
+	div.div_table {
+		display: table;
+	}
+	
+	
+	div#div_flex:hover  {
+		background-color: red;
+	}
+	
+
+</style>
+
+</head>
+<body>
+
+      <div id="container">
+      
+	      <div id="parent">
+	         parent(부모)<br/>
+	         parent(부모)<br/>
+	         parent(부모)<br/>
+	         <div class="me">
+	           첫번째 me(나)는 position: static;으로 했으므로 top: 100px; left: 100px; 으로 위치값을 줘봐야 엘리먼트의 위치값은 변하지 않으며 크기(width)를 따로 지정하지 않았으므로 부모 엘리먼트(요소)의 크기(width)를 따라간다.<br/>  
+	           첫번째 me(나)는 position: static;으로 했으므로 top: 100px; left: 100px; 으로 위치값을 줘봐야 엘리먼트의 위치값은 변하지 않으며 크기(width)를 따로 지정하지 않았으므로 부모 엘리먼트(요소)의 크기(width)를 따라간다.<br/>
+	           첫번째 me(나)는 position: static;으로 했으므로 top: 100px; left: 100px; 으로 위치값을 줘봐야 엘리먼트의 위치값은 변하지 않으며 크기(width)를 따로 지정하지 않았으므로 부모 엘리먼트(요소)의 크기(width)를 따라간다.<br/>  
+	         </div>
+	      </div>
+	      
+	      <div class="you">
+	        첫번째 you(너)는 position: static;으로 했으므로 top: 300px; left: 200px; 으로 위치값을 줘봐야 엘리먼트의 위치값은 변하지 않으며 크기(width)를 따로 지정하지 않았으므로 부모 엘리먼트(요소)의 크기(width)를 따라간다.<br/>
+	        첫번째 you(너)는 position: static;으로 했으므로 top: 300px; left: 200px; 으로 위치값을 줘봐야 엘리먼트의 위치값은 변하지 않으며 크기(width)를 따로 지정하지 않았으므로 부모 엘리먼트(요소)의 크기(width)를 따라간다.<br/>
+	      </div>
+	      
+	      <div id="other">
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	         other(기타 다른 것들)<br/>
+	      </div>
+	      
+	     
+	      <div id="div_flex">
+	      		<a href="#">맨위로</a>   <!-- #은 자기 자신 페이지 --> 
+	      </div>
+	      
+	      
+	      
+   </div>
+	
+	
+	
+	
+
+</body>
+</html>

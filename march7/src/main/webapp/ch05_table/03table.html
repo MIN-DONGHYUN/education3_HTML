@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테이블 만들기 3[정렬]</title>
+
+
+<style type="text/css">
+
+	div#container {
+		/*border: solid 1px gray;*/
+		width: 40%;
+		margin: 50px auto;	/* auto 는 나머지 가운데 */
+	} 
+	
+	table {    /* 테이블의 테두리는 값이 끝나는 지점까지 간다 */
+		width: 100%;				/* width 100%를 사용하면 전체 끝까지 나오도록 설정이 가능하다. */
+		/*border: solid 1px #fcb558; */
+	}
+
+	table, th, td {					/* th 는 테이블의 머리부분 , td 는 테이블의 데이터 베이스 */ 
+		border: solid 1px #fcb558; 
+		border-collapse: collapse;	/* border collapse는 테두리와 테두리 경계를 허물어 버린다.(table 안에 써야한다.) */
+	}
+	
+	th {
+		background-color: #ccc;			/* 배경색 회색 */
+		height: 30px;					/* 높이 30px */
+	}
+	
+	td {
+		height: 25px; 
+	}
+	
+	td.mycenter {
+		text-align: center;   /* text-aliagn 은 정렬의 기준을 가로을 기준으로 한다. 즉, 왼쪽(left), 가운데(center) 오른쪽(right) 정렬이다 여기에서는 가운데 정렬 */ 
+	}
+	
+	td.myright {
+		text-align: right;   /* 오른쪽 정렬 */ 
+	}
+	
+	div#container > table > tbody > tr:last-child {
+		height: 100px;
+	}
+
+	td.mybottom {
+		vertical-align: bottom;  /* vertical-align: 은 정렬의 기준을 세로를 기준으로 한다. 즉, 위쪽(top), 가운데(center), 아래쪽(bottom) 정렬이다. */
+	}
+	
+	td.mymiddle {
+		vertical-align: middle;  /* vertical-align: 은 정렬의 기준을 세로를 기준으로 한다. 즉, 위쪽(top), 가운데(center), 아래쪽(bottom) 정렬이다. */
+	}
+	
+	td.mytop {
+		vertical-align: top;  /* vertical-align: 은 정렬의 기준을 세로를 기준으로 한다. 즉, 위쪽(top), 가운데(center), 아래쪽(bottom) 정렬이다. */
+	}
+
+</style>
+
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<table>			<!-- 테이블 태그 -->
+		
+			<thead>     <!-- 테이블의 머리 부분을 나타내는 것이다. -->
+				
+				<tr>			<!-- 테이블 레코드 -->
+				
+					<th width= "60%">제품 이름과 설명</th> 		<!-- 테이블 해더 (제목) 가운데 정렬에 글자 굵게 -->
+					<th width= "20%">개당 가격</th> 
+					<th width= "20%">박스당 개수</th> 
+					<!-- <th width= "20%">박스당 개수</th>  컬럼에 대한 크기를 잡을 수 있다.-->
+				</tr>
+			</thead>
+			
+			<tbody>		<!-- 테이블의 데이터 부분 -->
+				<tr>
+					<td class="mycenter">블라우스 - 붉은색 실크</td>  <!-- 테이블 데이터 기본은 왼쪽정렬  여기는 가운데 정렬-->
+					<td class="myright">20,000원</td>
+					<td class="mycenter">150</td>
+				</tr>
+				
+				<tr>
+					<td class="mycenter">바지 - 검은색 원단</td>  <!-- 테이블 데이터 -->
+					<td class="myright">4,000원</td>
+					<td class="mycenter">300</td>
+				</tr>
+				
+				<tr>
+					<td class="mycenter mybottom">점퍼</td>  <!-- 테이블 데이터 -->  <!-- 클래스는 공백을 기준으로 2개 이상도 사용 가능 --> 
+					<td class="myright mymiddle">5,000원</td>
+					<td class="mycenter mytop">500</td>
+				</tr>
+				
+			
+			</tbody>
+		</table>
+	
+	</div>
+
+
+</body>
+</html>

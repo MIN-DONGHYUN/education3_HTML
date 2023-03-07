@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>테이블 만들기 6 [colspan, rowspan, :first-child, :nth-child(숫자), :last-child, ~, + ]</title>
+
+
+<style type="text/css">
+
+	div#container {
+		/*border: solid 1px gray;*/
+		width: 40%;
+		margin: 50px auto;	/* auto 는 나머지 가운데 */
+	} 
+	
+	table {    /* 테이블의 테두리는 값이 끝나는 지점까지 간다 */
+		width: 100%;				/* width 100%를 사용하면 전체 끝까지 나오도록 설정이 가능하다. */
+		/*border: solid 1px #fcb558; */
+	}
+
+	table, th, td {					/* th 는 테이블의 머리부분 , td 는 테이블의 데이터 베이스 */ 
+		border: solid 1px #fcb558; 
+		border-collapse: collapse;	/* border collapse는 테두리와 테두리 경계를 허물어 버린다.(table 안에 써야한다.) */
+	}
+	
+	th {
+		background-color: #ccc;			/* 배경색 회색 */
+		height: 30px;					/* 높이 30px */
+	}
+	
+	td {
+		height: 25px; 
+	}
+	
+	td.mycenter {
+		text-align: center;   /* 가운데 정렬 */ 
+	}
+	
+	td.myright {
+		text-align: right;   /* 오른쪽 정렬 */ 
+	}
+	
+	/* 
+		tr > th:first-child 은 "봄 맞이 바겐세일" 의 th 태그인데 
+		tr > th:first-child ~ 은 "봄 맞이 바겐세일" 의 th 태그 다음에 오는 모든 형제태그(부모, 자식 XXX) (형제엘리먼트, 형제노드)를 말한다.
+		tr > th:first-child ~ th 은 모든 형제태그 (형제엘리먼트, 형제노드) 중에 th 태그만을 가리키는 선택지(select)이다.
+	*/
+	tr > th:first-child ~ th {	/* th 부분만 노랑색으로 변경해라   '*' 을 사용하면 모든 형제태그를 다 노랑색으로 변경 */
+		background-color: yellow;
+		height: 50px;
+	}
+	
+	/* tr > th:first-child ~ *   '*' 을 사용하면 모든 형제태그를 말한다. */
+	
+	
+	/*
+		tr:first-child > th:nth-child(2) + th 의 뜻은  
+		tr:first-child > th:nth-child(2) 의 바로 밑동생인 th 태그를 가리키는 것이다.
+		즉
+		+ 는 내 바로 밑에 동생을 말한다. 여기서는 th태그가 바로 밑 동생이다. (개당 가격) 부분이 동생이다.
+	*/
+	/* tr:first-child > th:nth-child(2) + th 이걸로 사용해도 된다.*/
+	div#container > table > tbody > tr:first-child > th:nth-child(2) + th {  /* 코드에는 없지만 크롬에는 자동적으로 tbody가 있기 때문에 tbody를 사용해야 한다.*/
+		background-color: white;
+		font-weight: normal;		/* 글자 굵기 노말 */ 
+	}	
+	
+	tr:first-child > th:first-child ~ *:hover { 	/* 첫번째 th 제외한 마우스 포인트가 올라가면 */
+		background-color: white;
+		color: red;
+	}
+
+	tr:first-child > th:nth-child(2) + th:hover { 	/* 개당 가격부분에 마우스 포인트가 올라가면 */
+		background-color: yellow !important;
+		color: red;
+	}
+	
+	tr:last-child > td:first-child > span:nth-child(2) {
+		color: red;
+		font-weight: bold;		/* 글자 굵게 */
+	}
+
+	
+</style>
+
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<table>			<!-- 테이블 태그 -->
+				 		
+				<tr>			<!-- 테이블 레코드 -->
+				
+					<th width="30%" rowspan="3" >봄 맞이 바겐 세일</th> 		<!-- (제목) 가운데 정렬에 글자 굵게 -->
+					<!-- rowspan 은 행병합인데 rowspan="3" 은  3개 행을 하나로 병합한다.
+					     (주의) 조심할 것은 밑에 <tr>태그가 바로 나와야 한다.  -->
+					<th width="30%">제품 이름과 설명</th>
+					<th width="20%">개당 가격</th> 
+					<th width="20%">박스당 개수</th> 
+				</tr>
+			
+				<tr>
+					<td class="mycenter">블라우스 - 붉은색 실크</td> 
+					<td class="myright">20,000원</td>
+					<td class="mycenter">150</td>
+				</tr>
+				
+				<tr>
+					<td class="mycenter">바지 - 검은색 원단</td>  <!-- 테이블 데이터 -->
+					<td class="myright">4,000원</td>
+					<td class="mycenter">300</td>
+				</tr>
+
+			
+			
+				<tr>
+					
+					 <!-- colspan 은 열 병합하는 것이다. 여기는 2개의 열을 하나로 병합을 하는 것이다.-->
+					<td colspan = "2" class="mycenter">
+						<span>총액</span>
+						<span>및</span>
+						<span>총박스</span>
+						<span>개수</span>
+					</td>  
+					<td class="myright">24,000원</td> 
+					<td class="mycenter">450</td>
+					
+				</tr>
+				
+		</table>
+	
+	</div>
+
+
+</body>
+</html>
