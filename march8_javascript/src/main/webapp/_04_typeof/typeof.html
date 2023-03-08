@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트에서 사용되는 데이터 타입에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	div#container {
+		/* border: solid 1px gray; */
+		width: 80%;
+		margin: 0 auto;
+		padding: 2%;
+	}
+
+	table, th, td {
+		border: solid 1px gray;
+		border-collapse: collase;		/* 경계를 허물어 버리는 부분 */
+	}
+	
+	th {
+		color: navy;
+		font-size: 16pt;
+	}
+	
+	td {
+		width: 200px;
+		height: 50px;
+		text-align: center;			/* 가운데 정렬 */
+	}
+	
+	table {
+		width: 100%;			/* 테이블 태그의 너비 100% 사용 */
+	}
+
+</style>
+
+
+<script type="text/javascript">
+	
+	/*
+		window.onload = function() { } 은 
+		웹페이지 문서가 모두 로드되어진 다음에 실행주는 것이다.
+		이것이 쓰기 싫다면 body 태그 맨 아래로 옮기면 된다.
+	*/
+
+	window.onload = function() {
+			
+		//alert('alert 는 주로 메시지를 띄우는 대화상자 입니다.');
+	
+		/*
+		const val1 = document.getElementById("val1").innerHTML;	 // innerHTML은 css까지 모두 가져와 보여준다.
+		console.log("val1 => " + val1);
+		// 결과 : val1 => <span style="color: red;">1234</span>
+		*/
+		
+		const val1 = document.getElementById("val1").innerText;  // innerText 는 데이터만 보여준다.
+		console.log("val1 => " + val1);
+		// 결과 : val1 => 1234
+		
+		console.log("변수 val1의 타입 : " + typeof(val1));  // typeof(val1) 은 변수 val1의 데이터 타입을 알려주는 것이다.
+		// 결과 : 변수 val1의 타입 : string
+		
+		
+		
+		// document.getElementById("typeval1").innerHTML = '<span style="color: green;">' + typeof(val1) + '</span>';
+		// 데이터 타입에 string을 넣어준다.
+		
+		// innerText 는 ''나 "" 안에 < >를 태그로 인식하지 못해서 전체 코드가 다 나온다.
+		// 즉 <> 를 태그로 인식하려면 innerHTML을 사용해야 한다.
+		// document.getElementById("typeval1").innerText = '<span style="color: green;">' + typeof(val1) + '</span>';
+		
+		
+		document.getElementById("typeval1").innerHTML = `<span style="color: green;">${typeof(val1)}</span>`; 
+		// 결과 : string가 데이터 타입 테이블에 들어간다.
+		
+		
+		document.getElementById("result1").innerHTML = `<span style="color: green;">${val1 + 10}</span>`;
+		// 결과 : 123410
+		
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+	
+		
+		const val2 = document.getElementById("val2").innerText;	 
+		// 형변환 후 데이터 값이 결과를 출력한다. 결과 : parseInt(1234)
+				
+		document.getElementById("typeval2").innerHTML = `<span style="color: blue;">${typeof(parseInt(val2))}</span>`;		 	//string 타입을 number 타입으로 바꾸려면 이 코드를 한다		
+		// 데이터 타입 테이블에 결과를 출력한다. 결과 : number
+		
+		document.getElementById("result2").innerHTML = `<span style="color: blue;">${parseInt(val2) + 10}</span>`;
+		// 결과 : 1244
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		const val3 = document.getElementById("val3").innerText;	 
+		// 형변환 후 데이터 값이 결과를 출력한다. 결과 : parseFloat(1234.567)
+		
+		document.getElementById("typeval3").innerHTML = `<span style="color: red;">${typeof(parseFloat(val3))}</span>`;		 	//string 타입을 number 타입으로 바꾸려면 이 코드를 한다
+		// 데이터 타입 테이블에 결과를 출력한다. 결과 : number
+		
+		document.getElementById("result3").innerHTML = `<span style="color: red;">${parseFloat(val3) + 10}</span>`;
+		// 결과 : 1244.567
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		
+		const val4 = document.getElementById("val4").innerText;	 
+		// 형변환 후 데이터 값이 결과를 출력한다. 결과 : parseInt(1234.567)
+		
+		document.getElementById("typeval4").innerHTML = `<span style="color: gold;">${typeof(parseInt(val4))}</span>`;		 	//string 타입을 number 타입으로 바꾸려면 이 코드를 한다
+		// 데이터 타입 테이블에 결과를 출력한다. 결과 : number
+		
+		document.getElementById("result4").innerHTML = `<span style="color: gold;">${parseInt(val4) + 10}</span>`;
+		// 결과 : 1244  ==> 소수점은 절삭해서 결과를 가져온다.
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		const val5 = document.getElementById("val5").innerText;	 
+		// 형변환 후 데이터 값이 결과를 출력한다. 결과 : Number(1234)
+		
+		document.getElementById("typeval5").innerHTML = `<span style="color: purple;">${typeof(Number(val5))}</span>`;		 	//string 타입을 number 타입으로 바꾸려면 이 코드를 한다
+		// 데이터 타입 테이블에 결과를 출력한다. 결과 : number
+		
+		document.getElementById("result5").innerHTML = `<span style="color: purple;">${Number(val5) + 10}</span>`;
+		// 결과 : 1244 
+		
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		const val6 = document.getElementById("val6").innerText;	 
+		// 형변환 후 데이터 값이 결과를 출력한다. 결과 : Number(1234.567)
+		
+		document.getElementById("typeval6").innerHTML = `<span style="color: purple;">${typeof(Number(val6))}</span>`;		 	//string 타입을 number 타입으로 바꾸려면 이 코드를 한다
+		// 데이터 타입 테이블에 결과를 출력한다. 결과 : number
+		
+		document.getElementById("result6").innerHTML = `<span style="color: purple;">${Number(val6) + 10}</span>`;
+		// 결과 : 1244.567
+	}
+
+</script>
+
+</head>
+<body>
+
+	<div id="container">
+		<table>
+			<tr>
+				<th> 데이터 값</th>
+				<th> 형변환 후 데이터 값</th>
+				<th> 데이터 타입</th>
+				<th> 10을 더한 값</th>
+		
+			</tr>
+			<tr>
+				<td id="val1"><span style="color: green;">1234</span></td>
+				
+				<td></td>
+				<td id="typeval1"></td>
+				<td id= "result1"></td>
+			</tr>
+			
+			<tr>
+				<td id="val2"><span style="color: blue;">1234</span></td>
+				
+				<td>parseInt(1234)</td>				<!-- 정수로 되어지는 number로 변경하는 것이다.  -->
+				<td id="typeval2"></td>
+				<td id= "result2"></td>
+			</tr>
+			
+			<tr>
+				<td id="val3"><span style="color: red;">1234.567</span></td>
+				
+				<td>parseFloat(1234.567)</td>				<!-- 실수형으로 변경 double은 없음  -->
+				<td id="typeval3"></td>
+				<td id= "result3"></td>
+			</tr>
+			
+			<tr>
+				<td id="val4"><span style="color: gold;">1234.567</span></td>
+				
+				<td>parseInt(1234.567)</td>				<!-- 실수형으로 변경 double은 없음  -->
+				<td id="typeval4"></td>
+				<td id= "result4"></td>
+			</tr>
+			
+			<!-- // !!!!!!!!!!!! 실수든 정수든 number 로 받아올 수 있다. !!!!!!!!!!!!!! // -->
+			
+			<tr>
+				<td id="val5"><span style="color: purple;">1234</span></td>
+				
+				<td>Number(1234)</td>				<!-- 정수로 되어지는 number로 변경하는 것이다.  -->
+				<td id="typeval5"></td>
+				<td id= "result5"></td>
+			</tr>
+			
+			<tr>
+				<td id="val6"><span style="color: purple;">1234.567</span></td>
+				
+				<td>Number(1234.567)</td>				<!-- 실수형으로 변경 double은 없음  -->
+				<td id="typeval6"></td>
+				<td id= "result6"></td>
+			</tr>
+			
+		</table>	
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML 태그 속에 결과물을 넣어주는 innerHTML 사용하기</title>
+</head>
+<body>
+
+<h1>안녕하세요? 나의 웹페이지 입니다.</h1>
+<p>첫번째 p 태그입니다.</p>
+
+
+<p id="demo"></p>
+<button type="button" onclick="myFunction()">클릭하세요</button>    <!-- 버튼을 생성하기 onclick은 클릭했을때를 myFuntion 실행하라를 말한다.  -->
+
+<script type="text/javascript">
+	function myFunction() {					/* 기능 실행 부분 */
+		document.getElementById("demo").innerHTML = 5+6;	/* 결과물을 버튼 누르면 출력한다 */
+	}
+</script>
+
+
+
+</body>
+</html>

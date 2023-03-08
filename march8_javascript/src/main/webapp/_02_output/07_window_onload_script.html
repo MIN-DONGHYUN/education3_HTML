@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+	
+	window.onload = function() {
+	//	브라우저에 페이지 로딩이 끝나면 발생하는 이벤트이다. 페이지를 모두 읽은 다음에 function() 을 실행한다.
+	
+		document.getElementById("h1").innerHTML = "h1 태그 입니다.";
+		document.getElementById("p").innerHTML = "p 태그 입니다."
+		// 결과물이 안 나온다. (스크립트의 순서는 순차적으로 가기 때문에 밑에 body를 읽기 전에 수행이 되므로 결과물이 안나온다.)
+	}
+</script>
+
+</head>
+<body>
+
+<h1 id="h1"> </h1>
+<p id="p"> </p>
+
+</body>
+</html>

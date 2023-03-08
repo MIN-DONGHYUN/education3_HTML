@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript 에서 변수 선언시 사용되는 var, const, let 에 대해서 알아보기</title>
+
+<style type="text/css">
+
+	/* 아이디 클래스 태그 순이 우선 순위 */
+	div#container {
+		display : flex;				/* 옆으로 정렬하게 해줌 */
+		/*border: solid 1px red;*/
+		width: 80%;				/* 바디 태그의 80 이여야 한다. */
+		margin: 100px auto 0 auto;
+	}
+	div#container > div {							/* block 방식이 아니라 flex 방식으로 변경되어 실행 */
+		/*border: solid 1px gray;*/
+		width: 200px;				/* 이것은 기능을 한다 */ 
+		margin: 0 auto;				/* 상하 0 좌우 자동 (원래 남아 있던 부분을 균등하게 분할 한다.)*/
+	}
+
+	button {
+		display: block;
+		margin-top: 30px;
+	}
+
+</style>
+
+</head>
+<body>
+
+	<h1 align= "center">block 영역내에서 var, const, let 사용하기 </h1>
+	
+	<div id="container">
+		<div>
+			<span id="sum1"></span>&nbsp;&nbsp;
+			<button type="button" onclick="myFunction_1()">결과보기1</button>
+		</div>
+		<div>
+			<span id="sum2-1"></span>&nbsp;&nbsp;<span id="sum2-2"></span>
+			<button type="button" onclick="myFunction_2()">결과보기2</button>
+		</div>
+		<div>
+			<span id="sum3-1"></span>&nbsp;&nbsp;<span id="sum3-2"></span>
+			<button type="button" onclick="myFunction_3()">결과보기3</button>
+		</div>
+		<div>
+			<span id="sum4"></span>&nbsp;&nbsp;
+			<button type="button" onclick="myFunction_4()">결과보기4</button>
+			
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+
+	function myFunction_1() {
+		
+		var num1 = 10;	//num1은 10
+		var num2 = 20;
+		{
+			var num1 = 30;		//num1 은 30임 
+		}
+		
+		var sum = num1 + num2;  //num1 은 30임
+
+		document.getElementById("sum1").innerHTML = sum;  // 50
+	} //end of function myFunction_1()
+	
+	
+	function myFunction_2() {
+		
+		const num1 = 10;	//num1은 10
+		const num2 = 20;
+		{	
+			const num1 = 30;		//num1 은 30임 
+			// { } block 속에 선언된 const num1; 은 { } 내에서만 사용 가능한 것이며 (지역변수) { } 를 벗어나는 순간 자동적으로 const 변수는 소멸 되어진다.
+ 			// 그러므호 { } 내에서는 새로 선언이 가능하다.!!!! 
+			// 즉 block 안에 있는 const는 똑같은 이름의 변수 선언 할 수 있다.
+			
+			const sum = num1 + num2;
+ 			//			30   +  20
+ 			//{ } block 속에 선언된 const sum 은 { } 내에서만 사용한 것임.
+ 			//{ } 를 벗어나는 순간 const sum 은 자동적으로 소멸 되어진다.
+ 			
+ 			//sum = num1 + num2;
+ 			// Uncaught TypeError: Assignment to constant variable.
+ 			// -- const sum 에 이미 값을 할당한 후 재할당은 불가하므로 오류이다.!!! 
+ 			
+ 			
+ 			document.getElementById("sum2-1").innerHTML = sum;  // 50
+		}	
+		
+		// 위에 const sum은 { } 을 빠져나왔으므로 소멸됨 
+		// 그래서 sum 사용 가능
+		
+		const sum = num1 + num2;		//num1 은 10
+		//			10		20 
+		// 여기의 const sum 은 이미 선언되어진 sum 이 없으므로 선언이 가능하다.
+		
+		
+		//sum = num1 - num2;
+		// Uncaught TypeError: Assignment to constant variable.
+		// -- const sum 에 이미 값을 할당한 후 재할당은 불가하므로 오류이다.!!! 
+		
+		
+		document.getElementById("sum2-2").innerHTML = sum;  // 30
+		
+		
+	} //end of function myFunction_2()
+	
+	
+	function myFunction_3() {
+		
+		let num1 = 10;	//num1은 10
+		let num2 = 20;
+		{	
+			let num1 = 30;		//num1 은 30임 
+			// { } block 속에 선언된 let num1; 은 { } 내에서만 사용 가능한 것이며 (지역변수) { } 를 벗어나는 순간 자동적으로 const 변수는 소멸 되어진다.
+ 			// 그러므호 { } 내에서는 새로 선언이 가능하다.!!!! 
+			// 즉 block 안에 있는 let는 똑같은 이름의 변수 선언 할 수 있다.
+			
+			let sum = num1 + num2;
+ 			//			30   +  20
+ 			//{ } block 속에 선언된 let sum 은 { } 내에서만 사용한 것임.
+ 			//{ } 를 벗어나는 순간 let sum 은 자동적으로 소멸 되어진다.
+ 			
+ 			sum = num1 - num2;
+ 			//      30    20
+ 			// 오류 발생 안함
+ 			
+ 			
+ 			document.getElementById("sum3-1").innerHTML = sum;  // 10
+		}	
+		
+		// 위에 const sum은 { } 을 빠져나왔으므로 소멸됨 
+		// 그래서 sum 사용 가능
+		
+		let sum = num1 + num2;		//num1 은 10
+		//			10		20 
+		// 여기의 const sum 은 이미 선언되어진 sum 이 없으므로 선언이 가능하다.
+		
+		
+		sum = num1 - num2;
+		//      10 - 20
+		// 오류 발생 안함
+		
+		
+		document.getElementById("sum3-2").innerHTML = sum;  // -10
+		
+		
+	} //end of function myFunction_3()
+	
+	
+	function myFunction_4() {
+		
+		const num1 = 10;		// num1 은 10
+		// let num1 = 20;
+		// Uncaught SyntaxError: Identifier 'num1' has already been declared
+		// --- 오류 발생 ---- (num1는 이미 선언되었다.)
+		
+		let num2 = 20;
+		//const num2 = 30;
+		// Uncaught SyntaxError: Identifier 'num2' has already been declared
+		// --- 오류 발생 ---- (num2는 이미 선언되었다.)
+		
+		
+		
+		//num1 += num2;	// num1 에다가 num2를 더해서 num1에 돌려줘라 
+		// Uncaught TypeError: Assignment to constant variable.
+		// --- num1은 const 이므로 값을 할 당한 후 재할당 불가능하다. (오류)
+		
+		num2 += num1;	// num2 에다가 num1를 더해서 num2에 돌려줘라
+		// --- num2 는 let 이므로 값을 할당한 후 재할당이 가능하다.
+		
+		document.getElementById("sum4").innerHTML = num2;  // 30
+	}
+
+</script>
+
+</body>
+</html>

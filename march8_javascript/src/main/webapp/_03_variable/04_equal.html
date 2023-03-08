@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>== 와 === 의 차이점에 대해 알아봅니다.</title>
+</head>
+<body>
+
+<h1>== 와 === 의 차이점에 대해 알아봅니다.</h1>
+
+<script type="text/javascript">
+	
+	const a = 100;
+	const b = "100";  /* 문자열 */
+
+	console.log("a 값 => " + a);	 // a 값 => 100 	
+	console.log("b 값 => " + b);	 // b 값 => 100
+	
+	console.log("변수 a 타입 => " + typeof(a));	  // 변수 a 타입 => number
+	console.log("변수 b 타입 => " + typeof(b));	  // 변수 b 타입 => string
+	
+	console.log("~~~~~~~~~~~~~~~~~~~~~~~~~")
+	
+	
+	if(a == b)		// == 은 값만 비교하는 것이다.
+	{
+		console.log('변수 a 와 변수 b 의 값은 같습니다. ')		// ' ' 나 " " 둘다 문자열을 말함
+	}
+	else
+	{
+		console.log('변수 a 와 변수 b 의 값은 같지 않습니다. ')
+	}
+	// 변수 a 와 변수 b 의 값은 같습니다. 
+	
+	
+	if(a === b)		// === 은 데이터타입 및 값 모두 비교하는 것이다.
+	{
+		console.log("변수 a 와 변수 b 는 데이터타입도 같으며, 값도 같습니다.")
+	}
+	else
+	{
+		console.log("변수 a 와 변수 b 는 데이터타입이 같지 않거나, 값이 같지 않거나 모든것이 같지 않습니다.")	
+	}
+	// 변수 a 와 변수 b 는 데이터타입이 같지 않거나, 값이 같지 않거나 모든것이 같지 않습니다.
+	
+	
+	
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스크립트 태그는 body 태그내에 위치해도 됩니다.</title>
+
+<script type="text/javascript">
+	function myFunction() {			/* 버튼 클릭했을때 실행하는 곳이다. */
+		
+		document.getElementById("demo").innerHTML = "p 태그의 내용이 변경되었습니다.";      
+		/* document 는 이 문서를 말한다. getElementById(아이디값) 은 p 태그를 잡는다. */
+		/* innerHTML  는 p 태그의 값에 넣는다 */
+	}	
+</script>
+
+</head>
+<body>
+
+<h2>스크립트 태그는 head 태그내에 위치해도 됩니다.</h2>
+
+<p id="demo">변경전 p 태그</p>
+<button type="button" onclick="myFunction()">클릭하세요</button>		<!-- 버튼을 생성하기 onclick은 클릭했을때를 myFuntion 실행하라를 말한다.  -->
+
+
+</body>
+</html>
