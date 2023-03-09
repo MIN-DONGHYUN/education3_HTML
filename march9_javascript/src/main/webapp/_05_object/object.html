@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 object 에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	div {
+		margin:30px 0;
+		font-size: 16pt;
+	}
+
+
+	div#view-1 {
+		color: red;
+	}
+	
+	div#view-2 {
+		color: blue;
+	}
+	
+	div#view-3 {
+		color:green;
+	}
+	
+	div#view-4 {
+		color:purple;
+	}
+	
+</style>
+
+</head>
+<body>
+
+	<h2>자바스크립트 object 에 대해서 알아봅니다.</h2>
+
+	<div id="view-1"></div>
+	<div id="view-2"></div>
+	<div id="view-3"></div>
+	<div id="view-4"></div>
+
+
+	<script type="text/javascript">
+		
+		// 객체 하나 생성
+		const member = {id	:	"leess" ,
+					    passwd	:	"qwer1234$" ,
+					    name	:	"이순신" , 
+					    address	:	"서울시 마포구" ,
+					    moblie	:	"010-2345-6789" ,
+					    info1	:	function() {		// 객체에 함수를 넣을 수 있음
+					    	return this.id + "  " + this.name + "  " + this.address;		// this는 자신의 객체를 말한다.
+					    }, 
+					    info2() {			// 객체에 함수를 넣을 수 있음 (ECMAScript 6 에서는 속성값이 함수이면 function 키워드 없이 함수명만 적으면 된다.)
+					    	return this.id + "  " + this.name + "  " + this.address;		// this는 자신의 객체를 말한다.
+					    }
+		};			
+		
+		
+		document.getElementById("view-1").innerHTML = member.info1;
+		// 결과 : function() { // 객체에 함수를 넣을 수 있음 return this.id + " " + this.name + " " + this.address; // this는 자신의 객체를 말한다. }
+		
+		document.getElementById("view-2").innerHTML = member.info1();
+		// 결과 : leess 이순신 서울시 마포구
+		
+		document.getElementById("view-3").innerHTML = member.info2();
+		// 결과 : leess 이순신 서울시 마포구
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////
+		
+		/*
+			member 의 형태가 const 이므로 member 의 객체를 다른 객체로 변경할 수는 없는 것이지 
+			member 객체의 필드값은 변경이 가능하다.!!!!!
+		*/
+		
+		//필드의 값은 변경할 수 있다.
+		member.id = "eomjh";
+		member.name = "엄정화"
+		member.address = "경기도 고양시"
+		
+			document.getElementById("view-4").innerHTML = member.info2();
+		
+		
+		
+	
+	</script>
+</body>
+</html>

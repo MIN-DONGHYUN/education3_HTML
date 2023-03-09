@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트에서 사용되는 데이터 타입에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	div#container {
+		/* border: solid 1px gray; */
+		width: 80%;
+		margin: 0 auto;
+		padding: 2%;
+	}
+
+	table, th, td {
+		border: solid 1px gray;
+		border-collapse: collase;		/* 경계를 허물어 버리는 부분 */
+	}
+	
+	th {
+		color: navy;
+		font-size: 16pt;
+	}
+	
+	td {
+		width: 200px;
+		height: 50px;
+		text-align: center;			/* 가운데 정렬 */
+	}
+	
+	table {
+		width: 100%;			/* 테이블 태그의 너비 100% 사용 */
+	}
+
+</style>
+
+
+<script type="text/javascript">
+	
+
+	window.onload = function() {
+			
+		const val1 = document.getElementById("val1").innerText;		//"20" (문자)
+		const val2 = document.getElementById("val2").innerText;		//"30" (문자)	
+		
+		document.getElementById("result1").innerHTML = Number(val1) + Number(val2);  
+		// 결과 50
+		
+		const sum = document.getElementById("result1").innerText;
+		// 문자열 "50"이 들어감 
+		
+		
+		let bool;		// bool 값을 설정
+		
+		if(sum == 50) {			// 데이터 타입 및 데이터값 까지 같은지를 비교 할 때는 === 를 쓴다.
+								// 데이터값만 같은지를 비교할 때는 == 를 쓴다.
+			bool = true;
+		}
+		else {
+			bool = false;
+		}
+		//document.getElementById("type1").innerHTML = bool + "&nbsp;&nbsp;" + typeof(bool);    // bool 은 boolean 타입
+		// 또는 백틱
+		document.getElementById("type1").innerHTML = `${bool}&nbsp;&nbsp;${typeof(bool)}`;    // bool 은 boolean 타입
+		// 결과 : true  boolean(== 일때)
+		// 결과 : false  boolean( === 일때 )
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		const val3 = document.getElementById("val3").innerText;		// "100"
+		const val4 = document.getElementById("val4").innerText;		// "50"
+		
+		document.getElementById("result2").innerHTML = val3 + " > " + val4;
+		
+		
+		if(Number(val3) > Number(val4)) {		//val3이 val4보다 크면 
+			bool = true;	
+		}
+		else {
+			bool = false;
+		}
+		
+		document.getElementById("type2").innerHTML = `${bool}&nbsp;&nbsp;${typeof(bool)}`; 
+		// 그냥 사용하면 문자열 비교기 때문에 false 가 나오게 된다.
+		// 그렇기 때문에 Number()로 붂어줘야만 한다.
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////
+		// undefined 알아보기 
+		// 결과가 undefined 라고 나오면 해당 변수에 값을 입력하지 않았으므로 데이터 타입이 정의가 안되었다는 뜻으로 undefined 가 나온다.
+		
+		document.getElementById("val5").innerHTML = 20;	//"20"
+		document.getElementById("val6").innerHTML = "70";	//"70"
+		
+		let total;
+		document.getElementById("result3").innerHTML = total;
+		// 결과 : undefined
+		document.getElementById("type3").innerHTML = typeof(total);
+		// 결과 : undefined
+		// 결과가 undefined 라고 나오면 해당 변수에 값을 입력하지 않았으므로 데이터 타입이 정의가 안되었다는 뜻으로 undefined 가 나온다.
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		////////// !!!!!!!!!!!!!!!! 자바스크립트에서 사용되어지는 객체 사용법 -1 !!!!!!!!!!!!!1! /////////////
+		
+		// const person_1 = new object();		// 자바스크립트에서 말하는 빈 객체이다.
+		// 또는
+		const person_1 = {};		// 자바스크립트에서 말하는 빈 객체이다.
+		person_1.userid = "leess";	// 객체에 새로운 속성을 추가하는 방법은 . 표기법이 있다. 즉 객체명.속성명 = 값; 으로 한다.
+		person_1.pwd = 'qwer1234';	// 객체에 새로운 속성을 추가하는 방법은 . 표기법이 있다. 즉 객체명.속성명 = 값; 으로 한다.
+		
+		// 속성명에 공백을 주고자 한다면, .표기법은 불가하고 대괄호 표기법으로 해야 한다.
+		person_1["na me"] = "이순신";	// 객체에 새로운 속성을 추가하는 방법은 대괄호 표기법이 있다. 즉, 객체명["속성명"] = 값; 으로 한다.
+		person_1["age"] = 25;	// 객체에 새로운 속성을 추가하는 방법은 대괄호 표기법이 있다. 즉, 객체명["속성명"] = 값; 으로 한다.
+		
+		//document.getElementById("val7").innerHTML = `${person_1}`;
+		// 또는
+		document.getElementById("val7").innerHTML = ""+person_1+"";
+		// 결과 : [object Object]
+		
+		
+		document.getElementById("val8-1").innerHTML = "<span style='color: red'>" + person_1.userid + "</span>";
+		document.getElementById("val8-2").innerHTML = `<span style="color: blue">${person_1.pwd}</span>`;
+		document.getElementById("val8-3").innerHTML = `<span style="color: green">${person_1["na me"]}</span>`;
+		document.getElementById("val8-4").innerHTML = `<span style="color: purple">${person_1["age"]}</span>`;
+		// 결과 : leess	qwer1234	이순신  	25
+		
+		document.getElementById("type4").innerHTML = `${typeof(person_1)}`;
+		// 결과 : Object
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		////////// !!!!!!!!!!!!!!!! 자바스크립트에서 사용되어지는 객체 사용법 -2 !!!!!!!!!!!!!1! /////////////
+		
+		// {속성명1:값1, 속성명2:값2, 속성명3:값3;		// 자바스크립트에서 말하는 객체이다.
+		const person_2 = {id:"eomjh",
+						  passwd: 'abcd1234', 
+						  "i rum" : "엄정화" ,
+						  'na i':27
+						}
+		// 속성명에 공백을 주고자 한다면, 위와 같이 반드시 "" 나 '' 를 사용하여 속성명을 해줘야 한다. -> .표기법은 불가하고 대괄호 표기법으로 해야 한다.
+		
+		
+		
+		
+		//document.getElementById("val9").innerHTML = `${person_1}`;
+		// 또는
+		document.getElementById("val9").innerHTML = ""+person_2+"";
+		// 결과 : [object Object]
+		
+		
+		document.getElementById("val10-1").innerHTML = "<span style='color: red'>" + person_2.id + "</span>";
+		document.getElementById("val10-2").innerHTML = `<span style="color: blue">${person_2.passwd}</span>`;
+		document.getElementById("val10-3").innerHTML = `<span style="color: green">${person_2["i rum"]}</span>`;
+		document.getElementById("val10-4").innerHTML = `<span style="color: purple">${person_2["na i"]}</span>`;
+		//결과 : eomjh	abcd1234	엄정화	  27
+		
+		document.getElementById("type5").innerHTML = `${typeof(person_2)}`;
+		// 결과 : Object
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		// ==== 함수 호출하기 ==== //
+		const val11 = document.getElementById("val11").innerText;  // "40"
+		const val12 = document.getElementById("val12").innerText;  // "50"
+		
+		document.getElementById("result6").innerHTML = val11 + " + " + val12 + " = " +  func_sum(val11, val12);		// 두개를 더한 값이 나오도록 함수를 만들자 
+		
+		
+		
+		/// ==== !!!! 자바스크립트에서 함수도 변수에 넣을 수 있다. !!!! ==== //
+		
+		// 자바스크립트에서 함수를 선언하는 방법 ==> 함수 표현식(Function expression) 
+		const func_minus = function(num1, num2) {
+			
+			if(typeof(num1) == "string")
+			{
+				num1 = Number(num1);		// 타입을 변경해서 num1에 넣어준다.
+			}
+			
+			if(typeof(num2) == "string")
+			{
+				num2 = Number(num2);		// 타입을 변경해서 num2에 넣어준다.
+			}
+			
+			return num1 - num2;
+		}
+		
+		const val13 = document.getElementById("val13").innerText;  // "40"
+		const val14 = document.getElementById("val14").innerText;  // "50"
+		
+		document.getElementById("result7").innerHTML = `${val13} - ${val14} = ${func_minus(val13, val14)}`;		// 두개를 뺀 값이 나오도록 함수를 만들자 
+		document.getElementById("type7").innerHTML = `${typeof(func_minus)}`;
+		
+		
+		//////////////////////////////////////////////////////////////////////////
+		// "화살표 함수" 란?
+		
+		// ES6(ECMAScript 6) 에서 처음으로 소개된 것으로써 화살표(=>)를 사용하여 함수를 선언하는 방법이다.
+		// 다른 말로 람다 표현식(lambda expression) 이라고 부른다,
+		// 이것은 function 과 return 을 생략하기 위해서 개발한 것이다.
+		
+		const func_multiply_1 = (num1, num2) => {		// 자바스크립트에서 () 가 나온것은 함수밖에 없으므로 이렇게 가능
+			
+			if(typeof(num1) == "string")
+			{
+				num1 = Number(num1);		// 타입을 변경해서 num1에 넣어준다.
+			}
+			
+			if(typeof(num2) == "string")
+			{
+				num2 = Number(num2);		// 타입을 변경해서 num2에 넣어준다.
+			}
+			
+			return `${num1 * num2}`;		// 앞 뒤에 백틱 ` 을 쓰고 백틱 속에 ${} 넣고 그 안쪽에 변수를 넣어준다.
+	
+		}
+		
+		
+		const func_multiply_2 = (num1, num2) => { return `${num1 * num2}`};
+			
+		const func_multiply_3 = (num1, num2) => `${num1 * num2}`;	// 함수의 내용물이 return 값만 존재할 경우에는 {} 와 return 은 생략이 가능하다.
+			
+		const func_multiply_4 = num1 => `${num1 * 5}`;  // 매개변수의 개수가 1개만 있울 경우 ()을 생략 할 수 있다.
+		
+		const func_multiply_5 = () => {return 200};	// 매개변수가 없을 경우 반드시 ()를 사용해야 하며, return 글자가 있을경우 반드시 {} 를 사용해야 한다.
+		
+		
+		
+		// 곱하기 부분
+		document.getElementById("result_1").innerHTML = func_multiply_1(20,30);
+		document.getElementById("type_1").innerHTML = typeof(func_multiply_1);
+		
+		document.getElementById("result_2").innerHTML = func_multiply_2(20,30);
+		document.getElementById("type_2").innerHTML = typeof(func_multiply_2);
+		
+		document.getElementById("result_3").innerHTML = func_multiply_3(20,30);
+		document.getElementById("type_3").innerHTML = typeof(func_multiply_3);
+		// 결과들 : 20	30	600	function
+		
+		document.getElementById("result_4").innerHTML = func_multiply_4(20);
+		document.getElementById("type_4").innerHTML = typeof(func_multiply_4);
+		// 결과 : 20	5	100	function
+		
+		
+		// 값만 넘겨주자 
+		document.getElementById("result_5").innerHTML = func_multiply_5();
+		document.getElementById("type_5").innerHTML = typeof(func_multiply_5);
+		// 결과 20	30	200	function
+		
+		
+	}	// end of window.onload = function
+
+	
+	// 자바스크립트에서 함수를 선언하는 방법 ==> 더하기 하는 함수 선언식(Function declaration)
+	function func_sum(num1, num2) {
+			
+		if(typeof(num1) == "string")
+		{
+			num1 = Number(num1);		// 타입을 변경해서 num1에 넣어준다.
+		}
+		
+		if(typeof(num2) == "string")
+		{
+			num2 = Number(num2);		// 타입을 변경해서 num2에 넣어준다.
+		}
+		
+		return num1 + num2;
+	} // end of function func_sum(num1, num2)
+	
+	
+	
+</script>
+
+</head>
+<body>
+
+	<div id="container">
+		<table>
+			<tr>
+				<th> 데이터 값1 </th>
+				<th colspan="4"> 데이터 값2 </th>		<!-- colspan은 4개를 합친다.  -->
+				<th> 결과 </th>
+				<th> 데이터 타입 </th>
+		
+			</tr>
+			<tr>
+				<td id="val1">20</td>
+				<td id="val2" colspan="4">30</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result1"></td>
+				<td id= "type1"></td>
+			</tr>
+			
+			
+			<tr>
+				<td id="val3">100</td>
+				<td id="val4" colspan="4">50</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result2"></td>
+				<td id= "type2"></td>
+			</tr>
+			
+			
+			<tr>
+				<td id="val5"></td>
+				<td id="val6" colspan="4"></td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result3"></td>
+				<td id= "type3"></td>
+			</tr>
+			
+			<tr>
+				<td id="val7"></td>
+				<td id="val8-1"></td>
+				<td id="val8-2"></td>
+				<td id="val8-3"></td>
+				<td id="val8-4"></td>
+				<td></td>
+				<td id= "type4"></td>
+			</tr>
+			
+			
+			<tr>
+				<td id="val9"></td>
+				<td id="val10-1"></td>
+				<td id="val10-2"></td>
+				<td id="val10-3"></td>
+				<td id="val10-4"></td>
+				<td></td>
+				<td id= "type5"></td>
+			</tr>
+			
+			
+			<tr>
+				<td id="val11">40</td>
+				<td id="val12" colspan="4">50</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result6"></td>
+				<td id= "type6"></td>
+			</tr>
+			
+			<tr>
+				<td id="val13">40</td>
+				<td id="val14" colspan="4">50</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result7"></td>
+				<td id= "type7"></td>
+			</tr>
+			
+			<!-- ============================================ -->
+			
+			<tr>
+				<td id="v_1">20</td>
+				<td id="v_11" colspan="4">30</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result_1"></td>
+				<td id= "type_1"></td>
+			</tr>
+			
+			<tr>
+				<td id="v_2">20</td>
+				<td id="v_22" colspan="4">30</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result_2"></td>
+				<td id= "type_2"></td>
+			</tr>
+			
+			<tr>
+				<td id="v_3">40</td>
+				<td id="v_33" colspan="4">50</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result_3"></td>
+				<td id= "type_3"></td>
+			</tr>
+			
+			<tr>
+				<td id="v_4">20</td>
+				<td id="v_44" colspan="4">5</td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result_4"></td>
+				<td id= "type_4"></td>
+			</tr>
+			
+			<tr>
+				<td id="v_5"></td>
+				<td id="v_55" colspan="4"></td>		<!-- colspan은 4개를 합친다.  -->
+				<td id="result_5"></td>
+				<td id= "type_5"></td>
+			</tr>
+			
+			
+		</table>	
+	</div>
+
+
+
+</body>
+</html>
