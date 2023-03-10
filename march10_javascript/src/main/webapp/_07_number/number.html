@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>숫자타입에 사용되는 메소드에 대해서 알아봅니다.</title>
+</head>
+<body>
+
+	<div>
+	      <span id="num1">20</span>+<span id="num2">30</span>=<span id="num3"></span> 
+	   </div>
+	   
+	   <div>
+	      <span id="num4">20</span>+<span id="num5">30</span>=<span id="num6"></span> 
+	   </div>
+	   
+	   <hr style="height: 10px; border: none; background-color: green;">
+	   <div>
+	      <span id="num7">20</span>+<span id="num8">30.5</span>=<span id="num9"></span><br/>
+	      <span id="num10">20</span>+<span id="num11">30.5</span>=<span id="num12"></span><br/>
+	      <span id="num13">20</span>+<span id="num14">30.5</span>=<span id="num15"></span><br/>  
+	   </div>
+	   
+	   <hr style="height: 10px; border: none; background-color: gold;">
+	   <div id="div_1"></div>
+	   <div id="div_2"></div>
+	   <div id="div_3"></div>
+	   
+	   <hr style="height: 10px; border: none; background-color: red;">
+	   <div>
+	      <p id="p_1"></p>
+	      <p id="p_2"></p>
+	      <p id="p_3"></p>
+	      <p id="p_4"></p>
+	      <p id="p_5"></p>
+	   </div>
+	   
+	   <hr style="height: 10px; border: none; background-color: blue;">
+	   <div>
+	      <p id="p_6"></p>
+	      <p id="p_7"></p>
+	      <p id="p_8"></p>
+	      <p id="p_9"></p>
+	      <p id="p_10"></p>
+	   </div>
+
+<script type="text/javascript">
+
+	const num1 = document.getElementById("num1").innerText;	//"20"
+	const num2 = document.getElementById("num2").innerText; //"30"
+	let result = `${num1 + num2}`;	//"2030"
+		document.getElementById("num3").innerHTML = result;
+	// "2030"
+	
+	
+	///////////////////////////////////////////////////////////////////
+	// === parseInt("문자열"), parseFloat("문자열"), Number("문자열") ===
+		
+	const num4 = document.getElementById("num4").innerText;	//"20"
+	const num5 = document.getElementById("num5").innerText; //"30"
+	result = `${Number(num4) + Number(num5)}`;
+	document.getElementById("num6").innerHTML = result;
+	// 50
+		
+	
+	const num7 = document.getElementById("num7").innerText;	//"20"
+	const num8 = document.getElementById("num8").innerText; //"30.5"
+	result = `${parseInt(num7) + parseInt(num8)}`;
+	document.getElementById("num9").innerHTML = result;
+	// 50   소수부 절삭 
+		
+	
+	const num10 = document.getElementById("num10").innerText;	//"20"
+	const num11 = document.getElementById("num11").innerText; //"30.5"
+	result = `${parseInt(num10) + parseFloat(num11)}`;
+	document.getElementById("num12").innerHTML = result;
+	// 50.5
+	
+	
+	const num13 = document.getElementById("num13").innerText;	//"20"
+	const num14 = document.getElementById("num14").innerText; //"30.5"
+	result = `${Number(num13) + Number(num14)}`;
+	document.getElementById("num15").innerHTML = result;
+	// 50.5
+	
+	/*
+	const sum = result + 60;	//50.5 + 60			// 이전에 백틱을 해왔기 때문에 원래 result 값은 문자열이다.
+	document.getElementById("div_1").innerHTML = sum;
+	// 50.560
+	*/
+	
+	const sum = Number(result) + 60;	//50.5 + 60		
+	document.getElementById("div_1").innerHTML = sum;
+	// 110.5
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	// === 숫자.toString() === //
+	
+	let str = sum.toString() + 9;
+	// 숫자.toString() 은 숫자를 문자열로 변환시켜줌
+	
+	document.getElementById("div_2").innerHTML = str;
+	// 110.59
+	
+	
+	
+	
+	// ========= !!! (기억하기) 숫자.toLocaleString('en'); ============ //
+	// 숫자가 3자리 마다 콤마를 찍어주는 것을 만들자
+	
+	const num = 1234567890;
+	document.getElementById("div_3").innerHTML = num.toLocaleString('en');
+	// 숫자.toLocaleString('en'); ==> 숫자를 3자리마다 콤마를 찍어서 문자열로 변환시켜줌
+	// 1,234,567,890
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	
+	// 반올림을 해보자
+	// ===== (반올림) 숫자.toFixed(반올림 되어질 소수부 숫자위치) ======
+		
+	const x = 9.656;
+	document.getElementById("p_1").innerHTML = x.toFixed(0);		
+	// 정수부까지만 보여주는데 소수부는 반올림 하면서 없어진다. 그 결과물은 String 타입이 된다.
+	// "10"
+	
+
+	//document.getElementById("p_2").innerHTML = x.toFixed(0) + 20;
+	// "1020"
+	
+	
+	document.getElementById("p_2").innerHTML = Number(x.toFixed(0)) +20;
+	// 30 
+	
+	document.getElementById("p_3").innerHTML = x.toFixed(2);	
+	// 소수부 2째자리 까지만 보여주는데 소수부는 반올림 하면서 없어진다. 그 결과물은 string 타입이다.
+	// "9.66"
+	
+	document.getElementById("p_4").innerHTML = x.toFixed(4);	
+	// 소수부 4째자리 까지만 보여주는데 소수부는 반올림 하면서 없어진다. 그 결과물은 string 타입이다
+	// "9.6560"
+	
+	
+	document.getElementById("p_5").innerHTML = x.toFixed(6);	
+	// 소수부 6째자리 까지만 보여주는데 소수부는 반올림 하면서 없어진다. 그 결과물은 string 타입이다
+	// "9.656000"
+	
+	
+	/////////////////////////////////////////////////////////////////////////////
+	
+	// ==== (반올림) 숫자.toPrecision(앞에서부터 반올림 되어지는 숫자 위치 ) ====
+		
+	const y = 9.656;
+	
+	document.getElementById("p_6").innerHTML = y.toPrecision(2);
+	// 주어진 길이가 2 이므로 2개 길이 만큼 가져와서 나머지는 없어지면서 반올림 해준다. 그 결과 또한 string 이다.
+	// 즉 앞에서 부터 2자리 9.6 을 가져오고 나머지는 반올림 되어진다.
+	// 결과 : "9.7"
+	
+	
+	document.getElementById("p_7").innerHTML = y.toPrecision(3);
+	// 주어진 길이가 3 이므로 3개 길이 만큼 가져와서 나머지는 없어지면서 반올림 해준다. 그 결과 또한 string 이다.
+	// 즉 앞에서 부터 3자리 9.65 을 가져오고 나머지는 반올림 되어진다.
+	// 결과 : "9.66"
+	
+	
+	document.getElementById("p_8").innerHTML = y.toPrecision(4);
+	// 결과 : "9.656"
+	
+	document.getElementById("p_9").innerHTML = y.toPrecision();
+	// ()안에 숫자를 안쓰면은 전체 길이를 뜻한다.
+	// 결과 : "9.656"
+	
+	
+	document.getElementById("p_10").innerHTML = y.toPrecision(6);
+	// 길이가 초과되면 0이 붙는다.
+	// 결과 : "9.65600"
+	
+	
+	
+	
+	
+	
+	
+</script>
+
+
+
+</body>
+</html>

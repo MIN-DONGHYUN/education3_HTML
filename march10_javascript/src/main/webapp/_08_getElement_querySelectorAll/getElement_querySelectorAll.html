@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트에서 엘리먼트(태그, 요소) 를 잡는 6가지 방법</title>
+
+<style type="text/css">
+
+</style>
+
+
+<script type="text/javascript">
+
+	window.onload = function() {
+		// 브라우저에 페이지 로딩이 끝나면 발생하는 이벤트이다.	
+		
+		// === 1. 자바 스크립트에서 태그를 가지고 선택자를 잡는 방법 ===
+		/*
+			document.getElementsByTagName("태그명"); 이다.	
+			
+			document.getElementsByTagName("태그명"); 을 실행하면 NodeList 타입(배열과 거의 비슷함)으로 반환해준다.
+			즉 쉽게 말하자면 객체(object)가 여러개인 형태로 반환해준다.
+		*/
+		
+		const divList = document.getElementsByTagName("div");
+		
+			
+		//alert("divList 의 길이 : " + divList.length);
+		// 결과 : divList 의 길이 : 3
+		
+		
+		for(var i=0; i< divList.length; i++)
+		{
+		
+			//alert(divList[i].innerText);   // red    green   blue
+			
+			divList[i].style.display = "inline-block";
+
+			// red   green   blue 가 옆으로 출력된다.
+			
+			// 객체이기 때문에 .을 해서 사용이 가능하다.
+			divList[i].style.width = "200px";
+			divList[i].style.height = "150px";
+			divList[i].style.border = "solid 1px gray";
+			divList[i].style.margin = "20px";
+			divList[i].style.backgroundColor = divList[i].innerText;
+			// (!!!!기억하기!!!!) CSS에서 backgroung-color 같이 스네이크기법으로 했던 것은 자바스크립트에서는 backgroundColor 와 같이 카넬기법으로 바꾸어야만 한다.
+			divList[i].style.color = "white"; 
+			
+			
+		}// end of for
+
+		let btnList = document.getElementsByTagName("button");
+		
+		for(var i=0; i<btnList.length; i++)
+		{
+			btnList[i].style.width = "100px";
+			btnList[i].style.height = "50px";
+			btnList[i].style.margin = "20px";
+			
+		}	
+		
+		
+		
+		// === 2. 자바 스크립트에서 클래스명을 가지고 선택자를 잡는 방법 ===
+		/*
+			document.getElementsByClassName("클래스명"); 이다.	
+			
+			document.getElementsByClassName("클래스명"); 을 실행하면 NodeList 타입(배열과 거의 비슷함)으로 반환해준다.
+			즉 쉽게 말하자면 객체(object)가 여러개인 형태로 반환해준다.
+		*/
+		
+		btnList = document.getElementsByClassName("btn");
+		
+		for(var i=0; i<btnList.length; i++) {
+			btnList[i].style.backgroundColor = "navy";
+			btnList[i].style.color = "white";
+		}// end of for()-------------------------------
+			
+		
+	
+	
+	
+		// === 3. 자바 스크립트에서 name 속성을 가지고 선택자를 잡는 방법 ===
+		/*
+			document.getElementsByName("name값"); 이다.	
+			
+			document.getElementsByName("name값"); 을 실행하면 NodeList 타입(배열과 거의 비슷함)으로 반환해준다.
+			즉 쉽게 말하자면 객체(object)가 여러개인 형태로 반환해준다.
+		*/
+		
+		const hobbyList = document.getElementsByName("hobby");
+		
+		for(var i=0; i<hobbyList.length; i++) {
+			console.log(hobbyList[i].value); // 콘솔에 찍어보는 것이다.
+			/*
+				game
+				movie
+				writing
+				music				
+			*/
+		
+		}// end of for()----------------------
+		
+		
+		const hobby_valList = document.getElementsByClassName("hobby_val");
+	 	
+		 for(var i=0; i<hobby_valList.length; i++) {		/* 클래스명이 hobby_val인 태그 span 태그에다가 넣어준다. */
+			 hobby_valList[i].innerHTML = hobbyList[i].value;
+			 
+		 }//end of for ---------------------------------
+		 
+		 const labelList = document.getElementsByTagName("label");
+		 
+		 for(var i=0; i<labelList.length; i++) {
+			 labelList[i].style.color = "red";
+			 labelList[i].style.fontSize = "15pt";
+		 }// end of  for----------------------------------------------
+		
+		
+		// === 4. 자바 스크립트에서 id 값을 가지고 선택자를 잡는 방법 ===
+		/*
+			document.getElementById("id값"); 이다.	
+			
+			document.getElementById("id 값"); 을 실행하면 리턴타입은 객체(object)이다.
+		*/
+		
+		 const btnOK = document.getElementById("btnOK");
+	    
+	     btnOK.style.width = "150px";
+	     btnOK.style.height = "50px";
+			
+		// === btnOK(확인버튼)을 클릭하면 alert("확인버튼을 클릭하셨군요. ㅎㅎㅎㅎㅎ"); 를 띄우고자 한다.
+		// === 엘리먼트(객체)를 클릭하면 발생하는 이벤트 핸들러 생성하기 === //
+		 btnOK.onclick = function() {
+			// btnok 를 "이벤트소스" 라고 부른다.
+			// onclick 를 이벤트라고 부른다. 지금은 클릭이벤트이다.
+			// function () { } 부분을 핸들러(처리)라고 부른다.
+			
+			// 체크박스에 체크가 된 것만 value 값 알아오기	checked 꼭 암기 체크되어있으면 true 안되어있으면 false
+			 	const hobbyList = document.getElementsByName("hobby"); 
+			 	
+				let cnt = 0;
+				let result = "";
+				let result2 = "";
+			 	for(var i=0; i<hobbyList.length; i++) {
+					console.log ( hobbyList[i].value + " : " + hobbyList[i].checked );
+					// 체크박스엘리먼트.checked ==> 체크가 되었으면 true 안되었으면 false
+					
+					if(hobbyList[i].checked) { // 체크박스에 체크가 되었으면
+						cnt++;
+						let s_comma = (cnt == 1)?"":",";
+						result += s_comma + hobbyList[i].value;
+						
+						result2 += s_comma + labelList[i].innerText;
+					}
+					
+			 	}// end of for--------------------------------
+				
+			 	document.getElementById("result").innerHTML = result;
+			 	document.getElementById("result2").innerHTML = result2;
+		};
+		
+		// === 엘리먼트(객체)에 마우스가 올라가면 이벤트 핸들러 생성하기 === //
+		btnOK.addEventListener("mouseover", function() {
+			
+			this.style.backgroundColor = "red";
+			this.style.color = "white";
+		});   
+		
+		// === 엘리먼트(객체)에 마우스가 올라갔다가 빠지면 이벤트 핸들러 생성하기 === //
+		btnOK.addEventListener("mouseout", function() {
+			
+			//this.style.backgroundColor = "blue";
+			this.style.backgroundColor = "";	// 원상복구
+			this.style.color = "";	// 원상복구
+		});   
+		
+		
+		// === 5. 자바 스크립트에서 CSS 선택자를 가지고 선택자를 잡는 방법 ===
+		/*
+			document.queryselectorAll("css선택자");    
+			
+			document.queryselectorAll("css선택자");  을 실행하면 NodeList 타입(배열과 거의 비슷함)으로 반환해준다.
+			즉 쉽게 말하자면 객체(object)가 여러개인 형태로 반환해준다.
+		*/
+		
+		const liList = document.querySelectorAll("body > section:last-child > ol > li:nth-child(3)");
+		
+		for(var i =0 ; i < liList.length; i++)
+		{
+			liList[i].style.color = "#00e600";
+			liList[i].style.fontStyle = "italic";
+			liList[i].style.fontweight = "bold";
+		}
+			
+		// === 6. 자바 스크립트에서 CSS 선택자를 가지고 선택자를 잡는 방법 ===
+		/*
+			document.queryselector("css선택자");    
+			
+			document.queryselector("css선택자");  을 실행하면 리턴타입은 1개의 갹체 (object)이다.
+		*/
+		
+		// 국어부분만 색을 바꿔보자 
+		const kor = document.querySelector("body > section:last-child > ol:last-child > li:first-child");
+		kor.style.color = "#ff00ff";			
+		
+		
+		// 파스타 부부만 색을 바꿔보자 
+		const pasta = document.querySelector("body > section:last-child > ol:nth-child(2) > li:first-child");
+		pasta.style.color = "#ff9933";	
+		
+		// 사과만 변경해보자 
+		const apple = document.querySelectorAll("body > section:last-child > ol:first-child > li")[0];   
+		/// [0]은 복수개의 li중에서 사과 부부만 지칭하는 것이다 [0]은 사과 [1]은 딸기 등
+		
+		apple.style.color = "#196619";	
+		apple.fontweight = "bold";
+		
+		
+		
+		
+		
+			
+	}// end of window.onload = function()----------------------------------------
+		
+	
+	
+</script>
+
+</head>
+<body>
+	
+	<!-- (암기하기 ) 웹에서 태그는 object(객체)로 본다 -->
+	<div>red</div>
+	<div>green</div>
+	<div>blue</div>
+	
+	
+	<br>
+	
+	
+	<section>
+		<button type="button" class="btn">버튼</button>
+		<button type="button">버튼</button>
+		<button type="button" class="btn">버튼</button>
+		<button type="button">버튼</button>
+		<button type="button" class="btn">버튼</button>
+		<button type="button">버튼</button>	
+	</section>
+	
+	<br>
+	
+	<section>
+		<ul style="list-style-type: none;">
+			<li><label for="hobby1">게임</label><input id="hobby1" type="checkbox" value="game" name="hobby" /><span class="hobby_val"></span></li>
+			<li><label for="hobby2">영화감상</label><input id="hobby2" type="checkbox" value="movie" name="hobby" /><span class="hobby_val"></span></li>
+			<li><label for="hobby3">글쓰기</label><input id="hobby3" type="checkbox" value="writing" name="hobby" /><span class="hobby_val"></span></li>
+			<li><label for="hobby4">음악감상</label><input id="hobby4" type="checkbox" value="music" name="hobby" /><span class="hobby_val"></span></li>
+		</ul>
+		
+		<button type="button" onclick="alert('확인1 버튼을 클릭하셨군요');">확인1</button>
+		<button type="button" onmouseover="alert('확인2 버튼에 마우스가 올라갔군요');">확인2</button>
+		
+		<button type="button" id="btnOK">확인버튼(체크박스에 체크된것 알아오기)</button>
+		<br>
+		
+		체크박스에 체크가 되어진 값1 : <span id="result"></span>
+		<br>
+		체크박스에 체크가 되어진 값2 : <span id="result2"></span>
+		
+		
+	</section>
+	
+	
+	<br>
+	
+	<section>
+	
+		<ol>
+			<li>사과</li>
+			<li>딸기</li>
+			<li>포도</li>
+			<li>수박</li>
+		</ol>
+		
+		<ol>
+			<li>파스타</li>
+			<li>토스트</li>
+			<li>모밀</li>
+			<li>비빔냉면</li>
+		</ol>
+		
+		<ol>
+			<li>국어</li>
+			<li>영어</li>
+			<li>수학</li>
+			<li>체육</li>
+		</ol>
+		
+		
+	
+	</section>
+	
+</body>
+</html>
