@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열명.map() 메소드와 엘리먼트. children 에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+	div#container {
+		width: 60%;
+		margin: 40px auto;  /* // 상하 40px; 좌우 자동 ; */	
+	}
+	
+	div#view > table, table#tbl, div#view_pass > table {
+		border: solid 1px gray;
+		width: 100%;
+		border-collapse: collapse;
+	}
+	
+	div#view > table  th, div#view > table  td, 
+	table#tbl th, table#tbl td, 
+	div#view_pass > table  td  {
+		border: solid 1px gray;
+	}
+	
+	div#view > table  th {
+		background-color: #ccc;
+		height: 30px;  
+	}
+	
+	table#tbl th {
+		background-color: #ffffcc;
+		height: 30px;
+	}
+	
+	div#view > table  td,
+	table#tbl td,
+	div#view_pass > table td {
+		text-align: center;  /* 가운데 정렬 */
+	}
+	
+	
+
+</style>
+
+
+</head>
+<body>
+
+
+	<div id=container>
+		<div id= "view"></div>
+		
+		<hr style="border: solid 1px red; margin: 30px 0;"> 
+		
+		
+		<table id="tbl">
+	      <thead>
+	         <tr>
+	            <th>성명</th>
+	            <th>점수</th>
+	         </tr>
+	      </thead>
+	      <tbody>
+	         <tr>
+	            <td>홍길동</td>
+	            <td>90</td>
+	         </tr>
+	         <tr>
+	            <td>엄정화</td>
+	            <td>100</td>
+	         </tr>
+	         <tr>
+	            <td>이순신</td>
+	            <td>50</td>
+	         </tr>
+	         <tr>
+	            <td>유관순</td>
+	            <td>70</td>
+	         </tr>
+	         <tr>
+	            <td>김유신</td>
+	            <td>80</td>
+	         </tr>
+	      </tbody>
+	   </table>
+	   
+	   <button type="button" id="btn_pass">합격자명단</button>
+	   <div id = "view_pass"></div>
+	   
+	</div>
+
+	
+	
+
+	<script type="text/javascript">
+
+	const arr_point = [100,85,93,64,76,50];
+
+	// === 배열의 메소드인 map()메소드는 반복문을 돌며 배열 안의 요소들을 1대1로 짝지어 새로운 배열을 만들어 주는 것이다. === 
+	const arr_bool = arr_point.map(function(item, index, array){  // index, array는 생략이 가능하다.
+																  // item 은 arr_point 배열의 요소이고,
+																  // index 는 arr_point 배열의 인덱스이고
+																  // array 는 arr_point 배열의 자기자신을 말한다.
+		return item >= 70;
+	});//[true,true,true,false,true,false]
+
+	console.log(arr_bool);
+	// 결과 : (6) [true, true, true, false, true, false]
+
+	
+	
+	
+	// 화살표 함수로 써보자 
+	
+	/*
+	const arr_bool_2 = arr_point.map((item) => {  // 화살표함수로 function 생략
+		return item >= 70;
+	});//[true,true,true,false,true,false]
+	*/
+	
+	/*
+	const arr_bool_2 = arr_point.map(item => {		// 파라미터가 한개이므로 () 생략 가능
+		return item >= 70;
+	});//[true,true,true,false,true,false]
+	*/
+	
+	const arr_bool_2 = arr_point.map(item => item >= 70);	 		// 파라미터가 한개이므로 () 생략 가능
+										// 한가지 리턴 밖에 없으므로 생략 가능
+										//[true,true,true,false,true,false]
+	
+	console.log(arr_bool_2);
+	// 결과 : (6) [true, true, true, false, true, false]
+	
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	// 배열 선언 
+	const arr_student = [{hakbun:"02001", name:"이순신", kor:90, eng:80, math:70},
+						 {hakbun:"02002", name:"엄정화", kor:100, eng:90, math:90},
+						 {hakbun:"02003", name:"강감찬", kor:86, eng:67, math:56},
+						 {hakbun:"02004", name:"차은우", kor:100, eng:70, math:95},
+						 {hakbun:"02005", name:"이해리", kor:50, eng:40, math:30}];
+	
+	
+	const arr_total = arr_student.map(function(item, index, array) {
+		
+		return item.kor + item.eng + item.math;  // 각 객체의 값을 더해서 리턴
+												 // 배열속에 넣는다.
+	});   // map을 사용하기 위해 
+	
+	console.log(arr_total);
+	//총점 결과 : (5) [240, 280, 209, 265, 120]
+	
+	
+	/*   결과 반올림 하기 전 
+	const arr_avg = arr_total.map(item => item/3 );  // 화살표 함수 사용한것 (리턴값은 실수가 나온다.) 
+	
+	console.log(arr_avg);
+	// 평균 결과 : (5) [80, 93.33333333333333, 69.66666666666667, 88.33333333333333, 40]
+	*/
+	
+	// 결과를 반올림 해서 나타내어 보자
+	const arr_avg = arr_total.map(item => (item/3).toFixed(0) );  // 화살표 함수 사용한것 (리턴값은 실수가 나온다.) 
+										// toFixed(0) 은 정수부까지만 보여주되 반올림 해서 보여줌. (그 결과물은 string 타입이 되어진다.)
+	console.log(arr_avg);
+	// 평균 결과 : (5) ['80', '93', '70', '88', '40']
+	
+	
+	const arr_grade = arr_avg.map(item => {  // 화살표함수
+		
+		const n_item = Number(item); 		// 문자열이 숫자로 변경됨
+		
+		let grade;
+		if(n_item >=90)  grade = 'A';
+		else if (n_item >=80)  grade = 'B';
+		else if (n_item >=70)  grade = 'C';
+		else if (n_item >=60)  grade = 'D';
+		else                   grade = 'F';
+	
+		return grade;
+	});
+	
+	console.log(arr_grade);
+	// 결과 : (5) ['B', 'A', 'C', 'B', 'F']
+	
+	
+	// 테이블 태그를 만들어서 출력해보자
+	
+	let html = `<table>
+	               <tr>
+	                   <th>학번</th>
+	                   <th>성명</th>
+	                   <th>국어</th>
+	                   <th>영어</th>
+	                   <th>수학</th>
+	                   <th>총점</th>
+	                   <th>평균</th>
+	                   <th>등급</th>
+	                </tr>`;   
+	
+    arr_student.forEach((item, index) => {
+    	html += `<tr>
+    				<td>${item.hakbun}</td>
+    				<td>${item.name}</td>
+    				<td>${item.kor}</td>
+    				<td>${item.eng}</td>
+    				<td>${item.math}</td>
+    				<td>${arr_total[index]}</td>
+    				<td>${arr_avg[index]}</td>
+    				<td>${arr_grade[index]}</td>
+    	
+    			 </tr>`;
+    });                
+	                
+	html += `</table>`;
+	
+	document.querySelector("div#view").innerHTML = html;  // 출력하기
+	
+	
+	////////////////////////////////////////////////////////////////////////////
+	
+	// children 을 알아보자
+	
+	document.getElementById("btn_pass").onclick = () => {  //function 제거 화살표 함수
+		
+		//alert("확인용");
+		
+		const tr_list = document.querySelectorAll("table#tbl > tbody > tr"); 		// 복수개를 함 
+		
+		let html = `<table>`;
+		tr_list.forEach(function(item, index, array) {
+			if(Number(item.children[1].innerText) >= 80) {   // 엘리먼트(태그).children 은 해당 엘리먼트(태그)의 자식 엘리먼트(요소(태그))를 배열의 형태로 반환시켜준다.  
+							    // 지금은 자식이 두개(이름, 점수) 있다. [0] 은 이름을 말한다. [1]은 점수를 말한다.(즉 두번째 td 태그를 뜻함)
+				html += `<tr>
+						    <td>${item.children[0].innerText}</td>
+						    <td>${item.children[1].innerText}</td>
+						 </tr>`;    // 이름, 성적을 알아온다.
+			}
+		});
+		html += `</table>`;
+		
+		document.querySelector("div#view_pass").innerHTML = html;
+	};
+	
+	</script>
+</body>
+</html>

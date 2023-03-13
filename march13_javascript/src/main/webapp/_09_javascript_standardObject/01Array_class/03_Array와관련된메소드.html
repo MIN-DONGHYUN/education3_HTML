@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ES6에서 새로 도입된 Array와 관련 메소드에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	table, th, td {border: solid 1px gray;}
+	table {
+		border-collapse: collapse;
+		width: 200px;
+	}
+	
+	td {
+		text-align: center;
+	}
+</style>
+
+</head>
+<body>
+
+
+<h2>내가 좋아하는 과일</h2>
+<div id="div_fruit" style="display: flex;"> 
+   <ul style="list-style-type: none; color:red;">
+      <li>사과</li>
+      <li>딸기</li>
+      <li>수박</li>
+      <li>참외</li>
+   </ul>
+   <ul style="list-style-type: none; color:blue;">
+      <li>apple</li>
+      <li>strawberry</li>
+      <li>watermelon</li>
+      <li>melon</li>
+   </ul>
+</div>
+
+<div>
+   <table id="tbl">
+      <thead>
+         <tr>
+            <th>성명</th>
+            <th>점수</th>
+         </tr>
+      </thead>
+      <tbody>
+         <tr>
+            <td>홍길동</td>
+            <td>90</td>
+         </tr>
+         <tr>
+            <td>엄정화</td>
+            <td>100</td>
+         </tr>
+         <tr>
+            <td>이순신</td>
+            <td>50</td>
+         </tr>
+         <tr>
+            <td>유관순</td>
+            <td>70</td>
+         </tr>
+         <tr>
+            <td>김유신</td>
+            <td>80</td>
+         </tr>
+      </tbody>
+      <tfoot>
+         <tr>
+            <td>총점1</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td>총점2</td>
+            <td></td>
+         </tr>
+      </tfoot>   
+   </table>
+</div>
+
+<script type="text/javascript">
+
+	// === Array.from() === //
+	// ES6 에 새로 도입된 메소드로서 유사 배열 객체나 반복 가능한 객체를 실제 배열로 변환시켜주는 것이다.
+
+	const li_list = document.querySelectorAll("div#div_fruit > ul:first-child > li");
+
+	console.log(li_list); // NodeList(4) [li, li, li, li]
+
+	
+	// *** Array.from(유사배열객체) ***//
+	const arr_li = Array.from(li_list);  // 유사배열객체인 li_list를 배열로 바꾸어준다.
+	
+	
+	console.log(arr_li); // (4) [li, li, li, li]
+	
+	const arr_fruit_name = arr_li.map(item => item.innerText);   // 배열명.map()
+	//arr_fruit_name 은 배열 
+	//배열로 만들어서 li 에 있던것을 넣어준다.
+	
+	console.log(arr_fruit_name);
+	// (4) ['사과', '딸기', '수박', '참외']
+	
+	
+	console.log(arr_fruit_name.join(",")); // 하나의 문자열로 나온다.
+	// 사과,딸기,수박,참외
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////
+	
+	// *** Array.from(유사 배열 객체, map()메소드와 비슷한 1:1 매핑 시켜주는 함수정의(즉 처리해야할 함수)) ***//
+	const arr_fruit_name2 = Array.from(li_list, function(item, index, array){
+												// item 은 배열요소 li 이다.
+		return item.innerText;
+	});  
+	
+	console.log(arr_fruit_name2);
+	// (4) ['사과', '딸기', '수박', '참외']
+	console.log(arr_fruit_name2.join(","));	 // 배열이기 때문에 join 가능
+	// 사과,딸기,수박,참외
+	
+	//////////////////////////////////////////////////////////////////////////
+	
+	// 위에 코드를 줄여보자 
+	const arr_fruit_name3 = Array.from(li_list, item => item.innerText); // item 은 배열요소 li 이다.
+	 
+	console.log(arr_fruit_name3);
+	// (4) ['사과', '딸기', '수박', '참외']
+	console.log(arr_fruit_name3.join(",")); // 배열이기 때문에 join 가능
+	// 사과,딸기,수박,참외
+
+
+	////////////////////////////////////////////////////////////////////
+
+	// === td 태그에 나열된 점수를 가져와서 합계 구하기 시작 === //
+	
+	const td_list = document.querySelectorAll("table#tbl > tbody > tr > td:last-child");
+
+	console.log(td_list);		
+	// NodeList(5) [td, td, td, td, td]
+	
+	const arr_td = Array.from(td_list);
+	console.log(arr_td);
+	// (5) [td, td, td, td, td]
+	
+	
+	const arr_point = arr_td.map(item => Number(item.innerText));			// item 은 td를 뜻함 
+	console.log(arr_point);
+	// (5) [90, 100, 50, 70, 80]
+	
+	
+	let sum = 0;
+	for(let point of arr_point) {	// arr_point를 point에 저장(?)
+		sum += point;
+	}
+	console.log(sum); // 390
+	
+	
+	document.querySelector("table#tbl > tfoot > tr:first-child > td:last-child").innerHTML = `<span style="color:red">${sum}</span>`;
+	// 빨간색 글씨로 보여줌
+	
+	///////////////////////////////////////////////////////////////////////////
+	
+	// 위 코드와 같은 것을 줄여보자 
+	const arr_point_2 = Array.from(td_list, item => Number(item.innerText) );
+	console.log(arr_point_2); // 390
+	// (5) [90, 100, 50, 70, 80]
+	
+	document.querySelector("table#tbl > tfoot > tr:last-child > td:last-child").innerHTML = `<span style="color:red">${sum}</span>`;
+	
+	
+	
+	// === td 태그에 나열된 점수를 가져와서 합계 구하기 끝 === //
+
+</script>
+</body>
+</html>

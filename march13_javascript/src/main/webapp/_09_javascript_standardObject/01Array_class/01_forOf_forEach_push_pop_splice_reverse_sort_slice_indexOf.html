@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 배열</title>
+
+<style type="text/css">
+
+	body {
+		padding : 20px;
+	}
+	
+	div.display {
+		display: inline-block;
+		border: solid 1px gray;
+		width: 10%;
+		margin: 10px;
+	}
+	
+	div#fruitDisplay {
+		border: solid 1px blue;
+		width: 15%;
+		margin: 10px;
+	}
+	
+	
+	
+</style>
+
+</head>
+<body>
+
+	<h2>내가 좋아하는 과일 </h2>
+
+	<div class = "display" id="fruitDisplay1"></div>
+	<div class = "display" id="fruitDisplay2"></div>
+	<div class = "display" id="fruitDisplay3"></div>
+	<div class = "display" id="fruitDisplay4"></div>
+	<div class = "display" id="fruitDisplay5"></div>
+	<div class = "display" id="fruitDisplay6"></div>
+	<div class = "display" id="fruitDisplay7"></div>
+	<div class = "display" id="fruitDisplay8"></div>
+
+	<div id="fruitDisplay"></div>
+	<div>
+		추가할 과일명 : <input type="text" id="addval" />
+		
+		<br><br>
+		
+		<button type="button" id="btn_last_add">과일을 맨 마지막에 추가하기[push()]</button>	<!-- 버튼 생성  -->
+		<button type="button" id="btn_first_add">과일을 맨 처음에 추가하기[unshift()]</button>	<!-- 버튼 생성  -->
+		<button type="button" id="btn_special_add">과일을 특정 위치에 추가하기[splice()]</button>	<!-- 버튼 생성  -->
+		
+		<br><br>
+		
+		<button type="button" id="btn_last_del">배열을 맨 마지막에 요소 삭제하기[pop()]</button>	<!-- 버튼 생성  -->
+		<button type="button" id="btn_first_del">배열의 맨 처음에 요소 삭제하기[shift()]</button>	<!-- 버튼 생성  -->
+		<button type="button" id="btn_special_del">배열의 특정위치에 있는 요소 삭제하기[splice()]</button>	<!-- 버튼 생성  -->
+		
+		<br><br>
+		
+		<button type="button" id="btn_reverse">배열을 요소를 역순으로 만들기[reverse()]</button>	<!-- 버튼 생성  -->
+		
+		<br><br>
+		
+		<button type="button" id="btn_sort">배열을 요소를 오름차순으로 정렬하기[sort()]</button>	<!-- 버튼 생성  -->
+		<button type="button" id="btn_sort_reverse">배열을 요소를 내림차순으로 정렬하기[sort().reverse()]</button>	<!-- 버튼 생성  -->
+
+		<br><br>
+		<hr style="border: solid 1px red;">	
+		
+		<h2>숫자배열</h2>
+		<div id = "number_display"></div>
+		
+		<br>
+		<div>
+		
+			<button type="button" onclick="javascript:history.go(0)"> 새로고침-1(F5)</button> &nbsp;&nbsp;
+			<button type="button" onclick="javascript:location.reload()"> 새로고침-2(F5)</button> <br><br>
+			<button type="button" id="btn_asc_sort_number_fail">숫자로 되어진 배열의 요소를 오름차순 정렬하기(틀린것)</button> <br><br>
+			<button type="button" id="btn_asc_sort_number_success">숫자로 되어진 배열의 요소를 오름차순 정렬하기(올바른것)</button> <br><br>
+			<button type="button" id="btn_desc_sort_number_success">숫자로 되어진 배열의 요소를 내림차순 정렬하기(올바른것)</button>
+		
+		</div>
+	</div>
+	
+	<br><br>
+	
+	<hr style="border: solid 1px red;">	
+	<div id="name_display"></div>
+	
+	<br><br>
+	
+	<div id = "irum_1">이순신,강감찬,허준,안중근,윤봉길,신사임당,차은우,서강준.이해리</div>
+	
+	<div>
+		<button type="button" id="name_sort_asc">이름 오름차순 정렬하기</button>  &nbsp;&nbsp;
+		<button type="button" id="name_sort_desc">이름 내림차순 정렬하기</button> 
+	</div>
+	
+	<div id="irum_1_sort_result"></div>
+
+	<script type="text/javascript">
+	
+	
+	// === 1. 자바스크립트에서 배열은 아래와 같이 나타냅니다.  ===  //
+	
+		// 배열 생성
+	//	const arrFruit1 = [];   // 배열도 객체이다. 
+	// 또는
+		const arrFruit1  = new Array();		// 배열도 객체이다.
+			
+		arrFruit1.push("사과");	 // 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.
+		arrFruit1.push("딸기");	 // 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.
+		arrFruit1.push("멜론");	 // 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.
+		arrFruit1.push("참외");	 // 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.
+		let len = arrFruit1.push("수박");	 // 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.
+		
+		
+		
+		console.log("1. 배열 arrFruit1 의 길이 => " + arrFruit1.length);	  
+		// 1. 배열 arrFruit1 의 길이 => 5
+		console.log("2. 변수 len 의 값 => " + len);
+		// 2. 변수 len 의 값 => 5
+		
+		
+		// ===== !!! 자바스크립트에서 사용되어지는 for 문 !!!!!!  === //
+		
+		// 첫번째 방법 (일반적인 for문)
+		
+		let html_1 = `<ol>`;
+		for(var i = 0 ; i < arrFruit1.length; i++)
+		{
+			html_1 += `<li>${arrFruit1[i]}</li>`;
+			
+		}	// end of for
+		html_1 += `</ol>`;
+		
+		document.getElementById("fruitDisplay1").innerHTML = html_1;
+	
+		
+		/////////////////////////////////////////////////////////////////////////////
+		
+		// 두번째 방법 (일반적인 for문 2)
+		
+		let html_2 = `<ol>`;
+		for(var i = 0 ; i < arrFruit1.length; i+=1)
+		{
+			html_2 += `<li>${arrFruit1[i]}</li>`;
+			
+		}	// end of for
+		html_2 += `</ol>`;
+		
+		document.getElementById("fruitDisplay2").innerHTML = html_2;
+		
+		
+		/////////////////////////////////////////////////////////////////////////////
+		
+		// 세번째 방법 
+		
+		let html_3 = `<ol>`;
+		for(let item of arrFruit1) {  // [참고] for ... of 는 배열값을 가져올때 사용하는 것이고,  for ... in 은 객체의 속성목록을 가져올때 사용하는 것이다.
+							          // 배열도 객체인데 배열의 속성은 바로 인덱스번호 이다. 그래서 of 대신에 in 을 사용하면 배열요소의 인덱스번호가 나온다.  
+									  // ( 자바의 확장 for문과 비슷하다.)
+			
+			html_3 += `<li>${item}</li>`;		// item에 값을 넣어준다.	
+		} // end of for 
+		html_3 += `</ol>`;
+		
+		document.getElementById("fruitDisplay3").innerHTML = html_3;
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+		
+		// 네번째 방법 (forEach)
+		
+		//  배열명.forEach(function(item, index, array){});
+	    /*  item  - 현재 처리 중인 배열의 각 요소  
+	        index - (optional) 처리 중인 요소의 인덱스 
+	        array - (optional) forEach()가 적용되고 있는 배열 
+	    */
+	    
+	    let html_4 = `<ol>`;
+	    arrFruit1.forEach(function(item, index, array){     // index와 array는 빼도 상관 없다. item 은 필수 사항 
+	    
+		    html_4 += `<li>${item}</li>`;		// 배열의 요소 들어옴 
+		}); // end of for 
+		html_4 += `</ol>`;
+		
+		document.getElementById("fruitDisplay4").innerHTML = html_4;
+	    
+	
+		/////////////////////////////////////////////////////////////////////////////////
+		
+		
+		// 네번째와 같은 방법 이다
+		
+		let html_5 = `<ol>`;
+	    arrFruit1.forEach(function(item, index, array){     // index와 array는 빼도 상관 없다. item 은 필수 사항 
+	    
+		    html_5 += `<li>${array[index]}</li>`;		// 배열의 요소 들어옴 
+		}); // end of for 
+		html_5 += `</ol>`;
+		
+		document.getElementById("fruitDisplay5").innerHTML = html_5;
+	    
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+
+		// 다섯번째 방법 (화살표 함수)
+		
+		let html_6 = `<ol>`;
+	    arrFruit1.forEach((item) => {     // index와 array는 빼도 상관 없다. item 은 필수 사항 
+	    								  // function을 화살표 함수로 생략이 가능하다.
+	    								  // 
+		    html_6 += `<li>${item}</li>`;		// 배열의 요소 들어옴 
+		}); // end of for 
+		html_6 += `</ol>`;
+		
+		document.getElementById("fruitDisplay6").innerHTML = html_6;
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+
+		// 다섯번째 방법 (화살표 함수) 파라미터 한개이면  () 를 생략 가능하다.
+		
+		let html_7 = `<ol>`;
+	    arrFruit1.forEach(item => {     // 파라미터가 1개 밖에 없으면 () 을 생략 할 수 있다.
+	    								// function, ()를  화살표 함수로 생략이 가능하다.
+	    								  // 
+		    html_7 += `<li>${item}</li>`;		// 배열의 요소 들어옴 
+		}); // end of for 
+		html_7 += `</ol>`;
+		
+		document.getElementById("fruitDisplay7").innerHTML = html_7;
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+
+		// 다섯번째 방법 (화살표 함수)  { } 로 지우기 
+		
+		let html_8 = `<ol>`;
+	    arrFruit1.forEach(item => html_8 += `<li>${item}</li>`);		// 배열의 요소 들어옴 
+	    // 처리해야할 내용이 1개 밖에 없으므로 { } 를 생략할 수 있다.
+		html_8 += `</ol>`;
+		
+		document.getElementById("fruitDisplay8").innerHTML = html_8;
+		
+		
+		/////////////////////////////////////////////////////////////////////////////////
+	
+		
+		
+		// 실전 부분 시작 //
+		
+		
+		// === 2. 자바스크립트에서 배열은 아래와 같이 나타냅니다.  ===  //
+	
+		const arrFruit = ["사과","딸기","멜론","참외","수박"];   // 배열도 객체이다. 
+		
+		let html = `<ol>`;
+	    arrFruit.forEach(item => html += `<li>${item}</li>`);		// 배열의 요소 들어옴 
+		html += `</ol>`;
+		
+		
+		// 코드 길이를 줄일 수 있는 방법 
+		const fruitDisplay = document.getElementById("fruitDisplay");
+		
+		fruitDisplay.innerHTML = html;
+		
+		/////////////////////////////////////////////////////////////////////////////////
+		
+		// === Function Declaration ( 함수 선언 )  === //
+		// head 태그 안에 있으면 window.onload 밖에 만들어야함 
+		
+		function func_view_1(arr, displayid){		// 어디에 값을 보여줄래?
+			
+			let html = `<ol>`;
+		    for(let item of arr) {			// 확장 for문과 비슷하다
+		    	
+		    	html += `<li>${item}</li>`;
+		    }	// end of for
+			html += `</ol>`;
+			
+			displayid.innerHTML = html;		// html에 쌓아둔다.
+			
+			
+		}	// end of function func_view_1(){} ~~~~~~~~~~
+		
+		///////////////////////////////////////////////////////////////////////////////////
+		
+		// == Function Expresstion ( 함수 표현식 )  === //
+		
+		/*
+		const func_view_2 = function(arr, displayid) {
+			
+			let html = `<ol>`;
+		    for(let item of arr) {			// 확장 for문과 비슷하다
+		    	
+		    	html += `<li>${item}</li>`;
+		    }	// end of for
+			html += `</ol>`;
+			
+			displayid.innerHTML = html;		// html에 쌓아둔다.
+		}
+		*/
+		// 또는 화살표 함수 
+		const func_view_2 = (arr, displayid) => {
+			
+			let html = `<ol>`;
+		    for(let item of arr) {			// 확장 for문과 비슷하다
+		    	
+		    	html += `<li>${item}</li>`;
+		    }	// end of for
+			html += `</ol>`;
+			
+			displayid.innerHTML = html;		// html에 쌓아둔다.
+		}
+		
+		
+		
+		// ===== !!!!! 데이터 추가하기  !!!!! =========
+		
+		// ===== 과일을 맨 마지막에 추가하기 ===== 
+		const btn_last_add = document.getElementById("btn_last_add")
+		
+		// 버튼 클릭했을때 함수 수행할 부분   (배열 맨 뒤에 추가 부분 )
+		btn_last_add.onclick = function() {
+			//alert("확인용");
+			
+			const addval = document.getElementById("addval").value;		// getElementById 는input 태그임
+																		// 입력된 값을 받아오자 (이것이 input 태그)
+			
+			if( addval.trim() == "")	// 문자열.trim 은 문자열의 좌, 우 공백이 있으면 공백 모두 지워준다.  // 공백이나 엔터만 쳤을때 실행
+			{
+				alert("과일명을 입력하세요!!");
+				return;			// 이 함수를 종료하는 것이다.!!!! (종료)
+			}
+			else {
+				arrFruit.push(addval);			// push 는 맨 뒤에 값을 더해준다.
+											// 배열명.push() : 배열의 마지막에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.	
+				//console.log(arrFruit);		// 결과 : (6) ['사과', '딸기', '멜론', '참외', '수박', '키위']	
+											
+				// 첫번째 함수의 선언식으로 해보자 
+				func_view_1(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+				document.getElementById("addval").value = "";   //input 하고 text 을 지워준다.
+				document.getElementById("addval").focus();		//focus를 준다.
+				
+			}
+			
+		};
+		// ==== 과일을 맨 마지막에 추가하기 끝 ======
+		
+		// ===== 과일을 맨 처음에 추가하기 ===== 
+		const btn_first_add =  document.querySelector("button#btn_first_add");
+		
+		// 버튼 클릭했을때 함수 수행할 부분 다른 방식 (배열 맨 앞에 추가 부분) 
+		btn_first_add.addEventListener("click", function() {  
+			//alert("확인용");
+		
+			const addval = document.getElementById("addval").value;		// getElementById 는input 태그임
+																		// 입력된 값을 받아오자 (이것이 input 태그)
+			
+			if( addval.trim() == "")	// 문자열.trim 은 문자열의 좌, 우 공백이 있으면 공백 모두 지워준다.  // 공백이나 엔터만 쳤을때 실행
+			{
+				alert("과일명을 입력하세요!!");
+				return;			// 이 함수를 종료하는 것이다.!!!! (종료)
+			}
+			else {
+				arrFruit.unshift(addval);			// unshift 는 맨 앞에 값을 더해준다.
+											// 배열명.unshift() : 배열의 밴 처음에 새로운 요소를 추가한 후, 변경된 배열의 길이를 리턴시켜준다.	
+				// console.log(arrFruit);	// 결과 : (6) ['키위', '사과', '딸기', '멜론', '참외', '수박']		
+				
+				func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+				document.getElementById("addval").value = "";   //input 하고 text 을 지워준다.
+				document.getElementById("addval").focus();		//focus를 준다.							
+											
+			}
+			
+		});
+		// ===== 과일을 맨 처음에 추가하기 끝 ===== 
+		
+			
+		// ===== !!!1 삭제하기 부분 !!!! ==== 	
+			
+		//===== 과일을 맨 마지막에 요소 삭제하기 ===== 
+		const btn_last_del = document.querySelector("button#btn_last_del");
+		
+		// 클릭하면 실행함 (화살표 함수 사용 )
+		btn_last_del.onclick = () => {
+			//alert("확인용");
+			
+			const deleted_item = arrFruit.pop(); 	// 배열명.pop(); 은 배열의 마지막 요소를 제거한 후, 제거한 요소를 리턴 시켜줌.
+			
+			// 모두 삭제하면 배열 arrFruit 에서 undefined 을(를) 삭제했습니다. 가 나오므로 조건문 사용
+			if(deleted_item != undefined)
+			{
+				alert(`배열 arrFruit 에서 ${deleted_item} 을(를) 삭제했습니다.`);
+			}
+			else
+			{
+				alert("더이상 삭제할 과일이 앖습니다.");
+			}
+
+			func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+		};
+		
+			
+			
+		//===== 과일을 맨 마지막에 요소 삭제하기 끝 ===== 
+		
+			
+			
+			
+		//===== 과일을 맨 처음에 요소 삭제하기 ===== 
+		const btn_first_del = document.querySelector("button#btn_first_del");
+		
+		// 클릭하면 실행함 (화살표 함수 사용 )
+		btn_first_del.onclick = () => {
+			//alert("확인용");
+			
+			const deleted_item = arrFruit.shift(); 	// 배열명.pop(); 은 배열의 마지막 요소를 제거한 후, 제거한 요소를 리턴 시켜줌.
+			
+			// 모두 삭제하면 배열 arrFruit 에서 undefined 을(를) 삭제했습니다. 가 나오므로 조건문 사용
+			if(deleted_item != undefined)
+			{
+				alert(`배열 arrFruit 에서 ${deleted_item} 을(를) 삭제했습니다.`);
+			}
+			else
+			{
+				alert("더이상 삭제할 과일이 앖습니다.");
+			}
+			
+			func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+			
+		};
+			
+			
+		//===== 과일을 맨 처음에 요소 삭제하기 끝 ===== 
+			
+			
+			
+		//===== 배열의 특정 위치에 과일을 추가하기 시작 ===== 
+		const btn_special_add = document.getElementById("btn_special_add");
+		
+		btn_special_add.onclick = function() {
+			
+			// 배열명.splice() : 배열의 특정 위치에 배열 요소를 추가하거나 삭제하는데 사용한다. 
+		      //                 삭제할 경우 리턴값은 삭제한 배열 요소이다. 삭제한 요소가 없으면 빈 배열( [] )을 반환한다.
+		      /*
+		      // 배열명.splice(start, 0, element);  // 배열의 특정 위치에 배열 요소를 추가하는 경우 
+		          start   - 수정할 배열 요소의 인덱스
+		             0       - 요소를 추가할 경우
+		             element - 배열에 추가될 요소
+		             
+		        // 배열명.splice(start, deleteCount); // 배열의 특정 위치의 배열 요소를 삭제하는 경우    
+		             start   - 수정할 배열 요소의 인덱스
+		             deleteCount - 삭제할 요소 개수
+		      */   
+		      arrFruit.splice(2, 0, "밤", "감","대추")  /* 2번 인덱스인 멜론 전에 3개 추가   */
+		      console.log(arrFruit);				
+		      // 결과 : (8) ['사과', '딸기', '밤', '감', '대추', '멜론', '참외', '수박']
+		      
+		      func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+ 
+		};	
+		
+		//===== 배열의 특정 위치에 과일을 삭제하기 시작 ===== 
+		const btn_special_del = document.getElementById("btn_special_del");
+		
+		btn_special_del.onclick = function () {
+			
+			// 배열명.splice() : 배열의 특정 위치에 배열 요소를 추가하거나 삭제하는데 사용한다. 
+		    //                 삭제할 경우 리턴값은 삭제한 배열 요소이다. 삭제한 요소가 없으면 빈 배열( [] )을 반환한다.
+		    /*
+		    // 배열명.splice(start, 0, element);  // 배열의 특정 위치에 배열 요소를 추가하는 경우 
+		           start   - 수정할 배열 요소의 인덱스
+		           0       - 요소를 추가할 경우
+		           element - 배열에 추가될 요소
+		           
+		    // 배열명.splice(start, deleteCount); // 배열의 특정 위치의 배열 요소를 삭제하는 경우    
+		           start   - 수정할 배열 요소의 인덱스
+		           deleteCount - 삭제할 요소 개수
+		    */   
+		      
+			const deleted_Fruit = arrFruit.splice(1, 3);   // 인덱스 1부터 3개를 지운다.
+			console.log(deleted_Fruit);   // ['딸기', '멜론', '참외']
+			
+	        func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+		};	
+			
+		//===== 배열의 특정 위치에 과일을 삭제하기 끝 ===== 
+			
+			
+		//===== 배열의 요소를 역순으로 만들기 시작 ===== 	
+			
+		const btn_reverse = document.getElementById("btn_reverse");
+			
+		btn_reverse.onclick = function() {
+			
+			arrFruit.reverse();
+			// 배열명. reverse() 는 배열의 요소를 뒤집어 역순으로 만들어 준다.
+			
+			func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+			
+		};
+		//===== 배열의 요소를 역순으로 만들기 끝 ===== 	
+			
+
+		// ===== 배열의 요소를 오름차순으로 정렬하기 시작 ===== 	
+			
+		const btn_sort =  document.getElementById("btn_sort");
+		
+		btn_sort.onclick = function() {
+			
+			arrFruit.sort();
+			// 배열명.sort() 는 배열의 요소를 문자열로 변환한 후 오름차순으로 정렬한다. (숫자는 예와)
+			
+			func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+		}
+			
+		// ===== 배열의 요소를 오름차순으로 정렬하기 끝 ===== 
+			
+			
+		// ===== 배열의 요소를 내림차순으로 정렬하기 시작 ===== 	
+			
+		const btn_sort_reverse =  document.getElementById("btn_sort_reverse");
+		
+		btn_sort_reverse.onclick = function() {
+			
+			arrFruit.sort().reverse();
+			// 배열명.sort() 는 배열의 요소를 문자열로 변환한 후 오름차순으로 정렬한 후에 역순으로 만들어 버린다. 그러므로 내림차순으로 정렬이 된다.
+			
+			func_view_2(arrFruit, fruitDisplay);		// 함수 생성(호출) (보여주기)
+		}
+			
+		// ===== 배열의 요소를 내림차순으로 정렬하기 끝 ===== 
+			
+			
+		///////////////////////////////////////////////////////////////////////////////
+		
+		// ===== 숫자 배열 ===== //
+		const arr_num = [10, 1, 50, 11, 109, 1004, 20];   // '10'을 쓰면 문자, 10 이면 숫자
+		
+		// === 배열명.join("구분문자"); === // 
+		
+		/*  배열명.join("구분문자"); 는 구분문자를 사용해서 배열을 하나의 문자열로 만들어 반환해주는 것이다.
+       만약에 "구분문자"를 지정해주지 않으면 즉, 배열명.join(); 으로 하면 구분문자는 자동적으로 콤마(,)로 되어진다.   */
+		
+       let str_num = arr_num.join(" / ");
+       
+       // 확인하기
+       console.log(str_num);          // 10 / 1 / 50 / 11 / 109 / 1004 / 20
+       console.log(typeof(str_num));  // string
+       
+       str_num = arr_num.join();
+       console.log(str_num);          // 10,1,50,11,109,1004,20
+       // 구분 문자ㅏ , 로 나오게 된다. 
+       
+       document.querySelector("div#number_display").innerHTML = str_num;
+       // 결과 : 10,1,50,11,109,1004,20
+       
+       
+       // ===== 숫자로 되어진 배열의 요소를 오름차순으로 정렬하기 시작 (틀린것) =====  
+       document.querySelector("button#btn_asc_sort_number_fail").onclick = function() {
+    	   
+    	   document.querySelector("div#number_display").innerHTML = arr_num.sort().join(" , ");
+    	   // 배열명.sort() 는 배열의 요소를 문자열로 변환한 후 오름차순으로 정렬한다.
+    	   // 현재 배열의 요소의 타입이 숫자이므로 배열명.sort()를 해버리면 숫자를 문자열로 변환시켜 버리므로 
+    	   // ["10","1","50","11","109","1004","20"] 으로 되어진 후 오름차순 정렬 시키므로 
+    	   // ["1","10","1004","109","11","20","50"] 으로 된다.
+    	   // 그런 다음에 하나의 문자열로 합쳐서 보여주므로 
+    	   // 1 , 10 , 1004 , 109 , 11 , 20 , 50 으로 보여지게 된다.
+       };
+       
+       // ===== 숫자로 되어진 배열의 요소를 오름차순으로 정렬하기 끝 (틀린것) =====
+       
+       
+       // ===== 숫자로 되어진 배열의 요소를 오름차순으로 정렬하기 시작 (올바른것) =====
+       document.querySelector("button#btn_asc_sort_number_success").onclick = function() {
+    	   
+    	   document.querySelector("div#number_display").innerHTML = arr_num.sort(function(a,b) {return a-b;}).join(" , ");
+    	   // 배열요소가 숫자인 경우 문자열이 아닌 숫자로 오름차순 정렬하고자 하고자 한다라면 sort() 괄호 속에 
+    	   // function(a,b){return a-b;} 을 넣어줌으로써 해결해준다.
+    	   // return a-b; 의 결과값이 음수 이라면  a 가 낮은 인덱스로 정렬된다.
+    	   // return a-b; 의 결과값이  0 이라면  a 와 b 의 순서는 바뀌지 않는다.
+    	   // return a-b; 의 결과값이 양수 이라면  b 가 낮은 인덱스로 정렬된다. 
+    	   
+    	   // 결과 : 1 , 10 , 11 , 20 , 50 , 109 , 1004
+       };
+    	   
+       // ===== 숫자로 되어진 배열의 요소를 오름차순으로 정렬하기 끝 (올바른것) =====
+    	   
+    	   
+       // ===== 숫자로 되어진 배열의 요소를 내림차순으로 정렬하기 시작 (올바른것) =====
+       document.querySelector("button#btn_desc_sort_number_success").onclick = function() {
+    	   
+    	   document.querySelector("div#number_display").innerHTML = arr_num.sort(function(a,b) {return b-a;}).join(" , ");
+    	   // 배열요소가 숫자인 경우 문자열이 아닌 숫자로 오름차순 정렬하고자 하고자 한다라면 sort() 괄호 속에 
+    	   // function(a,b){return a-b;} 을 넣어줌으로써 해결해준다.
+    	   // return a-b; 의 결과값이 음수 이라면  a 가 낮은 인덱스로 정렬된다.
+    	   // return a-b; 의 결과값이  0 이라면  a 와 b 의 순서는 바뀌지 않는다.
+    	   // return a-b; 의 결과값이 양수 이라면  b 가 낮은 인덱스로 정렬된다. 
+    	   
+    	   // 결과 : 1004 , 109 , 50 , 20 , 11 , 10 , 1
+       };
+    	   
+       // ===== 숫자로 되어진 배열의 요소를 내림차순으로 정렬하기 끝 (올바른것) =====
+    	   
+    	
+    	   
+       // 문제 //
+       
+       // ===== 문자열을 배열로 만들어주기 시작 =====   
+       const my_friend_name = "이순신,엄정화,허준,신사임당,강감찬,유관순";
+       
+       //console.log(my_friend_name.split());
+       // 결과 : ['이순신, 엄정화, 허준, 신사임당, 강감찬, 유관순']
+       
+       console.log(my_friend_name.split(","));
+       // 결과 : (6) ['이순신', ' 엄정화', ' 허준', ' 신사임당', '강감찬', ' 유관순']
+       // "문자열".split("구분자"); 를 하면 "문자열" 을 "구분지"를 기준으로 잘라서 배열로 만들어준다.
+       
+       const arr_my_friend_name = my_friend_name.split(",").sort();	// 결과 : (6) ['강감찬', ' 신사임당', ' 엄정화', '유관순', ' 이순신', ' 허준']
+       
+       let name_html = `<ol>`; 								// 모두 출력하기 위해 
+       for(let name of arr_my_friend_name){
+    	   name_html += `<li>${name}</li>`;
+       }// end of for
+       name_html += `</ol>`;
+       
+       document.querySelector("div#name_display").innerHTML = name_html;
+       /*
+       		강감찬
+			신사임당
+			엄정화
+			유관순
+			이순신
+			허준
+       */
+       
+       
+       // ===== 문자열을 배열로 만들어주기 끝 ===== 
+    	   
+       
+    	   
+       // ===== 문자열을 오름차순, 내림차순 만들어주기 =====  
+    	   
+       // ===== 문자열을 배열로 만들어주기 시작 2 (오름차순)=====  
+       
+       document.querySelector("button#name_sort_asc").onclick = function () {		// 클릭하면 실행 
+    	 	
+    	   const irums = document.querySelector("div#irum_1").innerText.trim();      // 공백제거 이름 문자열 읽어옴
+		   //  이순신,강감찬,허준,안중근,윤봉길,신사임당,차은우,서강준.이해리   	   
+		   
+		   
+		   console.log(irums.split(","));  // (8) ['이순신', '강감찬', '허준', '안중근', '윤봉길', '신사임당', '차은우', '서강준.이해리']
+		   console.log(irums.split(",").sort());  // (8) ['강감찬', '서강준.이해리', '신사임당', '안중근', '윤봉길', '이순신', '차은우', '허준']
+		   console.log(irums.split(",").sort().join()); // 강감찬,서강준.이해리,신사임당,안중근,윤봉길,이순신,차은우,허준
+		   
+		   
+		   document.querySelector("div#irum_1_sort_result").innerHTML = irums.split(",").sort().join();			// , 기준으로 구분 그리고 오름차순으로 하기, join을 해준다. 
+    	   // join은 문자열이면 join을 사용할 수 없다. 나와야 하는것은 배열.join을 사용해야 한다.
+    	   // irums.split(",")은 배열로 변경 된다.
+    	   // sort는 숫자 배열 등을 문자열을 데이터로 바꿔서 배열로 변뎡
+		   
+		   
+       };
+
+       // ===== 문자열을 배열로 만들어주기 끝 2 ===== 
+    	   
+    	   
+       // ===== 문자열을 배열로 만들어주기 시작 3 (내림차순)=====  
+       
+       document.querySelector("button#name_sort_desc").onclick = function () {		// 클릭하면 실행 
+    	 	
+    	   const irums = document.querySelector("div#irum_1").innerText.trim();      // 공백제거 이름 문자열 읽어옴
+		   //  이순신,강감찬,허준,안중근,윤봉길,신사임당,차은우,서강준.이해리   	 
+		   
+		   document.querySelector("div#irum_1_sort_result").innerHTML = irums.split(",").sort().reverse().join();			// , 기준으로 구분 그리고 오름차순으로 하기, join을 해준다. 
+		// join은 문자열이면 join을 사용할 수 없다. 나와야 하는것은 배열.join을 사용해야 한다.
+		   
+		   
+       };
+
+       // ===== 문자열을 배열로 만들어주기 끝 3 ===== 
+    	   
+       
+       // ===== 배열의 일부분을 잘라내서 배열로 만들어주는 것 시작 ===== // 
+    
+       const arrFood = ["치킨","파자","볶음밥","라면","탕수육","육개장"];
+       // 피자부터 탕수육만 봅아서 보여주자 
+       
+       const slice_arr_1 = arrFood.slice(1,5);  // 인덱스 번호 1부터 5 앞까지 (즉 4 ) 까지 자른다.]
+       // (4) ["피자", " 볶음밥" , " 라면" , "탕수육"];
+       
+       // 배열명.slice() 메서드는 인수를 통해 지정한 만큼의 요소를 잘라낸 후 배열로 반환해준다. 
+       // 잘라내어진 원본 배열은 잘라낸 만큼 줄어드는 것이 아니라 그대로 이다.
+       // 이때 첫 번째 인자는 잘라낼 위치의 인덱스 숫자를 지정하며, 두 번째 인자의 인덱스 숫자의 바로 앞 요소까지를 잘라낼 요소로 지정한다. 
+       
+       
+       console.log(slice_arr_1);  // (4) ['파자', '볶음밥', '라면', '탕수육']
+       console.log(arrFood);  // (6) ['치킨', '파자', '볶음밥', '라면', '탕수육', '육개장']
+       
+       
+       
+       const slice_arr_2 = arrFood.slice(2);  // 인덱스 번호 2부터 끝까지]
+       // 배열명.slice() 메서드는 인수를 통해 지정한 만큼의 요소를 잘라낸 후 배열로 반환해준다. 
+       // 잘라내어진 원본 배열은 잘라낸 만큼 줄어드는 것이 아니라 그대로 이다.
+       // 이때 첫 번째 인자는 잘라낼 위치의 인덱스 숫자를 지정하며, 두 번째 인자의 인덱스 숫자의 바로 앞 요소까지를 잘라낼 요소로 지정한다. 
+       
+        console.log(slice_arr_2);  // (4) ['볶음밥', '라면', '탕수육', '육개장']
+       
+       // ===== 배열의 일부분을 잘라내서 배열로 만들어주는 것 끝 ===== // 
+       
+      
+       
+       
+       // ===== 배열속의 데이터 index 값 알아오기 시작 [ 배열명.indexof(), 배열명.lastIndexof()] ===== // 
+       
+       const arr_data = [9, "java", 100, true, 9, "html", "java", "java", {userid:"leess", passwd:"qwer1234", name:"이순신"}];
+	   // !!!!!!! [중요] 자바스크립트에서 배열은 반드시 동일한 데이터 타입만 들어오는 것이 아니라 서로 다른 데이터 타입을 가지는 데이터도 들어올 수 있다 !!!!! // 
+	   
+	   const n1 = arr_data.indexOf(9, 0); // 내가 찾고자 하는건 9,  출발점 의 인덱스 번호(0)
+       console.log(`n1: ${n1}`);			// n1 : 0
+       // 배열명.indexOf(찾은 value값, 출발 인덱스 번호 );
+	   // ==> 출발 index번호 부터 검색하여 가장 먼저 찾은 요소의 인덱스를 리턴 시켜준다.
+	   // ==> 배열명 속에 찾을 value값이 없더라면 -1이 나온다.
+	   
+	   
+	   const n2 = arr_data.indexOf(9); // 내가 찾고자 하는건 9,  출발점 의 인덱스 번호(0)
+       console.log(`n2: ${n2}`);			// n2 : 0
+       // 출발 인덱스 번호를 생략하면 출발index번호는 0이 된다.
+       
+       const n3 = arr_data.indexOf("java"); // 내가 찾고자 하는건 java,  출발점 의 인덱스 번호(0)
+       console.log(`n3: ${n3}`);			// n3 : 1
+       
+       const n4 = arr_data.indexOf("java", 2); // 내가 찾고자 하는건 java,  출발점 의 인덱스 번호(2)
+       console.log(`n4: ${n4}`);			// n4 : 6
+       
+       const n5 = arr_data.indexOf("오라클"); // 내가 찾고자 하는건 오라클,  출발점 의 인덱스 번호(0)
+       console.log(`n5: ${n5}`);			// n5 : -1
+       
+      
+       
+       
+
+       // ===== [퀴즈] 배열 arr_data 에서 배열요소의 값이 "java"인 것을 모두 찾아서 그 인덱스 번호를 출력하세요. ====== //
+       
+       
+       const arr_java_index = [];     // 빈 배열 하나 생성
+       
+       let idx = arr_data.indexOf("java");    // idx ==> 1
+       while(idx != -1) {			// java가 배열에 있으면 (더이상 java가 없을때까지 )
+    	   arr_java_index.push(idx);		// [1] 이 처음으로 나옴 다음 [1,6] 다음 [1,6,7] 
+    	   idx = arr_data.indexOf("java", idx+1);   // 즉 인덱스 2부터 찾는다. idx=6, idx= 7, idx=-1 순으로 나옴  
+       }// end of for
+       
+       console.log(arr_java_index);  // (3) [1,6,7]
+       console.log(`인덱스번호 ==> ${arr_java_index.join(" , ")}` ); // 인덱스번호 ==> 1, 6, 7
+     
+       
+       // == [퀴즈] 끝 == //
+       /////////////////////////////////////////////////////////////////////////////////////
+       
+       const n6 = arr_data.lastIndexOf("java", arr_data.length -1);		//java의 맨 마지막 인덱스부터 거꾸로 찾는다.
+       //         arr_data.lastIndexOf("java", 8 - 1);
+       
+       
+       // 배열명.lastindexOf(찾은 value값, 출발 인덱스 번호 );
+	   // ==> 출발 index번호 부터 역순으로 검색하여 가장 먼저 찾은 요소의 인덱스를 리턴 시켜준다.
+	   // ==> 배열명 속에 찾을 value값이 없더라면 -1이 나온다.
+       
+       console.log(`n6 : ${n6}`);
+	   // n6 : 7
+	   
+	   
+	   const n7 = arr_data.lastIndexOf("java");
+	   // lastindexOf 에서 출발 index번호를 생략하면 출발 index번호는 arr_data.length -1 로 된다.
+       
+	   console.log(`n7 : ${n7}`);
+	   // n7 : 7
+	   
+	   const n8 = arr_data.lastIndexOf("한글자바");
+	   console.log(`n8 : ${n8}`);
+	   // n8 : -1
+	   
+	   // ===== 배열속의 데이터 index 값 알아오기 끝 [ 배열명.indexof(), 배열명.lastIndexof()] ===== //
+       
+	   
+	   
+	   // === [퀴즈] 배열속의 요소를 하나씩 검사하여 조건에 만족하는 데이터 찾기 시작 === //
+	   
+	   const arr_str = ["computer","clock","mouse","keyboard","korea","oracle"];
+	  
+	   const arr_result = [];		// 배열 생성
+	  
+	   // 배열 arr_str 에서 배열요소의 값중 두번째 글자가 'o'인 것만 추출해서 배열속에 넣으세요
+	   
+		//  배열명.forEach(function(item, index, array){});
+	    /*  item  - 현재 처리 중인 배열의 각 요소  
+	        index - (optional) 처리 중인 요소의 인덱스 
+	        array - (optional) forEach()가 적용되고 있는 배열 
+	    */
+	   
+	   arr_str.forEach(function(item, index, array) {
+		   
+		   if(item.length >= 2) {		// 배열요소인 문자열의 길이가 2글자 이상이라면 
+			   if(item.substring(1, 2) == 'o') { 	// 인덱스 1부터 2까지 즉 글자 1개를 말함
+				   
+				   arr_result.push(item);  // item 을 배열에 넣는다.
+			   }
+		   }
+		   
+	   });
+	   
+	    console.log(arr_result.join());
+	    // computer,mouse,korea
+	   
+	   // === [퀴즈] 배열속의 요소를 하나씩 검사하여 조건에 만족하는 데이터 찾기 끝 === //
+	</script>
+
+</body>
+</html>
