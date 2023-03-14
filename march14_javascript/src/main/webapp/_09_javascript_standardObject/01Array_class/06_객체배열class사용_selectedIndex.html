@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>class를 사용하여 객체를 만들고 select 태그를 이용해 선택한 인물의 이미지 및 정보가 화면에 나타나도록 한다.</title>
+
+
+<script type="text/javascript">
+
+	window.onload = function() {
+		
+		/*
+		const arrPerson = [{name:"아이유", photo:"iyou.jpg", age:28, address:"서울시 강동구", special:"가수 겸 탤런트<br/>팬들이 많음"},
+                           {name:"김태희", photo:"kimth.jpg",  age:27, address:"서울시 강서구", special:"탤런트<br/>팬들이 많음"},
+                           {name:"박보영", photo:"parkby.jpg", age:26, address:"서울시 강남구", special:"탤런트 및 영화배우<br/>팬들이 많음"}];
+	
+		== 위에처럼 하지 않고 ES6(ECMAScript 6) 나온 class 를 사용하여 만들어 보겟다.
+		*/
+		
+		
+		// JavaScript Classes 는 ES6(ECMAScript 6) 이다.
+		   /*
+		      >> 문법 << 
+		      class ClassName {
+		         
+		         속성명(필드) = 초기값;
+		         
+		         constructor() { ... }
+		         
+		         set xxx(value) {  // 세터
+		            this.속성명 = value;
+		         }
+		         
+		         get xxx() { return this.속성명; }  // 게터
+		         
+		         method_1() { ... }
+		         method_2() { ... }
+		         method_3() { ... }
+		      }
+		   */
+		   
+		   class Member {
+			   
+			  // birthyear = 0;	// birthyear 의 접근제한자는 public 이며, 외부에서도 접근이 가능하다. 	
+			   					// 생년을 주기 위해 설정 
+			   #birthyear = 0; 	// #birthyear 의 접근제한자는 private 이며, 이것은 클래스 안에서만 접근이 가능하다.
+			   					// 접근제한자 private 은 속성(프로퍼티)명 앞에 #을 붙이면 된다.
+			   					
+			   // 생성자 함수 
+			   constructor(name, photo, address, special) {   // 자바스크립트라서 데이터 타입은 없다.
+				   
+				   this.name = name;	
+				   this.photo = photo;
+				   this.address = address;
+				   this.special = special;
+			   
+			   }
+			   	
+			   set setBirthyear(value) {  // 세터
+				   if(value <= 0) throw new Error('생년은 0 또는 음수가 될 수 없습니다.');
+			   	   // 사용자가 정의하는 오류를 발생시킨다. (F12 콘솔창에 오류메시지가 나타난다.)
+			   	   this.#birthyear = value;
+			   }
+			   
+			   get getBirthyear() {   // 게터
+				   return this.#birthyear;
+			   }
+			   					
+			   // method
+			   age() {
+				   const currentDate = new Date();	// 자바스크립트에서 현재 날짜 및 시각을 알아오는 것
+				// currentDate.getFullYear(); // 현재 연도를 나타낸다. // 2023
+				   
+					return currentDate.getFullYear() - this.#birthyear + 1;   // 현재 나이 
+			   }
+			   
+			   					
+		   }// end of class Member ~~~~~~~~~~~~
+		
+		   
+		   const iyou_mbr = new Member("아이유", "iyou.jpg","서울시 강동구", "가수 겸 탤런트 &nbsp 팬들이 많음");  //<br>`사용핻 무방
+		// iyou_mbr.birthyear = 1995; // birthyear 은 public 이므로 외부에서 직접적으로 접근이 가능하다. 그러므로 생년에 음수도 입력이 가능하다.
+		
+		// iyou_mbr.#birthyear = 1995; // #birthyear 은 private 이므로 외부에서 직접적으로 접근이 불가하다.
+		   /* 오류 : Uncaught SyntaxError: Private field '#birthyear' must be declared in an enclosing class */
+		
+		// iyou_mbr.setBirthyear(1995); // 잘못된 세터를 호출함.
+		   // 주의사항 위와 같이 iyou_mbr.setBirthyear(1995); 하면 아래와 같은 오류가 뜬다.
+		   /* 오류 : Uncaught TypeError: iyou_mbr.setBirthyear is not a function */ 
+		   
+		// iyou_mbr.setBirthyear = -1995;	// 잘못된 세터를 호출함 (음수로 하면 오류가 발생)
+    	   /* 오류 : Uncaught Error: 생년 은 0 또는 음수가 될 수 없습니다. */
+		
+    	   
+    	   // 올바른 것 
+    	   iyou_mbr.setBirthyear = 1995;	// 세터를 호출함 
+    	   
+    	   
+    	   console.log(iyou_mbr.getBirthyear); // (생년월일을 알아보자) 게터를 호출함
+    	   // 1995
+    	   
+    	// console.log(iyou_mbr.getBirthyear()); // 잘못된 게터를 호출함,  () 를 넣으면 안된다. 오류 발생
+    	   // [주의사항] 위와 같이 하면 iyou_mbr.getBirthyear() 하면 아래와 같은 오류가 발생한다.
+    	   // 오류 발생 : Uncaught TypeError: iyou_mbr.getBirthyear is not a function
+    	   
+    	   
+    	   console.log(iyou_mbr.age());   // 나이를 알아보자 
+    	   // 29
+    	   
+    	   
+    	   const kimth_mbr = new Member("김태희", "kimth.jpg","서울시 강서구", "탤런트 &nbsp 팬들이 많음");  //<br>`사용핻 무방
+    	   kimth_mbr.setBirthyear = 1996;	// 세터를 호출함 
+    	   
+    	   
+    	   const parkby_mbr = new Member("박보영", "parkby.jpg","서울시 강남구", "탤런트 및 영화배우 &nbsp 팬들이 많음");  //<br>`사용핻 무방
+    	   parkby_mbr.setBirthyear = 1997;	// 세터를 호출함 
+    	  
+////    	   
+    	   const arr_member = [];
+    	   arr_member.push(iyou_mbr);
+    	   arr_member.push(kimth_mbr);
+    	   arr_member.push(parkby_mbr);
+    	   
+    	   
+    	   
+    	   // 옵션에 이름을 넣는 것 (option 태그 사용 )
+    	   const select = document.querySelector("select#select");
+    	   
+    	   let html = `<option>선택하세요</option>`;
+    	   
+    	   arr_member.forEach( item => {
+    		   
+    		   html += `<option>${item.name}</option>`;
+    	   }); 
+    	   
+    	   select.innerHTML = html;
+    	   
+    	   
+    	   /// !!!!!!! select 태그의 이벤트는 click 이 아니라 change 이다. !!!!!!!! ///
+    	   
+    	   // 이벤트 발생 (옵션에서 각 이름을 선택한다면 )
+    	   
+    	   /*
+    	   select.onchange = function () {};
+    	   // 또는 
+    	   select.onchange = () => {};
+    	   // 또는
+    	   select.addEventListener('change', function() {});
+    	   */
+    	   
+    	   select.addEventListener('change', function() {
+    		   
+    		   
+    		   const n_selectedIndex = select.selectedIndex;
+    		   // !!!! select.selectedIndex; 은 <option>태그의 index 번호를 말한다. !!!!
+    		   // 즉, 첫번째 <option>태그는 0이고, 두번째<option>태그는 1이고, 세번째 <option>태그는 2이고, 네번째 <option>태그는 3이다 
+
+    		   //alert(n_selectedIndex);
+    		   /*
+	    		     <option>선택하세요</option>은 n_selectedIndex 가 0
+			         <option>아이유</option>은 n_selectedIndex 가 1
+			         <option>김태희</option>은 n_selectedIndex 가 2
+			         <option>박보영</option>은 n_selectedIndex 가 3 이 된다.
+    		   */
+    		   
+    		   const idx = n_selectedIndex -1; 	// -1 을 하는 이유는 index 번호와 맞추기 위해서 (선택하세요 때문에)
+			   
+			   //console.log(arr_member[idx]);  // 옵션을 바꾸면 모든 값들을 f12이 보여준다.
+    		   /*
+    		   		arr_member[0] 은 iyou_mbr 이고
+    		   		arr_member[1] 은 kimth_mbr 이고
+    		   		arr_member[2] 은 parkby_mbr 이고
+    		   		
+    		   */
+    		   
+    		   if(idx < 0 ){			// "선택하세요"로 변경이 되었을 경우
+    			   document.querySelector("div#person").style.display = "none";	// 보이지 마라 라는 뜻이다.
+    		   }
+    		   else{					// "아이유", "김태희", "박보영"을 잡았을 경우
+    			   
+    			   document.querySelector("div#person").style.display = "";
+	    		   // CSS 에 적용된 내용대로 display를 적용시켜라는 말이다.
+    	           // 그런데 CSS 에 적용된 것이 없다라면 div 의 display 기본값인 "block" 으로 되어진다.
+    		   
+    	           
+    			   const img = document.querySelector("img#img");  // img태그이다.
+    		   	   img.src = `./images/${arr_member[idx].photo}`; //img 태그안에 경로를 주자  // 클래스에 phtot로 지정해 주준 것도 뒤에 사용해야함
+    		   }
+			   
+			   
+			   
+    	   });
+    	   
+    	   
+    	   
+		
+	}// end of window.onload = function() { ~~~~~~~~~~`
+
+</script>
+
+</head>
+<body>
+
+	<div id= "container">
+		<h2>인물소개</h2>
+		<select id="select"></select>	
+		<div id="person">
+			<img id="img" />
+			<div id ="information"></div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

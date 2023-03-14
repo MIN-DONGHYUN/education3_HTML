@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+
+   table, th, td {border: solid 1px gray;}
+   
+   table {border-collapse: collapse; 
+          width: 50%;}
+   
+   td {text-align: center;}
+   
+   input {
+      margin-left: 20px;
+   }
+
+</style>
+
+
+</head>
+<body>
+
+	<div>
+	   <h2>계산서</h2>
+	   <table id="tbl">
+	      <thead>
+	         <tr>
+	            <th width="25%">제품명</th>
+	            <th width="50%">단가 및 수량</th>
+	            <th width="25%">금액</th>
+	         </tr>
+	      </thead>
+	      <tbody>
+	         <tr>
+	            <td>사과</td>   
+	            <td>1,000<input type="number" min="0" max="10" value="0" id="apple" /></td><td id="apple">0</td>
+	         </tr>
+	         <tr>
+	            <td>딸기</td>   
+	            <td>2,000<input type="number" min="0" max="10" value="0" id="strawberry" /></td><td id="strawberry">0</td> 
+	         </tr>
+	         <tr>
+	            <td>참외</td>   
+	            <td>3,000<input type="number" min="0" max="10" value="0" id="melon" /></td>
+	            <td id="melon">0</td>
+	         </tr>
+	      </tbody>
+	      <tfoot>
+	         <tr>
+	            <td colspan="2">총액</td>
+	            <td>0</td>
+	         </tr>
+	      </tfoot>
+	   </table>
+	</div>
+	
+	<div id="display_error">
+	   <span style="color: red;">수량은 0개 이상 10개 이하 이어야 합니다.</span>
+	</div>
+
+
+	<script type="text/javascript">
+	
+		const display_error = document.querySelector("div#display_error");
+		display_error.style.display = "none"; 		// 맨 처음에는 보이지 말라는 곳이다. 
+		
+		const tbl = document.querySelector("table#tbl");
+	
+		/*
+		tbl.onchange = function (){
+			
+		};
+		*/
+		// 또는
+		
+		tbl.addEventListener('change', function(e) {   // change 이벤트 발생시 무엇을 해라 function(e) 의 e는 change를 뜻한다.  
+							//alert(e.target);   // change 가 발생된 곳 (화살표로 변경했을때만 나온다.)
+							//alert(e.target);	 // e.target 을 쓰면 결과 : [object HTMLInputElement]
+							//alert(e.target.id);// e.target.id 를 쓰면 결과 : 각 속성값의 아이디 apple, strawberry, melon 이 나옴
+							//alert(e.target.value);	// 1, 2, 3 등 갯수를 나타내줌 
+							//alert(e.target.parentNode.innerText);		// 1,000   2,000   3,000
+		
+		// 지금은 e.target은 input 태그이다.					
+							
+							
+			/* 
+	            노드.parentNode.parentNode - 부모노드 의 부모노드
+	            노드.parentNode      - 부모노드
+	            노드.childNodes      - 모든자식노드들
+	            노드.firstChild      - 첫째자식노드
+	            노드.lastChild       - 막내자식노드
+	            노드.nextSibling     - 나의바로밑동생노드(형제노드)
+	            노드.previousSibling - 나의바로위형노드(형제노드)
+	            
+	            !! 조심할 사항은 태그사이에 띄어쓰기를 하거나 태그를 줄 바꿈을 해버리면
+	               띄어쓰기나 줄바꿈을 텍스트 노드(text node)로 취급해버리므로 
+	               원하는 노드의 값을 가지고 오지 않고 undefined 가 나온다.  
+	               
+	            이렇게 undefined 가 나오지 않도록 하기 위해서 우리는 노드에 id 값을 주어서 처리하도록 한다.     
+         	*/
+					
+			let price = e.target.parentNode.innerText;      //부모 노드로 올라가서 데이터 보여주기 (지금은 td)
+															  // "1,000", "2,000", "3,000" (문자열임)
+					 	  //price.split(","); 				  // ["1","000","2","000","3","000"] 으로 배열로 나옴
+					 	  //price.split(",").join(""); 		  // "1000",   "2000",     "3000"  으로 나옴 
+			
+			price =  Number(price.split(",").join("")); 	  // 1000       2000       3000 (단가 곱할대는 , 를 빼야만 한다.)
+															  // 숫자로 변경함
+							
+			let su = e.target.value;    // 갯수를 말한다.
+			price *= su ;    // price = price * su;
+			
+			//alert(price);		// 값이 변경할때마다 곱해서 나온다. 
+				
+			
+			//alert(e.target.parentNode.nextSibling.innerHTML)    // 0 0 undefined 나옴 =>  input에서 부모 인 td 로 가고 그 다음 형제 td로 이동한다.
+			// 형제나 부모 등을 이동할 때 공백이나 엔터가 있을경우 그것을 노드로 판단하기 때문에 undifind가 나오게 된다. 그러므로 중간에 공백, 엔터가 없어야 한다.
+			// 이것을 해결하기 위해서는 해당 태그에 id 값을 주면 된다.
+			
+			
+			const id = e.target.id;   // apple    strawberry     melon
+			
+			document.querySelector(`td#${id}`).innerHTML = price.toLocaleString('en');   // td 태그의 아이디 를 변수처리해서 어떤것이든 들어갈 수 있도록 함
+			// .toLocaleString('en') 는 3자리마다 콤마 찍어줌
+			
+			/////////// 여기까지 각 제품명 합계 ////////////////
+			
+			
+			// 총 금액 구하기 
+			
+
+			const td_list = document.querySelectorAll("tbody > tr > td:last-child");		// 이것은 노드 리스트가 나온다.
+			const arr_td = Array.from( td_list, item => item.innerText.split(",").join("") );   //배열로 변경하기  ( 대상, 매핑)  (지금 item은 td 이다.) 
+			
+			console.log(arr_td);  
+			// 결과 예시 : (3) ['1000', '2000', '3000']
+			// 결과 예시 : (3) ['1000', '2000', '0']
+			// 즉 문자열 타입으로 배열이 나온다.
+			
+			let sum = 0;
+			for(var item of arr_td) {			// item(문자열) 배열에 있는 것을 반복
+				sum += Number(item);
+			}
+			
+			console.log(sum);
+			// 결과 예시 : 1000
+			// 결과 예시 : 3000
+			// 결과 예시 : 6000
+			
+			document.querySelector("tfoot > tr > td:last-child").innerHTML = `<span style="color:blue">${sum.toLocaleString('en')}</span>`;
+			// 결과 : 총액 부분에 합계가 잘 나온다.
+			
+		});	
+		
+		// 제품 각각의 개수당 10개로 제한하기
+		
+		/*
+			tbl.onkeydown = function () {				// 키보드 입력할때 발생함 (누르자 마자)
+				alert("keydown 이벤트 발생함 ~~ ");
+			}
+		*/
+		/*
+			tbl.onkeyup = function () {				// 키보드 입력하고 손 땔때 발생함 (손 놓았을때 )
+				alert("keyup 이벤트 발생함 ~~ ");
+			}
+		*/
+		
+		tbl.addEventListener('keyup', function(e) {
+			func_calculate(e.target);			// e(이벤트)가 발생되어진 곳 지금은 input 태그 (함수 호출) 
+		});
+		
+		// 위에 것을 삭제한다면, 블로그 3월 14일 부분 확인하기 
+		/*
+		tbl.addEventListener('change', function(e) {		// 변경이 일어날때마다 실행 
+			func_calculate(e.target);			// e(이벤트)가 발생되어진 곳 지금은 input 태그 (함수 호출) 
+		});
+		*/
+		
+		// 함수 생성
+		function func_calculate(target) {
+			
+			let su = Number(target.value);   // 기본 string 타입을 number로
+			
+			if(su < 0 || su > 10) {	 // 0보다 작거나 10보다 크면 
+				display_error.style.display = "block";		// 오류 메세지 나타내도록 함
+				
+				target.value = 0;		// target.value 를 초기화 한다. 
+				document.querySelector(`td#${target.id}`).innerHTML = "0";  // 초기화 
+				
+				su = 0;   // su 값을 초기화 시킨다. 
+			}
+			
+			else{
+				display_error.style.display = "none";   // 오류메세지 숨김 
+			}
+				
+			let price = target.parentNode.innerText;      //부모 노드로 올라가서 데이터 보여주기 (지금은 td)
+							  // "1,000", "2,000", "3,000" (문자열임)
+			//price.split(","); 				  // ["1","000","2","000","3","000"] 으로 배열로 나옴
+			//price.split(",").join(""); 		  // "1000",   "2000",     "3000"  으로 나옴 
+			
+			price =  Number(price.split(",").join("")); 	  // 1000       2000       3000 (단가 곱할대는 , 를 빼야만 한다.)
+							  // 숫자로 변경함
+			
+			price *= su ;    // price = price * su;
+			
+			//alert(price);		// 값이 변경할때마다 곱해서 나온다. 
+			
+			
+			//alert(e.target.parentNode.nextSibling.innerHTML)    // 0 0 undefined 나옴 =>  input에서 부모 인 td 로 가고 그 다음 형제 td로 이동한다.
+			// 형제나 부모 등을 이동할 때 공백이나 엔터가 있을경우 그것을 노드로 판단하기 때문에 undifind가 나오게 된다. 그러므로 중간에 공백, 엔터가 없어야 한다.
+			// 이것을 해결하기 위해서는 해당 태그에 id 값을 주면 된다.
+			
+			
+			const id = target.id;   // apple    strawberry     melon
+			
+			document.querySelector(`td#${id}`).innerHTML = price.toLocaleString('en');   // td 태그의 아이디 를 변수처리해서 어떤것이든 들어갈 수 있도록 함
+			// .toLocaleString('en') 는 3자리마다 콤마 찍어줌
+			
+			/////////// 여기까지 각 제품명 합계 ////////////////
+		
+		
+			// 총 금액 구하기 
+			
+	
+			const td_list = document.querySelectorAll("tbody > tr > td:last-child");		// 이것은 노드 리스트가 나온다.
+			const arr_td = Array.from( td_list, item => item.innerText.split(",").join("") );   //배열로 변경하기  ( 대상, 매핑)  (지금 item은 td 이다.) 
+			
+			console.log(arr_td);  
+			// 결과 예시 : (3) ['1000', '2000', '3000']
+			// 결과 예시 : (3) ['1000', '2000', '0']
+			// 즉 문자열 타입으로 배열이 나온다.
+			
+			let sum = 0;
+			for(var item of arr_td) {			// item(문자열) 배열에 있는 것을 반복
+				sum += Number(item);
+			}
+			
+			console.log(sum);
+			// 결과 예시 : 1000
+			// 결과 예시 : 3000
+			// 결과 예시 : 6000
+			
+			document.querySelector("tfoot > tr > td:last-child").innerHTML = `<span style="color:blue">${sum.toLocaleString('en')}</span>`;
+			// 결과 : 총액 부분에 합계가 잘 나온다.
+								
+								
+		} // end of function func_calculate(target) { ~~~~~~~~~
+	
+	</script>
+
+
+</body>
+</html>
