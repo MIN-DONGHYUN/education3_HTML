@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>타이머 만들기</title>
+
+<style type="text/css">
+
+	div#container {
+		display: flex;
+		height: 100px;
+	}
+
+	div#timer, div#timerclear {
+		/*border: solid 1px gray;*/ 
+		color: blue;
+		font-size: 20pt;
+		padding: 30px 0 0 20px;
+	}
+
+
+</style>
+
+<script type="text/javascript">
+
+	window.onload = function() {
+		
+		const timerDiv = document.querySelector("div#timer");	// 타이머를 보여줄 장소
+		
+		let time = 600;        // 타이머 시간을 600초(== 10분)로 지정함.
+		let time_continue = 0; // 타이머가 중지했던 그때의 time 값을 기억하는 용도임.
+		/*
+				console.log(Math.floor(600/60));   // 결과 10
+				console.log(Math.floor(599/60));   // 결과 9 
+		*/
+			
+		// 타이머 함수 만들기
+		const timer = function() {
+			
+			let minute;
+			let second;
+			
+			// 어떤수보다 작은 최대의 정수 
+			minute = Math.floor(time / 60);   // 소수부는 없애버리고 정수만 가져오는 것이다.
+			// 600 / 60 은 10이라는 정수가 나오므로 사용하면 안됨 
+			
+			// 10 분 밑이면 앞에 0을 추가하자 
+			if(minute < 10) {
+				mintue = "0"+minute; 
+			}
+			
+			// 초를 나타내기위해 나머지 
+			second = time % 60; 
+			if(second < 10) {
+				second = "0"+second;
+			}
+			
+			const html = `${minute}:${second}`;
+			timerDiv.innerHTML = html;
+			
+			time--;		// 시간을 줄여준다.
+			
+		};
+		
+		// 타이머 함수 호출 
+		
+		timer();		// 타이머 함수 호출
+	//	setInterval(function(){ timer(); }, 1000);  // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정
+	//  또는	
+		let setTimer = setInterval(timer, 1000);  // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정
+		
+		
+		
+		////////////////////////////////////////////////////////////////////////
+		
+		// 타이머 삭제하기 
+		const btnTimerClear = document.querySelector("button#btnTimerClear");  
+		
+		btnTimerClear.addEventListener('click', function(){ 
+			
+			clearInterval(setTimer); // 타이머 삭제하기 
+									 // setTimer 는 중단해야할 setInterval 함수를 가리키는 것이다.
+			time_continue = time; // 타이머가 중지했던 그때의 time 값을 기억하는 용도임
+			
+
+		});
+
+		
+		// 타이머를 다시 생성해보자 
+		
+		const btnTimerRestart = document.querySelector("button#btnTimerRestart"); 
+		
+		btnTimerRestart.addEventListener('click', function(){ 
+			
+			/* 타이머를 다시 생성하려면 먼저 타이머를 없애고 만들어야 한다 */
+			clearInterval(setTimer); // 타이머 삭제하기 
+									 // setTimer 는 중단해야할 setInterval 함수를 가리키는 것이다.
+			
+			time = 600;// 타이머 시간을 600초(== 10분)로 지정함.					 
+			setTimer = setInterval(timer, 1000);  // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정
+		});
+		
+		
+		// 중지하고 다시 그 시간대로 계속하기
+		
+		const btnTimerContinue = document.querySelector("button#btnTimerContinue");
+		
+		btnTimerContinue.addEventListener('click', function(){ 
+			
+			/* 타이머를 다시 생성하려면 먼저 타이머를 없애고 만들어야 한다 */
+			clearInterval(setTimer); // 타이머 삭제하기 
+									 // setTimer 는 중단해야할 setInterval 함수를 가리키는 것이다.
+			
+			time = time_continue;    // 타이머 시간을 중지했던 곳부터 다시 시작한다. 					 
+			setTimer = setInterval(timer, 1000);  // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정
+			
+			
+		});
+		
+	}//end of window.onload = function() {} ~~~~~~~~~~~~~~~~~
+
+
+</script>
+
+
+
+</head>
+<body>
+
+	<div id="container">
+		<div id="timer"></div>
+		<div id="timerclear">
+			<button type="button" id="btnTimerClear">타이머 중지</button>
+			<button type="button" id="btnTimerRestart">타이머 처음부터 시작</button>
+			<button type="button" id="btnTimerContinue">타이머 중지이후 부터 이어서 시작</button>
+		
+		</div>
+	</div>
+	
+
+</body>
+</html>
