@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>문자열을 유효한 URI(uniform Resource Identifier UTF-8로 인코딩)로 인코딩/디코딩 한다.</title>
+
+<style type="text/css">
+	
+   div {
+      /* border: solid 1px gray; */
+      width: 800px;
+      margin: 0 auto;
+      padding: 2%;
+   }
+
+   table {
+      width: 100%;
+      border-collapse: collapse;
+   }
+   
+   td {
+      border: solid 1px gray;
+      height: 50px;
+      text-align: center; 
+   }
+
+
+</style>
+
+
+</head>
+<body>
+
+	<div>
+      <table>
+         <tr>
+            <td width="30%">문자열입력(한글)</td>
+            <td><input type="text" id="inputText" size="70"/> </td>
+         </tr>
+         <tr>
+            <td>URI로 인코딩된 값</td>
+            <td id="encode_1"></td>
+         </tr>
+         <tr>
+            <td>URI를 디코딩된 값</td>
+            <td id="decode_1"></td>
+         </tr>
+         
+         <tr>
+            <td><button type="button" id="btnOK_1">변경</button></td>
+            <td><button type="button" id="btnReset_1">다시</button></td>
+         </tr>
+      </table>
+   </div>
+   
+   <div>   
+      <table>
+         <tr>
+            <td width="30%">URI로 인코딩된 값 입력</td>
+            <td><input type="text" id="encode_2" size="70"/> </td>
+         </tr>
+         <tr>
+            <td>URI를 디코딩된 값</td>
+            <td id="decode_2"></td>
+         </tr>
+         
+         <tr>
+            <td><button type="button" id="btnOK_2">변경</button></td>
+            <td><button type="button" id="btnReset_2">다시</button></td>
+         </tr>
+      </table>
+   </div>
+
+
+<script type="text/javascript">
+
+	// 함수를 만들어 준다. (인코딩과 디코딩을 하는 곳)
+	function func_encodeURI_decodeURI() {
+		
+		const inputText = document.querySelector("input#inputText").value;  // input 태그에 inputText 아이디 가진 값을 가져온다.
+		const encodeVal = encodeURI(inputText);   
+		// encodeURI("문자열"); ==> "문자열"을 UTF-8 와 매핑된 문자(%문자)로 변환시켜준다.
+		
+		document.querySelector("td#encode_1").innerHTML = encodeVal;
+		
+		document.querySelector("td#decode_1").innerHTML = decodeURI(encodeVal);		// %가 아닌 원래 글자가 나온다.
+		// decodeURI("인코딩된%문자열"); ==> "인코딩된%문자열" 을 원래의 글자로 되돌려 준다.
+	}
+
+	// 버튼을 눌렀을때
+	document.querySelector("button#btnOK_1").addEventListener('click',() => { // 버튼을 눌렀을때 이벤트 발생	
+		
+		func_encodeURI_decodeURI(); // 인코딩, 디코딩 하는 함수 호출 
+		
+	});  
+	
+	// 키를 입력하는 동시에 
+	document.querySelector("input#inputText").addEventListener('keydown', function (e) {
+		
+		// 만약 엔터를 한다면 13 은 키코드에서 엔터이다.
+		if(e.keyCode == 13) {   
+					// event.keyCode 종류를 알려면 검색어로 "자바스크립트 keyCode" 구글링하면 나온다.
+			func_encodeURI_decodeURI(); // 인코딩, 디코딩 하는 함수 호출 
+		}
+		
+	});
+	
+	// 다시를 클릭하면 실행
+	document.querySelector("button#btnReset_1").addEventListener('click', function () {
+		
+		// 초기화
+		document.querySelector("input#inputText").value = "";  // input 태그는 innerHTML 이런게 아니라 value로 값을 가져온다. 
+		document.querySelector("td#encode_1").innerHTML = "";
+		document.querySelector("td#decode_1").innerHTML = "";
+		
+		// focus를 맞춰준다.
+		document.querySelector("input#inputText").focus();		// 키보드 입력하는 곳으로 focus를 맞춰준다. (바로 검색할 수 있게)
+
+	});
+
+	
+	// 함수생성
+	function func_decodeURI() {
+		
+		const encodeVal = document.querySelector("input#encode_2").value;
+		 document.querySelector("td#decode_2").innerHTML = decodeURI(encodeVal); 
+	}
+	
+	// 이벤트 클릭했을때 
+	document.querySelector("button#btnOK_2").addEventListener('click', function() {
+		func_decodeURI();		// 함수 호출 
+	});
+	
+	// 이벤트 엔터 눌렀을때 
+	document.querySelector("input#encode_2").addEventListener('keydown', function(e) {
+		if(e.keyCode == 13)
+		{
+			func_decodeURI();		// 함수 호출 
+		}
+	});
+	
+	// 리셋을 눌렀을때
+	document.querySelector("button#btnReset_2").addEventListener('click',function() {
+		// 초기화
+		document.querySelector("input#encode_2").value = "";
+		document.querySelector("td#decode_2").innerHTML = "";
+		// focus 맞추기 
+		document.querySelector("input#encode_2").focus();
+	})
+	
+</script>
+
+
+</body>
+</html>

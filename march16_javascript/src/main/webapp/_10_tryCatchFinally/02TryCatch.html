@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Try Catch</title>
+</head>
+<body>
+
+	<div id="error"></div>
+	<div id="mydiv"></div>
+	
+
+	<script type="text/javascript">
+	
+		// try-catch 가 자바스크립트도 가능하다.
+		try {
+			func_plus(2,3);
+		}
+		catch (e) {
+			console.log("오류 : " +  e);
+			document.querySelector("div#error").innerHTML = "<span style='color:red'>오류발생 : "+ e +"</span>";
+		}
+	
+	
+		
+		document.querySelector("div#mydiv").innerHTML = "<span style='color:blue'>안녕하세요?</span>";
+	
+	</script>
+
+
+</body>
+</html>
