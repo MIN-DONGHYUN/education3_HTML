@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메인페이지 만들기 -1</title>
+
+<style type="text/css">
+
+	body{										/* 전체 적용하는 곳이다. */
+		border: solid 0px gray;
+		margin: 0 10% 0 10%;					/* 여백 설정 */
+		padding: 0;		
+		font-family: Arial, "MS Trebuchet", sans-serif;    /* 글자모양 첫번째꺼가 적용됨 */
+		word-break: break-all;      /* 공백없이 영어로만 되어질 경우 해당 구역을 뚷고 빠져나가므로 이것을 막기 위해서 사용한다. */
+	}
+	
+	div#container > form > header > ul {					/* header의 ul 부분을 inline-block으로 변경 */
+		border: solid 0px black;
+		display: inline-block;
+	}
+	
+	div#container > form > header ul, section li {			/* header에 ul전체 부분과 section 의 li 전체부분을 설정한다 */
+		border: solid 0px blue;
+		list-style-type: none; 	/* 기호 제거 */					
+		padding: 0;
+	}
+	
+	
+	li.mainlogin {											/* 클래스 mainlogin 에 대해 변경 */ 
+		border: solid 0px yellow;
+		line-height: 30px;     /*  줄간격  */
+	}
+	
+	input.myinput {											/* 클래스 myinput 에 대해 변경 */ 
+		
+		width: 73%;											/* 넓이 74% */ 
+	}
+	
+	div#seconddiv {											/* 이미지를 제외한 아이디 비번을 입력하는 것을 묶어 놓은 곳 */
+		width: 20%;											/* 다음 이미지를 맞추기 위해 설정 */
+		display: inline-block;								/* inline-block 으로 설정 */ 
+	}
+	
+	label.login {											/* 라벨 테그에서 클래스가 login인 부분만 설정 */
+		border: solid 0px red;	
+		display: inline-block;								/* 타입을 변경하고 width 사용 */
+		min-width: 65px;									/* 너비 설정 */
+	}
+	
+	div#container > form > header  ul > li:nth-child(3){ 	/* 로그인 , 취소부분 */
+		border: solid 0px red;
+		margin: 10px 0 50px 0;									/* 아래로 50px 줌 */
+		text-align: center;									/* 가운데 정렬 */ 
+	}
+	
+	div#container > form > header  ul > li:nth-child(3) input[type="submit"]:nth-child(1){ 		/* 로그인 부분 */
+		margin: 0 20px 0 0;																		/* 우측으로 20px 밀어버림 취소부분과 떨어트리기 위해서 */ 
+		font-size: 12pt; 																		/* 글자 크기 */
+	}
+	
+	div#container > form > header  ul > li:nth-child(3) input[type="reset"]:nth-child(2){ 		/* 취소 부분 */
+		font-size: 12pt; 																		/* 글자 크기 */
+	}
+	
+	div#image {												/* 이미지 부분 */
+		border: solid 0px red;
+		position: relative;									/* 상대적인 위치 */
+		top: 40px;											/* 40px 아래로 */
+	}
+	
+	section#link {											/* 사이드바 링크 부분 */
+		border: solid 0px blue;
+		float: left;										/* 왼쪽에 만들고 */
+		background-color: gray;							/* 배경색 */
+		width: 20%;											/* 너비 */
+		height: 450px; 										/* 높이 */
+		font-weight: bold;									/* 글자 굵기 */
+	}
+	
+	section#link a {
+		color: white;				 /* 글자 색상 */
+		font-size: 16pt;			 /* 글자 크기 */
+		text-decoration: none;   	 /* 밑 줄이 사라진다. */
+		line-height: 50px;    		 /*  줄간격  */
+	}
+	
+	section#aritcle {					/* 기사 부분 */
+		border: solid 0px orange;
+		
+		float: right;					/* 오른쪽에 만든다 */ 
+		padding-left: 3%;				/* 왼쪽 3% 공백 */ 
+		width: 73%;						/* 너비 */
+		height: 450px; 					/* 높이 */
+		color: white;	
+		background-color: black;
+		overflow: auto;		/* 기본값 넘쳐난것을 스크롤로 다 볼수 있게 해준다. */
+	}
+	
+	section {							/* 중간 부분 아래 10px 여백 */
+		margin-bottom: 10px;
+	}
+	
+	footer {							/* 마지막 부분 */
+		border: solid 0px orange;
+		clear: both;    /* 앞에서 float 을 해제해서 페이지 하단에 안착시킨다. */	
+		background-color: #d8d8da;
+		text-align: center;				/* 가운데 정렬 */
+		padding: 10px 0 10px 0;			/* 여백 */
+		
+	}
+	
+
+</style>
+
+</head>
+<body>
+
+	<div id="container">
+		<form action = "register.do">
+			<header>
+				<div id="seconddiv">
+					<ul >
+						<li class="mainlogin" >
+							<label class="login" for = "userid">아이디</label>   
+							<input class="myinput" type="text" id="userid" placeholder="아이디" maxlength="20" autofocus required />  <!-- 필수 입력부분  -->
+							<!-- text 타입, 아이디 userid, 글자쓰기전 나오는 글씨, 최대 길이 20, 자동포커스, 필수입력 -->
+					
+						</li>
+						
+						<li class="mainlogin">		<!-- text와 다르게 암호는 보이지 않는다. -->
+							
+							<label class="login" for = "passwd1">비밀번호</label>
+							<input class="myinput" type="password" id="passwd1" placeholder="비밀번호" maxlength="20" autofocus required  />
+							<!-- text 타입, 아이디 userid, 글자쓰기전 나오는 글씨, 최대 길이 20, 자동포커스, 필수입력 -->
+						</li>
+						
+						<li class="mainlogin">
+							<input type="submit" value="로그인" />
+							<input type="reset" value="취소" />
+							
+						</li>	
+								
+					</ul>
+				</div>
+				
+				<ul>
+						
+					<li>
+						<!-- 이미지 -->
+						<div id="image">
+							
+							<!-- 실제 다음으로 이동하는 방법 -->
+							<a href="//daum.net"><img src="./images/logo.png" width="200px" height="130px" ></a>
+						</div>
+						
+					</li>		
+				</ul>
+				
+				
+			</header>
+			
+			<section id="link">
+				<!-- nav 태그는 사이트의 메뉴나 링크 같은 내비게이션 요소들이 포함 -->
+				<nav>
+					<ul>
+						<li><a href="//top.cafe.daum.net/">카페</a></li>
+						<li><a href="//mail.daum.net/login?url=https%3A%2F%2Fmail.daum.net%2F">메일</a></li>
+						<li><a href="//news.daum.net/">뉴스</a></li>
+						<li><a href="//map.kakao.com">지도</a></li>
+						<li><a href="//finance.daum.net">증권</a></li>
+						<li><a href="//blog.daum.net">블로그</a></li>
+					</ul>
+				</nav>
+				
+			</section>
+			
+			
+			<section id="aritcle">
+				<article>   <!-- 실제 내용물 오는곳  -->
+					
+					<div id="overflow">
+						<!-- header 태그는 내용의 소제목 -->
+						<header>
+							<h3> 기사1 제목입력</h3>
+						</header>
+							
+						<p>"부동산 거래 동맥경화 우려.. 금리인하 검토시기 왔다."</p>
+			            
+			            
+						<header>
+							<h3> 기사2 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+					
+						<header>
+							<h3> 기사3 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						
+						<header>
+							<h3> 기사4 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						
+						<header>
+							<h3> 기사5 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						<header>
+							<h3> 기사6 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						<header>
+							<h3> 기사7 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						
+						<header>
+							<h3> 기사8 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+						
+						
+						<header>
+							<h3> 기사9 제목입력</h3>
+						</header>
+							
+						<p>"예매창 지붕 뚫었다."..'어벤져스:엔드게임' 4DX, 예매 오픈 후 순산'매진'[공식입장]</p>
+					</div>
+				</article>
+			</section>
+			
+			<footer>
+				<p>Copyright &copy; Kakao Corp All rights reserved </p>
+			
+			
+			</footer>
+			
+		</form>
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>퀴즈3 메인페이지 만들기</title>
+
+<style type="text/css">
+
+	body{  
+		margin: 0;
+		padding: 0;
+		font-family: Arial, "MS Trebuchet", sans-serif;
+		word-break: break-all;  /* 공백없이 영어로만 되어질 경우 해당구역을 빠져나가므로 이것을 막기위해서 사용한다. */
+	}
+
+	div#container {
+	/* border: solid 1px red; */ 
+		
+		margin: 0 auto;
+		padding: 2% 9% 1% 10%;
+	}
+
+	header#logo_menu {
+	/* border: solid 1px orange; */ 
+		
+		width: 99%;
+		min-height: 120px;  
+		background-color: #fff;
+		margin-bottom: 30px;
+	}
+	
+	header#logo_menu > div#logo > img {
+		width: 200px;
+	}
+
+	header#logo_menu > nav > ul {
+		list-style-type: none;
+		border: solid 1px gray; 
+		padding: 0;
+	}
+
+	header#logo_menu > nav > ul > li {
+		display: inline-block; 
+	/*  border: solid 1px gray; */ 
+		width: 150px;
+		text-align: center;
+		line-height: 50px;
+	} 
+	
+	header#logo_menu > nav > ul > li > a {
+		text-decoration: none;
+		color: navy;
+		font-size: 16pt; 
+		font-weight: bold;
+		padding: 5px; 
+	}
+	
+	header#logo_menu > nav > ul > li > a:hover {
+		background-color: navy;
+		color: white; 
+	}
+
+	div#contents {
+	/* 	border: solid 1px green; */
+
+		display: flex;
+		width: 99%;
+		min-height: 500px;
+		margin: 1.5% 0 2% 0; 
+	}
+			
+	div#contents > aside { 
+	/* 	border: solid 1px blue; */ 
+		
+		width: 20%;
+		background-color: #999;
+	}
+	
+	div#contents > section {
+	/* 	border: solid 1px red; */ 
+		
+		width: 76.5%;
+		background-color: #333;
+		color: #ffffe6;
+	}
+
+	div#contents > section > div#div_section {
+		max-height: 500px; /* !!중요!! max-height: 700px; 으로 변경해보자. div#contents > aside 의 height 도 700px 로 증가될 것이다.  */
+		overflow: auto; 
+		/* !! 중요 !! 
+			max-height: 500px; 및 overflow: auto; 을 모두 주석처리 해보자. 
+			div#contents > section 의 height 가 내용물 만큼 증가될 것이다. 
+			그런데 div#contents > aside 의 height 크기도 자동적으로 증가되어 div#contents > section 의 height 와 동일하게 된다는 것이다.
+			즉, flex item 들의 height 크기는 flex item 엘리먼트에서 별도로 height 설정값을 주지 않는 이상은 모두 동일하게 되어지므로 
+			flex item 들중 어느 한쪽의 height 가 커져버리면 flex item 모두 height 가 동일하게 커지게 된다.  */
+	}
+
+	div#contents > section {
+		margin-left: auto;
+		/* !! 중요 !!
+			flex item 들을 모두 생성한 이후 flex 의 width 에 여백이 생길 경우, 맨 마지막 flex item 의 위치를 flex 상의 끝으로 이동시키고자 할 경우 
+			맨 마지막 flex item 의 margin-left: auto; 라고 해주면 왼쪽 바깥여백 크기는 flex 의 width 에 남은 여백크기로 해준다.
+			그래서 맨 마지막 flex item 은 flex 상에서 맨 끝으로 이동하게 된다. 
+		*/
+	}
+	
+	table#loginTbl {
+	 /* border: solid 1px red; */   
+		width: 99%;
+		border-collapse: collapse; 
+		margin: 10px auto; 
+		font-size: 10pt;
+	}
+	
+	table#loginTbl > tbody > tr {
+		line-height: 30px; 
+	}
+
+	table#loginTbl > tbody > tr:first-child > td,
+	table#loginTbl > tbody > tr:nth-child(2) > td {
+		padding-right: 5px; 
+	}
+	
+	table#loginTbl > tbody > tr:last-child > td {
+		text-align: center;
+		padding-top: 10px; 
+	}
+    
+    input[id="userid"] , 
+	input[id="passwd"] {
+    	line-height: 20px; 
+    }
+    
+    input[type="submit"] {
+    	margin-right: 10px; 
+    }
+
+	table#loginTbl label {
+		color: white;
+	} 
+	
+	div#contents > section > div#div_section > article {
+		padding: 20px 20px 0 20px;
+	}	
+		
+	footer {
+	/* 	border: solid 1px yellow; */ 
+	
+		width: 99%;
+		background-color: #ccc;
+		text-align: center;
+		padding: 30px 0;
+	} 
+
+</style>
+</head>
+<body>
+	<div id="container">
+		<header id="logo_menu">
+			<div id="logo">
+			   <img src="images/logo.png" id="imgLogo" />
+			</div>
+
+			<nav>
+				<ul>
+					<li><a href="#">카페</a></li>
+					<li><a href="#">메일</a></li>
+					<li><a href="#">뉴스</a></li>
+					<li><a href="#">지도</a></li>
+					<li><a href="#">증권</a></li>
+					<li><a href="#">블로그</a></li>
+				</ul>
+			</nav>
+			
+		</header>	
+		
+		<div id="contents">		
+			<aside>
+				<form action="login.do">
+					<table id="loginTbl">
+						<tr>
+							<td><label for="userid">아이디</label></td>
+							<td><input type="text" id="userid" size="17" placeholder="아이디" autofocus autocomplete="off" /></td>
+						</tr>
+						<tr>
+							<td><label for="passwd">비밀번호</label></td>
+							<td><input type="password" id="passwd" size="17" placeholder="비밀번호" /></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<input type="submit" value="로그인" />
+								<input type="reset" value="취소" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</aside>
+			
+			<section>
+				<div id="div_section">
+					<article>
+						<header>기사1 제목입력</header>
+						<p>&quot;부동산 거래 동맥경화 우려..금리인하 검토시기 왔다&quot;</p>
+					</article>
+					
+					<article>
+						<header>기사2 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사3 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사4 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사5 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사6 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사7 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사8 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사9 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사10 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사11 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+					
+					<article>
+						<header>기사12 제목입력</header>
+						<p>&quot;예매창 지붕 뚫었다&quot;.. '어벤져스:엔드게임' 4DX, 예매 오픈 후 순삭 '매진'[공식입장]</p>
+					</article>
+				
+				</div>
+		</section>	
+		</div>
+		
+		<footer>
+			 <p style="width: 80%; border: solid 0px red; margin: 0 auto;">
+				  <marquee> 
+				  	Copyright &copy; Kakao Corp. All rights reserved.
+				  </marquee> 
+			 </p>
+		</footer>
+
+	</div>	
+
+</body>
+</html>
+

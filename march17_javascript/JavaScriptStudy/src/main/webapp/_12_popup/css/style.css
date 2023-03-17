@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+div#container {
+	display: flex;
+	/*border: solid 1px red;*/
+	width: 80%;
+	margin: 20px auto;
+}
+
+div#display {
+	/*border: solid 1px blue;*/
+	width: 80%;
+	margin: auto;
+	
+}
+
+table#tbl {
+	/*border: solid 1px red;*/
+	width: 100%;
+	border-collapse: collapse;
+}
+
+table#tbl th, table#tbl td {
+	border: solid 1px gray;
+}
+
+table#tbl th {
+	padding: 1%;
+}
+
+table#tbl td {
+	padding: 2%;
+}
+
+
+table#tbl > thead > tr:first-child > th {
+	line-height: 250%;
+	color: tomato;
+	font-size: 20pt;
+	border: none;
+}
+
+
+table#tbl > tbody > tr > td:nth-child(1) > img {
+	width: 30%;
+	cursor: pointer;  /* 손 모양이 변경된다 (마우스 포인터가) */
+}
+
+ul {
+	padding: 0;
+}
+
+ul > li > label {
+	/*border: solid 1px blue;*/
+	display: inline-block;   /* width 를 쓰기 위해 */
+	width: 45%;
+}
+
+table#tbl > tbody > tr > td:last-child {
+	color: blue;
+	font-size: 12pt;
+	text-align: right;
+}
+
+table#tbl > tfoot > tr > td:last-child {
+	color: red;
+	font-size: 12pt;
+	text-align: right;
+}
+
+
+

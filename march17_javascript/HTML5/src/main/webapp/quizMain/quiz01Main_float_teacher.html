@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메인페이지 만들기 -1 (float 사용한 것)</title>
+
+<style>
+
+	body{
+		margin: 0;
+		padding: 0;
+		font-family: Arial, "MS Trebuchet", sans-serif;
+		word-break: break-all;  /* 공백없이 영어로만 되어진 경우가 아니면 문장을 뚫고 지나감 그렇기에 이것을 사용 */
+	}
+	div#container {
+	
+		/*border: solid 1px gray;*/
+		margin: 0 auto;
+		padding: 2% 9% 1% 10%;
+	}
+	
+	div#container > header#Login_logo {
+		/*border: solid 1px blue;*/
+		
+		width: 99%;
+		height: 120px;
+		background-color: #fff;
+	}
+	
+	header#Login_logo > form, header#Login_logo > div#logo {
+		/*border: solid 1px red;*/
+		float: Left;			/* (중요) 왼쪽으로 간다( 즉 여기서는 이미지가 왼쪽으로 간다.) */
+		width: 45%;
+	}
+	
+	div#logo > img{
+		width: 200px;
+	}
+	
+	header#Login_logo > div#logo {
+		/*border: solid 1px green;*/
+		
+		/* 위치 옮기기 */
+		position: relative;
+		/*top: -20%;*/
+		left: -22.5%;		/* 왼쪽에서 -22.5% 만큼 옮기기 */
+		height: 110px;
+	}
+	
+	/* 테이블 태그 부분 */
+	header#Login_logo > form > table#LoginTbl {
+		/*border: solid 1px red;*/
+		border-collapse: collapse;
+	}
+	
+	table#LoginTbl td {
+		/*border: solid 1px blue;*/
+	}
+	
+	
+	/* 테이블 태그 안 tbody 안 tr */
+	table#LoginTbl > tbody > tr {
+		line-height: 30px; 
+	}
+	
+	
+	/* 테이블 태그 안 tbody 안 tr 첫번째, 두번째의 td */
+	table#LoginTbl > tbody > tr:first-child > td,
+	table#LoginTbl > tbody > tr:nth-child(2) > td {
+		padding-right: 10px;		/* 아이디, 비밀번호 와 입력 창 사이를 벌린다. */
+	}
+	
+	/* 마지막 tr의 td */
+	table#LoginTbl > tbody > tr:last-child > td {
+		text-align: center;
+		padding-top: 10px;
+	}
+	
+	/* 로그인 창증 */
+	table#LoginTbl input[id="userid"], 
+	table#LoginTbl input[id="passwd"] {
+		line-height: 20px;
+	}
+	
+	table#LoginTbl input[type="submit"] {
+		margin-right: 10px;
+	}
+	
+	
+	
+	/* contents 전체 */
+	div#container > div#contents {
+		/*border: solid 1px green;*/
+		width: 99%; 
+		min-height: 500px;   /* 최소 500px 내용 있으면 더 늘어남 */
+		margin: 1.5% 0 2% 0; 
+	}
+	
+	div#contents > aside {
+		/*border: solid 1px blue;*/
+		float: left;
+		width: 20%;
+		background-color: #999;
+		min-height: 500px;   /* 최소 500px 내용 있으면 더 늘어남 */
+	}
+	
+	div#contents > section {
+		/*border: solid 1px red;*/
+		float: right;
+		width: 74%;
+		background-color: #333;
+		color: #ffffe6;
+		min-height: 500px;   /* 최소 500px 내용 있으면 더 늘어남 */
+	}
+	
+	div#contents > section > div#div_section{
+		max-height: 500px;
+		overflow: auto;     /* max 사용시 오버플로우는 필수 */
+	}
+	
+	div#contents > aside > nav > ul {
+		/*border: solid 1px red;*/
+		
+		margin: 0; 
+		padding: 20px 0 0 40px;
+		list-style-type: none;   /* 기호 제거 */
+	}
+	
+	div#contents > aside > nav > ul > li {
+		/*border: solid 1px yellow;*/
+		line-height: 50px; 
+		font-size: 16pt;
+		font-weight: bold;	
+	}
+	
+	div#contents > aside > nav > ul > li > a {
+		text-decoration: none;  /* 밑줄 삭제 */
+		color: white;
+	}
+	
+	div#contents > aside > nav > ul > li > a:hover { /* 마우스 올라갈 시 */
+		color: red;
+		background-color: yellow;
+	}
+
+
+
+	
+	div#contents > section > div#div_section > article {
+		padding: 20px 20px 0 20px;
+	}
+	
+	
+	div#container > footer {
+		/*border: solid 1px red;*/
+		width: 99%;
+		background-color: #ccc;
+		text-align: center;
+		padding: 30px 0;
+	}
+	
+	div#container > footer > p {
+		/*border: solid 1px blue;*/
+		
+		width: 60%;
+		margin: 0 auto;
+	}
+	
+	
+	
+
+</style>
+
+
+
+</head>
+<body>
+	<!--  -->
+	<div id= "container">
+		<header id="Login_logo">
+		
+			<!-- 로그인 -->
+			<form action="Login.do">
+				<table id="LoginTbl">
+					<tr>
+						<td><label for="userid">아이디</label></td>
+						<td><input type="text" placeholder="아이디" autofocus autocomplete="off" /></td>  <!-- autofocus는 자동으로 focus 맞춰줌  -->
+																		 <!-- autocomplete 는 지금까지 한번이라도 썻던 아이디 값을 안보이게 함-->
+					<tr>
+						<td><label for="passwd">비밀번호</label></td>
+						<td><input type="password" placeholder="비밀번호" /></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input type="submit" value="로그인" />
+							<input type="reset" value="취소" />
+						</td>
+						
+					</tr>
+				
+				</table>			
+			</form>
+
+			<!-- 로고 -->
+			<div id="logo">
+				<img src="./images/logo.png" />
+				
+			</div>
+		</header>
+		
+		<div id="contents">
+		
+			<aside>
+				<nav>
+					<ul>
+						<li><a href="#">카페</a></li>   <!-- a는 링크를 걸때 함 -->
+						<li><a href="#">메일</a></li>   <!--  #은 자기 페이지 -->
+						<li><a href="#">뉴스</a></li>
+						<li><a href="#">지도</a></li>
+						<li><a href="#">증권</a></li>
+						<li><a href="#">블로그</a></li>
+					</ul>
+				</nav>
+			
+			</aside>
+		
+			<section>
+				<div id="div_section">
+				 	<article>
+				 		<header>기사1 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사2 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사3 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사4 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사5 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사6 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사7 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사8 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사9 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사10 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사11 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				 	
+				 	<article>
+				 		<header>기사12 제목입력</header>
+				 		<p>%quot;부동산 거래 동맥경화 우려,금리인하 검토시기 왔다.&quot;</p>
+				 	</article>
+				</div>
+			</section>
+			
+			
+		</div>
+		
+			<footer>
+			 	<p>
+				<marquee>opyright &copy; Kakao Corp. All rights reserved</marquee>
+				</p>
+			</footer>
+	</div>
+
+</body>
+</html>

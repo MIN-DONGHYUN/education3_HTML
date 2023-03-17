@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 폼 유효성 검사</title>
+
+<style type="text/css">
+	
+	body{
+		border: solid 0px gray;
+		margin: 0;
+		padding: 0;
+		font-family: Arial, "MS Trebuchet", sans-serif;    /* 글자모양 첫번째꺼가 적용됨 */
+		word-break: break-all;      /* 공백없이 영어로만 되어질 경우 해당 구역을 뚷고 빠져나가므로 이것을 막기 위해서 사용한다. */
+	}
+	
+	div#container {
+		border: solid 0px blue;
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	legend {
+		font-size: 20pt;
+	}
+	
+	form {
+		margin: 50px 0;  /* 상 하 50px, 좌우 0 */
+	}
+	
+	ul {
+		border: solid 0px red;
+		list-style-type: none; 	/* 기호 제거 */
+		padding: 0;
+	}
+	
+	label.title {						/* 라벨 테그에서 클래스가 title인 부분만 설정 */
+		border: solid 0px blue;
+		display: inline-block;		/* 타입을 변경하고 width 사용 */
+		width: 100px;				/* 너비 설정 */
+		color: navy;				/* 색상 */
+		font-weight: bold;			/* 글자 굵기 */
+	}
+	
+	ul > li {		/* ul > 빼도 무방 */
+		line-height: 40px;     /*  줄간격  */
+	}
+			
+	input.myinput {			/* myinput 클래스부분만 변경 */
+		height: 20px;    /* 높이 설정 */
+	}
+	
+	label[for="female"] {  			/* 라벨 태그에 속성값을 사용하면 id와 class 처럼 지정하여 변경이 가능하다. */
+		/*border: solid 1px red; 
+		color: red; */
+		padding-left: 50px;			/* 여백을 주어서 남자와 여자 사이를 벌려준다 */
+	}
+	
+	input[type="checkbox"] {		/* 속성값이 type="checkbox" 이면 변경한다. */
+		/*box-shadow: 0 0 0 1px red;*/   /* 글자의 그림자를 나타낸다. 순서는 상, 우, 하, 좌 */
+		margin-right: 30px;			/* 옆에 조금씩 벌린다. */
+	}
+	
+	select.myselect {			/* select에 25px 높이를 지정한다. */
+		height: 25px;
+	}
+	
+	fieldset > ul > li:last-child > input {			/* 마지막 li에 있는 input을 나타낸다. */
+		width: 100px;
+	   	height: 40px;
+	   	font-size: 16pt;
+	    border: none;
+	    margin: 20px 0 0 40px;
+	}
+	
+	/* 확인 부분 */
+	#container > form > fieldset > ul > li:last-child > input[type="submit"]:nth-child(1) {
+		background-color: navy;
+		color: white;
+		font-style: italic;	/* 글자 기울이기 */
+	}
+	
+	/* 취소 부분 */
+	#container > form > fieldset > ul > li:last-child > input[type=reset]:nth-child(2) {
+		background-color: red;
+		color: yellow;
+		font-style: italic;  /* 글자 기울이기 */
+	}
+	
+
+</style>
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<form name="registerFrm" action = "register.do">
+		
+			<fieldset>
+			
+				<legend>회원가입정보</legend>
+				
+				<ul>
+				
+					<li>			<!-- 아이디 부분을 text 로 설정  -->
+					
+						<label class="title" for = "userid">아이디</label>   
+						<input class="myinput" type="text" id="userid" size="20" maxlength="20" autofocus autocomplete="off" required />  <!-- 필수 입력부분  -->
+						<!-- text 타입, 아이디 userid, 사이즈 20, 최대 길이 20, 자동포커스, 필수입력 -->
+					
+					</li>
+					
+					<li>		<!-- text와 다르게 암호는 보이지 않는다. -->
+					
+						<label class="title" for = "passwd1">암호</label>
+						<input class="myinput" type="password" id="passwd1" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- text와 다르게 암호는 보이지 않는다. -->
+					
+						<label class="title" for = "passwd2">암호확인</label>
+						<input class="myinput" type="password" id="passwd2" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- 이름 부분 을 text로  -->
+					
+						<label class="title" for = "name">성명</label>
+						<input class="myinput" type="text" id="name" size="20" maxlength="20" required />
+					
+					</li>
+					
+					<li>		<!-- 이메일 부분   -->
+					
+						<label class="title" for = "email">이메일</label>
+						<input class="myinput" id="email" type="email" size="40" maxlength="40" placeholder="예: hongkd@gmail.com" required />
+					
+					</li>
+					
+					<li>		<!-- 성별 남,여 부분   -->
+					
+						<label class="title" >성별</label>
+						<label for="male">남자 </label>			<!-- 남자를 누르면 자동으로 체크되게 설정하기 위해 id와 같게 함 -->
+						<input id="male" type="radio" name="gender" />	<!-- 이름을 똑같이 설정했을때만 radio는 한개만 설정 가능하다. -->
+						<label for="female">여자 </label>			<!-- 여자를 누르면 자동으로 체크되게 설정하기 위해 id와 같게 함 -->
+						<input id="female" type="radio" name="gender" />   
+						<!-- <input id="female" type="radio" name="gender" checked />   checked 는 처음부터 체크되게 나온다.-->
+						
+						<!-- radio 는 체크할 수 잇는 부분을 나타낸다. (한개만 체크 ) -->
+					
+					</li>
+					
+					<li>		<!-- 체크박스 부분 다중 선택 가능하다. -->
+					
+						<label class="title">취미</label>
+						<label for="game"> 게임 </label> <input id="game" type="checkbox"  />
+						<label for="movie"> 영화감상 </label> <input id="movie" type="checkbox"  />
+						<label for="writing"> 글쓰기 </label> <input id="writing" type="checkbox"  />
+						<label for="music"> 음악감상 </label> <input id="music" type="checkbox"  />
+					
+					</li>
+					
+					<li>		<!-- 출생년도 부분  -->
+					
+						<label class="title">출생년도</label>
+						<select class="myselect" id="birthYear"></select>			
+						
+					</li>
+					
+					<li>			<!-- 현재나이 부분  -->
+						<label class="title">현재나이</label>
+						<span id="age" style="font-size: 12pt; color: red" ></span>세
+					</li>
+					
+					<li>		<!-- 최종학력 부분 (선택 할 수 있게 나온다. 한개만 ) -->
+					
+						<label class="title">최종학력</label>
+						<select class="myselect">					<!-- 한개만 선택 할 수 있게 나온다. -->
+						
+							<option>학력선택</option>
+							<option>고졸</option>
+							<option>초대졸</option>
+							<option>대졸</option>    
+							<option>대학원졸</option>
+						</select>	
+					</li>
+					
+					
+					<li>		<!-- 파일 첨부 부분 -->
+					
+						<label class="title" for="addfile" >파일첨부</label>
+						<input id="addfile" type="file" />
+						<!-- file은 파일 첨부 할 수 있는 것이다.  -->
+						
+					</li>
+					
+					
+					<li>		<!-- textarea 부분 -->
+					
+						<label class="title" for="registerComment" >가입인사말</label>
+						<textarea id= "registerComment" rows="5" cols="30"  placeholder="하고 싶은 말을 쓰세요"></textarea>
+						<!-- textarea 는 글을 쓸수 있는 곳을 만든다. rows 는 5 줄 cols 는 30 컬럼 (30글자씩)  -->
+						
+					</li>
+					
+					<li>
+						<input type="submit" value="확인" />
+						<input type="reset" value="취소" />
+					
+					</li>
+					
+				
+				</ul>
+				
+			</fieldset>
+		
+		</form>
+	
+	</div>
+	
+	
+<script type="text/javascript">
+
+	// 출생년도에 1950년부터 현재년도까지 나오게 하기 
+	let str_option = `<option>출생년도</option>`;
+	
+	const now = new Date(); // 자바스크립트에서 현재날짜시각을 알려주는 것이다.
+	const currentYear = now.getFullYear();  // 현재년도
+	
+	for(let i=0; i<(currentYear-1950+1); i++) {
+		str_option += `<option>${i+1950}</option>`;       // 1950년부터 현재년도 꺼지 반복한다.
+	}//end of for 
+	
+	document.querySelector("select#birthYear").innerHTML = str_option;  // 출생년도에 칸에 1950년부터 현재까지 나오게 함
+
+	
+	// 출생년도에서 고르면 현재 나이가 나오도록 하기
+	document.querySelector("select#birthYear").addEventListener('change', function(e){ // 출생년도가 바뀔때 시작
+		// console.log(this.value);
+		// 또는
+		//console.log(e.target.value);
+		
+		
+		
+		// NaN ==> Not a Number
+		/*
+			isNaN(값) ==> 값이 숫자가 아니라면 true
+			isNaN(값) ==> 값이 숫자라면 false
+		*/
+		
+		
+		if( isNaN(this.value)) {  // this.value가 "출생년도"를 선택한 경우
+			alert("태어나신 년도를 선택하세요");
+			document.querySelector("span#age").innerHTML = "";
+		}
+		else {  // 올바른 숫자년도를 선택한 경우임.
+			const age = currentYear - Number(this.value) +1;
+		
+			document.querySelector("span#age").innerHTML = age;
+		}
+		
+		
+		
+		/*
+			내가 실습한 부분
+		let str_age = `<span>${currentYear - Number(this.value) + 1}</span>`;
+		
+		document.querySelector("span#age").innerHTML = str_age;
+		*/
+	});
+	
+	
+	//////////////////////////////////////////////////////////////////////
+	
+	// === submit 하기 ===
+		
+	const frm = document.registerFrm;  // 요 문서 내에서 이름이 registerFrm 이다.(지금은 form 태그를 잡는다.)
+	
+	/*
+	frm.onsubmit = function() {
+		alert("확인용2");
+	};
+	
+	// 또는
+	
+	frm.addEventListener('submit', function(){
+		alert("확인용");
+	});
+	*/
+	
+	frm.onsubmit = function(){
+		// !!! required 속성이 먹히는 것은 모두 유효성 검사를 해줄 필요가 없다. !!! //
+        /*
+           input 태그 , radio , textarea 는 따로 유효성 검사를 해줄 필요가 없다.
+        */
+        
+        // !!! required 속성이 안 먹히는 것은 모두 유효성 검사를 해주어야 한다. !!! //
+        /*
+           -- checkbox 는 required 속성이 먹히지만 모든 체크박스에 required 속성을 주면 모든 체크박스에 체크를 해주어야 하기 때문에 required 속성을 주지 않도록 한다.
+           -- select
+           는 유효성 검사를 해주도록 한다.
+        */
+        
+        const passwd1_val = document.querySelector("input#passwd1").value;
+		const passwd2_val = document.querySelector("input#passwd2").value;
+		
+		if(passwd1_val != passwd2_val) {
+			alert("암호와 암호확인 값이 서로 다릅니다.!!");
+			document.querySelector("input#passwd1").value = "";
+			document.querySelector("input#passwd2").value = "";
+			document.querySelector("input#passwd1").focus();
+			return false;    // submit을 하지 않고 돌아간다.
+        	 /* 
+	             !!! 중요 !!!
+	             return false; 를 하게 되면 submit 은 하지 않고 이미 입력한 값은 그대로 유지시켜준다.
+	             return; 를 하게 되면 이미 입력한 값까지 몽땅 초기화 되어 다시 처음부터 입력하게 된다.
+	             그러므로 return; 을 쓰면 안되고 return false; 를 써야 한다.
+         	 */
+        	 
+        }
+        
+        
+	};
+	
+
+	
+	
+</script>	
+
+
+</body>
+</html>
