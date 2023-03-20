@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 정규표현식을 사용한 폼 유효성 검사</title>
+
+<style type="text/css">
+
+	body {
+		border: solid 0px gray;
+		margin: 0;
+		padding: 0;
+		font-family: Arial, "MS Trebuchet", sans-serif;
+		word-break: break-all; /* 공백없이 영어로만 되어질 경우 해당구역을 뚫고 빠져나가므로 이것을 막기위해서 사용한다. */
+	}
+	
+	div#container {
+		border: solid 0px blue;
+		width: 80%;
+		margin: 0 auto; 
+	}
+	
+	legend {
+		font-size: 20pt;
+	}
+	
+	form {
+		margin: 50px 0; 
+	}
+	
+	ul {
+		border: solid 0px red;
+		list-style-type: none;
+		padding: 0; 
+	}
+	
+	ul > li { 
+		line-height: 40px;
+	} 
+	
+	label.title { 
+		border: solid 0px blue;
+		display: inline-block;
+		width: 100px;
+		color: navy;
+		font-weight: bold; 
+	}
+	
+	input.myinput {
+		height: 20px;  
+	}
+	
+
+    label[for="female"] {
+      /* 
+    	border: solid 1px red;
+    	color: red;
+      */
+    	padding-left: 50px;   
+    }
+    
+    input[type="checkbox"] {
+     /*	box-shadow: 0 0 0 1px red; */   
+    	margin-right: 30px; 
+    }
+
+    select.myselect {
+    	height: 25px;
+    }
+    
+    li.submit > button {
+	    width: 140px;
+	    height: 40px;
+	    font-size: 16pt;
+	    border: none;
+	    margin: 20px 0 0 40px;
+    }
+    
+    span.err_msg {
+    	font-weight: bold;
+    	color: red;
+    	padding-left: 20px; 
+    }
+    
+</style>
+
+</head>
+<body>
+
+	<div id="container">
+	
+		<form name="registerFrm">
+		
+			<fieldset>
+				<legend>회원가입정보</legend>
+				
+				<ul>
+					<li>
+						<label class="title" for="userid">아이디</label>
+						<input class="myinput" id="userid" type="text" size="20" maxlength="20" autofocus autocomplete="off" />
+						<span class="err_msg" id="err_userid"></span>
+					</li>
+					
+					<li>
+						<label class="title" for="passwd1">암호</label>
+						<input class="myinput" id="passwd1" type="password" size="20" maxlength="20" /> 
+						<span class="err_msg" id="err_passwd1"></span>
+					</li>
+					
+					<li>
+						<label class="title" for="passwd2">암호확인</label>
+						<input class="myinput" id="passwd2" type="password" size="20" maxlength="20" />
+						<span class="err_msg" id="err_passwd2"></span>
+					</li>
+					
+					<li>
+						<label class="title" for="name">성명</label>
+						<input class="myinput" id="name" type="text" size="20" maxlength="20" />
+						<span class="err_msg" id="err_name"></span>
+					</li>
+					
+					<li>
+						<label class="title" for="email">이메일</label>
+						<input class="myinput" id="email" type="email" size="40" maxlength="40" placeholder="예: hongkd@gmail.com" />
+						<span class="err_msg" id="err_email"></span> 
+					</li>
+					
+					<li>
+					    <label class="title">성별</label>
+					    <label for="male">남자</label>
+					    <input id="male" type="radio" name="gender" /> 
+					    <label for="female">여자</label>
+					    <input id="female" type="radio" name="gender" /> 
+				  <!--  <input id="female" type="radio" name="gender" checked /> --> 
+				        <span class="err_msg" id="err_gender"></span>
+					</li>
+					 
+					<li>
+					    <label class="title">취미</label>
+					    <label for="game">게임</label><input id="game" type="checkbox" name="hobby" /> 
+					    <label for="movie">영화감상</label><input id="movie" type="checkbox" name="hobby" />
+					    <label for="writing">글쓰기</label><input id="writing" type="checkbox" name="hobby" />
+					    <label for="music">음악감상</label><input id="music" type="checkbox" name="hobby" />
+					    <span class="err_msg" id="err_hobby"></span>
+					</li>
+					
+					<li>
+					    <label class="title">출생년도</label>
+					    <select class="myselect" id="birthYear"></select>
+					    <span class="err_msg" id="err_birthYear"></span>
+					</li>
+					
+					<li>
+					    <label class="title">현재나이</label>
+					    <span id="age" style="font-size: 12pt; color: red;"></span>세
+					</li>
+					
+					<li>
+					    <label class="title">최종학력</label>
+					    <select class="myselect" id="school">
+					        <option>학력선택</option>
+					    	<option>고졸</option>
+					    	<option>초대졸</option>
+					    	<option>대졸</option>
+					    	<option>대학원졸</option>
+					    </select>
+					    <span class="err_msg" id="err_school"></span>
+					</li>
+					
+					<li>
+						<label class="title" for="addfile">파일첨부</label>
+						<input id="addfile" type="file" /> 
+					</li>
+					
+					<li>
+						<label class="title" for="registerComment">가입인사말</label>
+						<textarea id="registerComment" rows="5" cols="30"></textarea>
+						<span class="err_msg" id="err_registerComment"></span> 
+					</li>
+					
+					<li class="submit">
+					    <button type="button" onclick="goSubmit()">확인(button)</button>
+					    <button type="reset" onclick="goReset()">취소(reset)</button>
+					</li>
+															
+				</ul>
+			
+			</fieldset>
+		</form>
+	</div>
+
+<script type="text/javascript">
+
+	let str_option = `<option>출생년도</option>`;
+	
+	const now = new Date(); // 자바스크립트에서 현재날짜시각을 알려주는 것이다.
+	const currentYear = now.getFullYear(); // 현재년도 
+	
+	for(let i=0; i<(currentYear-1950+1); i++) {
+		str_option += `<option>${i+1950}</option>`;
+	}// end of for----------------------------------
+	
+	document.querySelector("select#birthYear").innerHTML = str_option;
+	
+	document.querySelector("select#birthYear").addEventListener('change', function(e) {
+		// console.log(this.value);
+		// 또는
+		// console.log(e.target.value);
+		
+		// NaN ==> Not a Number
+		/*
+		   isNaN(값) ==> 값이 숫자가 아니라면 true 
+		   isNaN(값) ==> 값이 숫자이라면 false
+		*/
+		if( isNaN(this.value) ) { // this.value 가 "출생년도"를 선택한 경우 
+			alert("태어나신 년도를 선택하세요");
+			document.querySelector("span#age").innerHTML = "";
+		}
+		else { // 올바른 숫자년도를 선택한 경우임.
+			const age = currentYear - Number(this.value) + 1;
+			document.querySelector("span#age").innerHTML = age;	
+		}
+		
+	});
+	
+	
+	///////////////////////////////////////////////////////////////////
+		
+	function goSubmit() {
+	
+		// 1. 아이디는 5글자 이상 20글자 이하이어야 하고, 첫글자는 영문자이어야 하며, 그 나머지 글자는 영문자 또는 숫자로만 이루어져야 한다. 
+		// 올바른 예: Superman, superman, superman007
+		// 틀린 예 : su09, 2superman, superman@, ba$tman#, s슈퍼맨
+		
+		// === 정규표현식 객체 만들기 === //
+		// 정규표현식 객체는 항상 / 로 시작해서 / 로 끝나고 ; 을 붙여주면 된다.
+		/*
+			regexp = /pattern/[flags];
+		    또는 
+            regexp = new RegExp('pattern',['flags']);
+		*/
+		
+		let regExp = /^[A-Za-z][A-Za-z0-9]{4,19}$/;
+	//  또는
+	//  let regExp = new RegExp('^[A-Za-z][A-Za-z0-9]{4,19}$');
+		
+		// 위에서 생성한 정규표현식 객체에 데이터값을 넣어서 검사를 한다.
+		const userid_val = document.querySelector("input#userid").value;
+		
+		/*
+		   regExp.test(userid_val); // userid_val 이 regExp 패턴에 맞으면 true
+		                            // userid_val 이 regExp 패턴에 틀리면 false 
+		*/
+		
+		if(!regExp.test(userid_val)) {
+			// alert("아이디는 필수 입력사항 입니다.\n아이디를 입력하세요!!");
+			document.querySelector("span#err_userid").innerHTML = "5글자~20글자 이어야 하고 첫글자는 영문자 나머지는 영문자 또는 숫자 이어야 합니다."; 
+			
+			document.querySelector("input#userid").value = "";
+			document.querySelector("input#userid").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_userid").innerHTML = "";
+		}
+		
+		   
+		// 2. 암호는 8글자 이상 15글자 이하이어야 하고, 영문자,숫자,특수문자가 혼합되어야만 한다.
+		// 올바른 예: qwer1234$, Abcd007!
+		// 틀린 예 :  qw12$, qwer1234
+		
+		// === 정규표현식 객체 만들기 === //
+		// 정규표현식 객체는 항상 / 로 시작해서 / 로 끝나고 ; 을 붙여주면 된다.
+		regExp = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).*$/g;
+		
+		const passwd1_val = document.querySelector("input#passwd1").value;
+		
+		if(!regExp.test(passwd1_val)) {
+		    // alert("암호는 필수 입력사항 입니다.\n암호를 입력하세요!!");
+		    
+		    document.querySelector("span#err_passwd1").innerHTML = "암호는 8글자~15글자 이어야 하고 영문자,숫자,특수문자가 혼합되어야 합니다.";
+		    document.querySelector("input#passwd1").value = "";
+			document.querySelector("input#passwd1").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_passwd1").innerHTML = "";
+		}
+		
+		
+		// 3. 암호 입력란과 암호확인 입력란의 데이터가 동일한지 검사한다.
+		const passwd2_val = document.querySelector("input#passwd2").value;
+		
+		if(passwd1_val != passwd2_val) {
+		    // alert("암호와 암호확인 값이 서로 다릅니다!!");
+		    
+		    document.querySelector("span#err_passwd2").innerHTML = "암호와 암호확인 값이 서로 다릅니다!!";
+			document.querySelector("input#passwd1").value = "";
+			document.querySelector("input#passwd2").value = "";
+			document.querySelector("input#passwd1").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_passwd2").innerHTML = "";
+		}
+		
+		
+		// 4. 성명은 띄워쓰기 없이 한글로만 2글자 6글자 이하로 반드시 입력했는지 검사한다.
+		
+		regExp = /^[가-힣]{2,6}$/;
+		
+		const name_val = document.querySelector("input#name").value;
+		
+		if(!regExp.test(name_val)) {
+			// alert("성명은 필수 입력사항 입니다.\n성명을 입력하세요!!");
+			
+			document.querySelector("span#err_name").innerHTML = "띄워쓰기 없이 한글로만 2글자 이상 6글자 이하로 입력하세요.";
+			document.querySelector("input#name").value = "";
+			document.querySelector("input#name").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_name").innerHTML = "";
+		}
+		
+		
+		// 5. 이메일은 필수 입력사항 이므로 반드시 입력했는지 검사한다.
+		
+		regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
+		
+		const email_val = document.querySelector("input#email").value;
+		
+		if(!regExp.test(email_val)) {
+			// alert("e메일은 필수 입력사항 입니다.\ne메일을 입력하세요!!");
+			
+			document.querySelector("span#err_email").innerHTML = "올바른 e메일 형식이 아닙니다.";
+			document.querySelector("input#email").value = "";
+			document.querySelector("input#email").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_email").innerHTML = "";
+		}
+		
+		
+		// 6. 성별을 선택했는지 검사하기
+		const genderList = document.registerFrm.gender;
+		
+		let gender_flag = false;
+		
+		for(let gender of genderList) {
+			if(gender.checked) {
+				gender_flag = true;
+				break;
+			}
+		}// end of for----------------------
+		
+		if(!gender_flag) {
+			// alert("성별을 선택하세요!!");
+			document.querySelector("span#err_gender").innerHTML = "성별을 선택하세요!!";
+			return; // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_gender").innerHTML = ""; 
+		}
+		
+		
+		// 7. 취미를 2개 이상 선택했는지 검사하기
+		const chkbox_hobby_List = document.registerFrm.hobby;
+		
+		let cnt = 0;
+		for(let chkbox of chkbox_hobby_List) {
+			
+			if(chkbox.checked) {
+				cnt++;
+			}
+			
+		}// end of for--------------------------
+		
+		if(cnt < 2) {
+			// alert("취미는 최소한 2개 이상 선택하셔야 합니다.");
+			
+			document.querySelector("span#err_hobby").innerHTML = "취미는 최소한 2개 이상 선택하셔야 합니다."; 
+			return; // function goSubmit() 를 종료시킨다.
+		}	
+		else {
+			document.querySelector("span#err_hobby").innerHTML = ""; 
+		}
+		
+		
+		// 8. 출생년도를 선택했는지 검사하기
+		const birthYear = document.querySelector("select#birthYear").value;
+		
+		// NaN ==> Not a Number
+		// isNaN("출생년도") ==> true  숫자가 아니어야만 true
+		// isNaN("1998")   ==> false 숫자이라면 false
+		// isNaN(1998)     ==> false 숫자이라면 false
+		
+		if(isNaN(birthYear)) {
+			// alert("\"출생년도\"를 올바르게 선택하세요!!");
+			
+			document.querySelector("span#err_birthYear").innerHTML = "출생년도를 올바르게 선택하세요!!"; 
+			return; // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_birthYear").innerHTML = "";
+		}
+		
+		
+		// 9. 학력을 선택했는지 검사하기
+		const school = document.querySelector("select#school").value;
+		
+		if(school === "학력선택") {
+			// alert(`"학력선택"을 올바르게 선택하세요!!`);
+			
+			document.querySelector("span#err_school").innerHTML = "학력선택을 올바르게 선택하세요!!";
+			return; // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_school").innerHTML = "";
+		}
+		
+		
+		// 10. 가입인사말을 입력했는지 검사하기 
+		const registerComment_val = document.querySelector("textarea#registerComment").value; 
+		
+		if(registerComment_val.trim() == "") {
+			// alert("가입인사말을 입력하세요!!");
+			
+			document.querySelector("span#err_registerComment").innerHTML = "가입인사말을 입력하세요!!";
+			document.querySelector("textarea#registerComment").value = "";
+			document.querySelector("textarea#registerComment").focus();
+			return;  // function goSubmit() 를 종료시킨다.
+		}
+		else {
+			document.querySelector("span#err_registerComment").innerHTML = "";
+		}
+		
+		
+		document.registerFrm.action="submit.do";
+		document.registerFrm.submit(); // 전송하기 
+		
+	}// end of function goSubmit()------------------------------------
+	
+	
+	function goReset() {
+		document.querySelector("span#age").innerHTML = "";
+	}
+
+</script>
+
+</body>
+</html>

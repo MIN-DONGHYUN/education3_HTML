@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 연결하여 처리하기 2 (bind, forEach)</title>
+
+<style type="text/css">
+
+	div#firstdiv, div#result {
+		/* border: solid 1px gray;  */
+		
+		width: 80%;
+		margin: 0 auto;
+	}
+	
+	div#result {
+		margin: 20px 0 0 0;
+		padding-left: 100px;
+		font-size: 16pt;
+	}
+	
+
+	span.buttons {
+		display: inline-block;
+		border: solid 2px orange;
+		width: 100px;
+		margin: 20px;
+		padding: 5px;
+		background-color: yellow;
+		color: #ff0000;
+		font-size: 15pt;
+		cursor: pointer;
+	}	
+	
+	
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		const man = "박보검,차은우,이제훈,강동원,유승호";
+		const woman = "김태리,배수지,아이유,김연아,박보영";
+		
+		$("span.man").bind("click", function(){
+			$("div#result").html( func_friend(man.split(",")) );
+		});
+		
+		$("span.woman").bind("click", function(){
+			$("div#result").html( func_friend(woman.split(",")) );
+		});
+		
+		$("span.clear").bind("click", function(){
+			$("div#result").html("");
+		});
+		
+	}); // end of $(document).ready(function(){})---------------------
+	
+	
+	// Function Declaration 
+	function func_friend(arr) {
+		
+		let html = `<ol>`;
+		
+		arr.forEach( item => {
+			html += `<li>${item}</li>`;
+		});
+		
+		html += `</ol>`;
+		
+		return html;
+	}// end of function func_friend() {}------------------------------
+
+</script>
+
+</head>
+<body>
+    <div id="firstDiv">
+		<span class="buttons man">남자친구</span>
+		<span class="buttons woman">여자친구</span>
+		<span class="buttons clear">지우기</span>
+	</div>
+	<div id="result"></div>
+</body>
+</html>

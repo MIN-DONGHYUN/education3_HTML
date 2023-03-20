@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>타이머만들기 및 객체배열을 사용한 객관식문제 만들기</title>
+
+<style type="text/css">
+	
+	div#Main{
+	border: solid 1px green;
+	width : 100%;	
+	}
+	
+	div#title{
+	border: solid 1px red;
+	color: #666;
+	font-size: 30pt;
+	text-align: center;
+	}
+	
+	div#timer {
+	 	border: solid 1px gray;
+		color: blue;
+		font-size: 25pt;
+		text-align: right;
+		padding: 0 30px 0 0;
+	} 
+	
+	div.dis{
+	border: solid 3px skyblue;
+	display: inline-block;
+	width: 100%;
+}
+	
+	div#quiz_display {
+		border: solid 1px blue;
+		margin-top: 40px; 
+		width:49%;
+		float:left;
+	} 
+	div#quiz_display2 {
+		border: solid 1px blue;
+		margin-top: 40px;
+		
+		width:49%;
+		float:right;
+		
+	}
+	
+	li {
+		line-height: 30px;
+	}
+	
+	div.ox { 
+		font-size: 10pt;
+		font-weight: bold;
+		padding-bottom: 20px;
+		margin-top: -10px;
+	}
+	
+	div.ox2 { 
+		font-size: 10pt;
+		font-weight: bold;
+		padding-bottom: 20px;
+		margin-top: -10px;
+	}
+	
+	button#btnSubmit {
+	    border: solid 1px tomato; 
+	    color: tomato; 
+	    padding: 5px; 
+	    border-radius: 5px;
+	}
+	
+	button#btnSubmit:hover {
+		cursor: pointer;
+		background-color: yellow;
+	}
+		
+	span#warning {
+		border: solid 1px red;
+		margin-left: 10px;
+		padding: 5px 10px;
+		font-size: 10pt;
+		font-weight: bold;
+	}
+	
+</style>
+
+<script type="text/javascript" src="./js/f12.js"></script>
+
+<script type="text/javascript">
+
+ window.onload = function(){
+	 
+	 const timerDiv = document.querySelector("div#timer") // 타이머를 보여줄 장소
+	 const btnSubmit = document.querySelector("button#btnSubmit"); // 제출하기 버튼 
+	 
+	 let time = 600; // 타이머 시간을 10분으로 지정함. 
+	 
+	 // 타이머 함수 만들기
+	 const timer = function(){
+		 
+		 if(time < 0) {
+			 alert("시험시간 종료!!\n자동으로 제출됩니다.");
+			 
+			 clearInterval(setTimer);   // 타이머 삭제하기 
+			                            // setTimer 는 중단해야할 setInterval 함수를 가리키는 것이다.
+			 
+			 btnSubmit.disabled = true; // "제출하기" 버튼 비활성화                           
+			 check();  // 채점하는 함수 호출 		                          
+		 }
+		 
+		 else {
+			 let minute;
+			 let second;
+			 
+			 minute = Math.floor(time / 60); // 소수부는 없애 버리고 정수만 가져오는 것이다.
+	         if(minute < 10) {
+	            minute = "0"+minute;
+	         }
+			  
+	         second = time % 60;
+			 if(second < 10) {
+			    second = "0"+second;
+			 }
+			 
+			 timerDiv.innerHTML = `${minute}:${second}`;
+			  
+			 time--;
+		 }
+		 
+	 };
+	 
+	timer(); // 타이머 함수 호출 
+	 
+//  setInterval(function(){ timer(); }, 1000); // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정  
+//  또는 	  
+    const setTimer = setInterval(timer, 1000); // 1초 마다 주기적으로 타이머 함수가 호출하도록 지정
+	 
+    /////////////////////////////////////////////////////////////////////////
+    
+    const arr_quizData = [{question : "Quiz no.1 쌍용강북교육센터을 가기위한 지하철역 이름은?",
+    		               answers : {1:"홍대입구", 2:"건대입구", 3:"서울대입구", 4:"숙대입구"}, 
+    		               correct : 1},
+    		              {question : "Quiz no.2 쌍용강북교육센터를 가기위해 나와야할 지하철출구번호는?",
+        		           answers : {1:"9번 출구", 2:"6번 출구", 3:"4번 출구", 4:"1번 출구"}, 
+        		           correct : 4},
+    		              {question : "Quiz no.3. 우리가 수업듣는 강의실 명은?",
+            		       answers : {1:"G강의실", 2:"C강의실", 3:"D강의실", 4:"A강의실"}, 
+            		       correct : 1}];
+    
+     const quizDiv = document.querySelector("div#quiz_display"); // 퀴즈문항을 보여줄 장소 
+     
+     // 퀴즈문항을 html 로 만들기 
+     let html = ``;
+     
+     arr_quizData.forEach( (item, index) => {
+    	 
+    	 html += `<p id="question${index}">${item.question}</p>`;
+    	 
+    	 html += `<ol>`;
+    	 
+    	 for(let key in item.answers) { // 어떤 객체의 속성(키)들을 모두 불러올때는 for문에서 of 가 아니라 in 을 사용한다. 
+    		 html += `<li> <label for="${index}${key}">${item.answers[key]}</label> <input type="radio" name="question${index}" id="${index}${key}" value="${key}" /> </li>`; 
+    		 /*
+		      객체의 속성에 해당하는 값을 읽어오는 방법에 있어서 속성명이 변수로 되어져 있을 경우에는 .표기법이 아닌 대괄호 표기법을 사용해야 한다. 
+			  즉, 속성명이 변수로 되어져 있을 경우 속성명에 해당하는 값을 읽어오기 위해서는 객체.속성명 이 아닌 객체[속성명] 으로 해야만 한다.
+			
+			  ${item.answers[key]} 는 "부산" 과 같은 것을 말하는 것이다.
+			  
+			  radio는 반드시 name 값이 동일해야 한다.
+			  
+			  radio의 value값은 item.answers 의 속성명인 1 2 3 4 5 중의 하나가 된다. 
+		    */
+    	 }// end of for------------------------ 
+    	 
+    	 html += `</ol>`;
+    	 html += `<div class="ox" id="ox${index}"></div>`;  // 퀴즈문항에 대해 정답인지 틀린것인지를 보여줄 장소 
+     } );
+    
+     quizDiv.innerHTML = html;
+     
+     ////////////////////////////////////////////////////////////////////////////////
+     
+     const arr_quizData2 = [{question2 : "Quiz no.4 쌍용강북교육센터을 가기위한 지하철역 이름은?",
+    		               answers2 : {1:'iyou.jpg', 2:'kimth.jpg', 3:"parkby.jpg", 4:"iyou.jpg"},
+    		               image : {1:["iyou.jpg"], 2:["kimth.jpg"], 3:["parkby.jpg"], 4:["iyou.jpg"]}, 
+    		               correct2 : 1},
+    		              {question2 : "Quiz no.5 쌍용강북교육센터를 가기위해 나와야할 지하철출구번호는?",
+        		           answers2 : {1:"9번 출구", 2:"6번 출구", 3:"4번 출구", 4:"1번 출구"}, 
+        		           image :{1:"iyou.jpg", 2:"kimth.jpg", 3:"parkby.jpg", 4:"iyou.jpg"},  
+        		           correct2 : 4},
+    		              {question2 : "Quiz no.6 우리가 수업듣는 강의실 명은?",
+            		       answers2 : {1:"G강의실", 2:"C강의실", 3:"D강의실", 4:"A강의실"}, 
+            		       image :{1:["iyou.jpg"], 2:["kimth.jpg"], 3:["parkby.jpg"], 4:["iyou.jpg"]},
+            		       correct2 : 1}];
+    
+     const quizDiv2 = document.querySelector("div#quiz_display2"); // 퀴즈문항을 보여줄 장소 
+     
+     // 퀴즈문항을 html 로 만들기 
+     let html2 = ``;
+     
+     arr_quizData2.forEach( (item, index) => {
+    	 
+    	 html2 += `<p id="question2${index}">${item.question2}</p>`;
+    	 
+    	 html2 += `<ol>`;
+    	 
+    	 for(let key2 in item.answers2) {
+    		 html2 += `<li><img src='./images2/${item.answers2[key2]}'> <input type="radio" name="question2${index}" id="${index}${key2}" value="${key2}" /> </li>`; 
+    		
+    	 }// end of for------------------------ 
+    	 
+    	 html2 += `</ol>`;
+    	 html2 += `<div class="ox2" id="ox2${index}"></div>`;  // 퀴즈문항에 대해 정답인지 틀린것인지를 보여줄 장소 
+     } );
+    
+     quizDiv2.innerHTML = html2;
+     
+     
+     /////////////////////////////////////////////////////////////////////
+     
+     // 제출하기 버튼 클릭시 이벤트 처리하기
+     const handleSubmit = function(){
+    	 
+      // confirm("정말로 제출하시겠습니까?"); 확인을 클릭하면 true, 취소를 클릭하면 false 를 리턴해줌. 
+    	 
+    	 alert("제출이 완료되었습니다.");
+    	 clearInterval(setTimer);   // 타이머 삭제하기 
+                                    // setTimer 는 중단해야할 setInterval 함수를 가리키는 것이다.
+
+         timerDiv.innerHTML = "00:00";                           
+         btnSubmit.disabled = true;  // "제출하기" 버튼 비활성화
+     //  btnSubmit.disabled = false; // "제출하기" 버튼 활성화
+         check(); // 채점하는 함수 호출
+    	 
+     };
+     
+     btnSubmit.addEventListener('click', handleSubmit);
+     
+     // Function Expression
+     const check = function(){
+    	 
+    	 let correctCnt = 0; // 정답개수 누적용 
+    	 
+    	 arr_quizData.forEach( function(item, index){
+    		
+	    	  // console.log(`${index+1}번 문제 정답은 ${item.correct}`);
+	    	  
+	    	  // 퀴즈문항 뒤에 정답번호 공개하기 
+	    	  document.querySelector(`p#question${index}`).append(`  ${item.correct}`); 
+	    	  // 노드.append("문자열") 은 노드 바로 뒤에 "문자열"을 덧붙여 주는 것이다.  
+	    	  
+	    	  const radio_length = document.getElementsByName(`question${index}`).length;
+	    	  console.log(`${index+1}번 문제 라디오 개수는 ${radio_length}개`);
+
+	    	  let isCheckAnswer = false; // 라디오의 선택유무 검사용 
+	    	  for(var i=0; i<`${radio_length}`; i++) {
+	    		  if( document.getElementsByName(`question${index}`)[i].checked ) {
+	    			  isCheckAnswer = true;
+	    			  break;
+	    		  }  
+	    	  }// end of for----------------------
+	    	  console.log(`${index+1}번 문제 라디오를 선택하셨나요? ${isCheckAnswer}`);
+	    	  
+	    	  let userAnswer;
+	    	  if(isCheckAnswer) { // 답을 선택한 경우 
+	    		  userAnswer = document.querySelector(`input[name="question${index}"]:checked`).value;  
+	    		                                                                  // :checked 는 라디오(또는 체크박스)중에 선택되어진 것을 말한다.   
+	    	  }
+	    	  else {  // 답을 선택하지 않은 경우
+	    		  userAnswer = "선택안함"; 
+	    	  }
+	    	  console.log("사용자가 선택한 답번호 : " + userAnswer);
+	    	  console.log("");
+	    	  
+	    	  if( userAnswer == item.correct ) {
+	    		  correctCnt++;
+	    		  document.querySelector(`div#ox${index}`).innerHTML = "<span style='color:blue'>정답</span>"; 
+	    	  }
+	    	  else {
+	    		  document.querySelector(`div#ox${index}`).innerHTML = "<span style='color:red'>틀림</span>"; 
+	    	  }
+    		 
+    	 } ); // end of arr_quizData.forEach()------------------------
+    	 
+    	 arr_quizData2.forEach( function(item, index){
+     		
+	    	  // console.log(`${index+1}번 문제 정답은 ${item.correct}`);
+	    	  
+	    	  // 퀴즈문항 뒤에 정답번호 공개하기 
+	    	  document.querySelector(`p#question2${index}`).append(`  ${item.correct2}`); 
+	    	  // 노드.append("문자열") 은 노드 바로 뒤에 "문자열"을 덧붙여 주는 것이다.  
+	    	  
+	    	  const radio_length2 = document.getElementsByName(`question2${index}`).length;
+	    	  console.log(`${index+1}번 문제 라디오 개수는 ${radio_length2}개`);
+
+	    	  let isCheckAnswer2 = false; // 라디오의 선택유무 검사용 
+	    	  for(var i=0; i<`${radio_length2}`; i++) {
+	    		  if( document.getElementsByName(`question2${index}`)[i].checked ) {
+	    			  isCheckAnswer2 = true;
+	    			  break;
+	    		  }  
+	    	  }// end of for----------------------
+	    	  console.log(`${index+1}번 문제 라디오를 선택하셨나요? ${isCheckAnswer2}`);
+	    	  
+	    	  let userAnswer2;
+	    	  if(isCheckAnswer2) { // 답을 선택한 경우 
+	    		  userAnswer2 = document.querySelector(`input[name="question2${index}"]:checked`).value;  
+	    		                                                                  // :checked 는 라디오(또는 체크박스)중에 선택되어진 것을 말한다.   
+	    	  }
+	    	  else {  // 답을 선택하지 않은 경우
+	    		  userAnswer2 = "선택안함"; 
+	    	  }
+	    	  console.log("사용자가 선택한 답번호 : " + userAnswer2);
+	    	  console.log("");
+	    	  
+	    	  if( userAnswer2 == item.correct2 ) {
+	    		  correctCnt++;
+	    		  document.querySelector(`div#ox2${index}`).innerHTML = "<span style='color:blue'>정답</span>"; 
+	    	  }
+	    	  else {
+	    		  document.querySelector(`div#ox2${index}`).innerHTML = "<span style='color:red'>틀림</span>"; 
+	    	  }
+   		 
+   	 } ); // end of arr_quizData.forEach()------------------------
+    	
+    	 
+    	 document.querySelector("div#score").innerHTML = `<span style="font-weight: bold">정답개수 : ${correctCnt}</span>`;
+     };
+     
+ }// end of window.onload = function(){}------------------------
+ 
+ 
+
+ 
+</script>
+
+</head>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onkeydown="return keydowncheck();">
+<!-- 
+     === >>> 소스보기 금지 <<< === 
+	 oncontextmenu="return false" : 마우스 우클릭 금지
+     ondragstart="return false"   : 드래그 금지
+     onselectstart="return false" : 선택복사 금지
+ -->
+ 
+<!-- >> onselectstart="return false" 에 노란줄과 함께 [Undefined attribute name]에 대한 이클립스 경고(Warning) 해결방안 <<
+     "Undefined attribute name"은 HTML에서 지정하지 않은 속성을 사용하고 있다는 경고이다.
+     이러한 "Undefined attribute name" 경고를 보이지 않게 하려면 아래와 같이 하면 된다.
+     Window -> Preferences -> Web -> HTML Files -> Validation 을 선택하고 Attributes 항목을 클릭한다.
+     그런다음 Undefined attribute name: Warning 을 Undefined attribute name: Ignore 으로 설정하고 
+     Apply 및 Apply and Close 버튼을 클릭하고서 이클립스를 껐다가 다시 키면 [Undefined attribute name]에 대한 이클립스 경고(Warning)가 다시는 뜨지 않는다.  
+-->	
+	<div id="Main">
+		<div id="title">쌍용강북교육센터 QUIZ
+			<div id="timer"></div>
+		</div>
+		
+	</div>
+	<div id="quiz_display" class="dis"></div>
+	<div id="quiz_display2" class="dis"><br/><br/></div>
+	<br/><br/><br/>	
+	<button type="button" id="btnSubmit">제출하기</button>
+	<span id="warning">[주의] "제출하기" 버튼을 클릭하는 순간 취소가 불가하므로 신중히 클릭하십시오!!</span>
+    <div id="score" style="margin-top: 10px;"></div>
+</body>
+</html>
