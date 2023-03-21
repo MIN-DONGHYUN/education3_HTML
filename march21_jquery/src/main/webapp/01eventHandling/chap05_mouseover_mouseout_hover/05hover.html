@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인물 사진 보이기/감추기( hover )</title>
+<!-- hover 는 이벤트가 아니라 jquery 에서 제공해주는 함수(메소드)인데 mouseover 와 mouseout 을 합친것이다.  -->
+
+<style type="text/css">
+
+   div#container {
+      /* border: solid 1px gray; */
+      width: 80%;
+      margin: 0 auto;
+   }
+   
+   span.buttons {
+      display: inline-block;
+      width: 100px;
+      border: solid 2px orange;
+      margin: 20px;
+      padding: 5px;
+      background-color: yellow;
+      color: #ff0000;
+      font-size: 15pt;
+      cursor: pointer;
+   }
+
+   div#comment {
+      /* border: solid 1px gray; */
+      width: 250px;
+      margin-top: 10px;
+   }
+
+   div#face > img {
+      width: 119px;
+      height: 149px;
+      border-radius: 50%;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		// 객체 배열
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", address:"서울 강동구", email:"kimth@gmail.com"}  
+        				  ,{name:"아이유", filename:"iyou.jpg", address:"서울 강서구", email:"iyou@gmail.com"}
+        				  ,{name:"박보영", filename:"parkby.jpg", address:"서울 강남구", email:"parkby@gmail.com"}]; 
+		
+		// 백틱 사용시
+		let html = ``;
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += `<span class='buttons'>${item.name}</span>`;
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+	
+		$("div#firstdiv").html(html);  // 값을 가져옴
+		
+		
+		/*
+			선택자.hover(function(){}, function(){}); 로 나타낸다.
+			==> 첫번째 function(){} 은 mouseover 에 해당하는 내용이고
+			==> 두번째 function(){} 은 mouseout 에 해당하는 내용이다.
+		*/
+		$("span.buttons").hover(
+				
+			function(event) {  // 마우스가 올라가면은 
+			
+			
+				// (!!!!!기억하기!!!!!) //      
+				const i = $("span.buttons").index($(event.target));   // 버튼인 복수개를 잡아주고 마우스가 올라간곳의 인덱스를 알아온다.
+																// 0, 1, 2 인 결과가 나온다.
+				
+				//alert(i);
+					
+				
+				$("div#face").html(`<img src='./images/${arrPerson[i].filename}'/>`);  // 마우스가 올라가면 사진이 나오도록 해준다.
+				        	
+	        	
+	        	html = `<ol> 
+	        				<li>성명 : ${arrPerson[i].name}</li>
+	        				<li>주소 : ${arrPerson[i].address}</li>
+	        				<li>이메일 : ${arrPerson[i].email}</li>
+	        	
+	        			</ol>`;				// 성명, 주소, 이메일을 출력한다.
+	        	
+	        	$("div#comment").html(html);
+	        	
+	        	$(event.target).css({'background-color':'navy', 'color':'white'});
+	        			
+	        	$("div#seconddiv").show();   // 모든 정보를 보여라
+															
+			}, 
+		
+			function(event){
+		    	 
+		    	  $(event.target).css({'background-color':'', 'color':''});   // 원상복구를 해주는 것은 ''에 아무것도 안쓴다.
+		    	  $("div#seconddiv").hide();   // 모든 정보를 감춰라
+			}
+			
+		); //end of $("span.buttons").hover(
+		
+
+	}); // end of $(document).ready(function() {
+	
+
+</script>
+
+
+</head>
+<body>
+
+	<div id="container" align="center">
+	      <div id="firstdiv"></div>
+	      
+	      <div id="seconddiv">
+	         <div id="face"></div>
+	         <div id="comment" align="left"></div>
+	      </div>
+   </div>   
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인물 사진 보이기/감추기(mouseover, mouseout, 선택자.attr("속성"), 선택자.prop("속성"))</title>
+
+<style type="text/css">
+
+   div#container {
+      /* border: solid 1px gray; */
+      width: 80%;
+      margin: 0 auto;
+   }
+   
+   span.buttons {
+      display: inline-block;
+      width: 100px;
+      border: solid 2px orange;
+      margin: 20px;
+      padding: 5px;
+      background-color: yellow;
+      color: #ff0000;
+      font-size: 15pt;
+      cursor: pointer;
+   }
+
+   div#comment {
+      /* border: solid 1px gray; */
+      width: 250px;
+      margin-top: 10px;
+   }
+
+   div#face > img {
+      width: 119px;
+      height: 149px;
+      border-radius: 50%;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		// 객체 배열
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", address:"서울 강동구", email:"kimth@gmail.com"}  
+        				  ,{name:"아이유", filename:"iyou.jpg", address:"서울 강서구", email:"iyou@gmail.com"}
+        				  ,{name:"박보영", filename:"parkby.jpg", address:"서울 강남구", email:"parkby@gmail.com"}]; 
+		
+		
+		// 백틱 사용 안할 시
+		/*
+		let html = "";
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += "<span class='buttons' id='" + index + "'>" + item.name + "</span>";
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+		*/
+		
+		
+		// 백틱 사용시
+		let html = ``;
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += `<span class='buttons' id='${index}'>${item.name}</span>`;
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+	
+		$("div#firstdiv").html(html);  // 값을 가져옴
+		
+	  //$("span.buttons").bind("mouseover", function(){alert("마우스over 되었습니다."); });
+      // 또는
+        $("span.buttons").mouseover(function(event){
+        
+        	//alert($(event.target).text());   // 각자의 이름이 나온다.
+        	
+        	/* 
+        		=== 선택자의 class 명 알아오기 ===
+        			선택자.attr('class') 또는 선택자.prop('class')
+        			
+        		=== 선택자의 id 알아오기 ===
+        			선택자.attr('id') 또는 선택자.prop('id')
+        			
+        		=== 선택자의 name 알아오기 ===
+        			선택자.attr('name') 또는 선택자.prop('name')
+        			
+        			
+        		>>>> .prop() 와 .attr() 의 차이 <<<<            
+	            .prop() ==> form 태그내에 사용되어지는 엘리먼트의 disabled, selected, checked 의 속성값 확인 또는 변경하는 경우에 사용함. 
+	            .attr() ==> 그 나머지 엘리먼트의 속성값 확인 또는 변경하는 경우에 사용함.
+        			
+        	*/
+        	
+        	const i = $(event.target).attr('id');
+        	
+        	//alert($(event.target).attr('id'));   // index 값을 아이디 값으로 주었으므로 0, 1, 2 가 나온다.
+        	//alert($(event.target).attr('class')); // buttons 가 결과로 나옴
+        	
+        	
+        	//$("div#face").html("<img src='./images/" + arrPerson[i].filename + " '/>");  // 마우스가 올라가면 사진이 나오도록 해준다.
+         // 또는 (백틱사용)
+        	$("div#face").html(`<img src='./images/${arrPerson[i].filename}'/>`);  // 마우스가 올라가면 사진이 나오도록 해준다.
+        	
+        	
+        	html = `<ol> 
+        				<li>성명 : ${arrPerson[i].name}</li>
+        				<li>주소 : ${arrPerson[i].address}</li>
+        				<li>이메일 : ${arrPerson[i].email}</li>
+        	
+        			</ol>`;				// 성명, 주소, 이메일을 출력한다.
+        	
+        	$("div#comment").html(html);
+        	
+        	$(event.target).css({'background-color':'navy', 'color':'white'});
+        			
+        	$("div#seconddiv").show();   // 모든 정보를 보여라
+        	
+        });// end of $("span.buttons").mouseover(function(event){
+        
+		
+      
+        	
+      // 마우스가 over 되었다가 out 될때 실행한다. 	
+      
+      //$("span.buttons").bind("mouseout", function(){alert("마우스out 되었습니다."); });
+      // 또는
+      $("span.buttons").mouseout(function(event){
+    	 
+    	  $(event.target).css({'background-color':'', 'color':''});   // 원상복구를 해주는 것은 ''에 아무것도 안쓴다.
+    	  $("div#seconddiv").hide();   // 모든 정보를 감춰라
+      });
+		
+		
+		
+	});
+	
+
+</script>
+
+
+</head>
+<body>
+
+	<div id="container" align="center">
+	      <div id="firstdiv"></div>
+	      
+	      <div id="seconddiv">
+	         <div id="face"></div>
+	         <div id="comment" align="left"></div>
+	      </div>
+   </div>   
+
+</body>
+</html>

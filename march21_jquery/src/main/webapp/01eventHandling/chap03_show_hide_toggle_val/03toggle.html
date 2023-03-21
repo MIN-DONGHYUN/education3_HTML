@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>toggle()에 대해서 알아봅니다.</title>
+
+
+<style type="text/css">
+
+	button#btn {
+      width: 100px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: #000080;
+      color: white;
+   }
+   
+   div#photo {
+      margin: 10px;
+   }
+
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+
+	$(document).ready(function(){
+		$("div#photo").hide();
+		
+		$("button#btn").text("보이기클릭");
+		
+		$("button#btn").bind("click", function() {	// 클릭하면 실행하라
+			
+			if($(this).text() == "보이기클릭") {
+				// $(this) 는 이벤트가 발생되어진 자기자신 엘리먼트를 말한다.
+				$(this).text("감추기클릭");	
+				$(this).css({"background-color" : "red", "color" : "yellow"});
+				// jQuery 에서는 카멜기법이 아니라 원래 css에서 사용하는 스네이크기법 그대로 사용한다.
+			}
+			else if($(this).text() == "감추기클릭") {
+				$(this).text("보이기클릭");
+				$(this).css({"background-color" : "", "color" : ""});  //"" 에 아무것도 안쓰면 원상복구
+				// jQuery 에서는 카멜기법이 아니라 원래 css에서 사용하는 스네이크기법 그대로 사용한다.
+			}
+			
+			$("div#photo").toggle();   // 누를때마다 보이고 감춘다. show, hide 대체
+			/*
+				선택자요소.toggle(); 은 선택자요소 현재 사라진 상태라면, show() 메소드의 동작을 수행하고, 
+				나타나 있는 상태 이라면 거꾸로 hide() 메소드의 동작을 수행한다.
+			*/
+		
+		});
+	});
+
+
+</script>
+
+
+</head>
+<body>
+
+
+	<div style="display: flex; margin: 50px 0 20px 0;">
+       <div style="margin: auto;">
+         <button id="btn"></button>
+      </div>
+   </div>
+   <div style="display: flex;">   
+      <div style="margin: auto;">
+         <div id="photo"><img src="images/iyou.jpg" /></div>
+      </div>
+   </div>
+
+</body>
+</html>

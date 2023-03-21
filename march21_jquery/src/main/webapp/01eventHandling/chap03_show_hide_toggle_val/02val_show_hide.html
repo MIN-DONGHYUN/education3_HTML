@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>val(), hide(), show() 에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	div.answerCheck {
+		margin: 10px;
+	}
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+	  
+	  $("div.answerCheck").hide();    // 사진을 감추는 것이다.
+	  $("input#answer").focus();
+	  
+	  // 정답확인을 클릭했을 경우
+	  $("button#btnOK").bind("click", function(){
+		  
+		   const user_answer = $("input#answer").val().trim();
+		  
+		   if(user_answer == "") {
+			/* 
+			   const bool = window.confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?");
+			   window 는 생략가능함.    
+			   const bool = confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?");
+			   console.log(bool); // true 또는 false 
+			*/   
+			   
+			   if(confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?")) {
+				   $("div.ok").hide();   // 틀린것만 보여준다. 즉 ok를 가림
+				   $("div.no").show();   // no 를 보여준다.
+			   }
+			   else {
+				   $("input#answer").val("").focus(); 
+			   }
+			
+		   }
+		   
+		   else {
+			   if(user_answer == "17") { // 정답이라면 
+				   $("div.ok").show();   // 맞은 ok만 보여준다.
+				   $("div.no").hide();   // no 를 숨긴다
+			  	}
+			  
+			  else { // 오답이라면
+				  $("div.ok").hide();
+			      $("div.no").show();
+			  }
+		   }
+		   
+	  });// end of $("button#btnOK").bind()-------------------
+	  
+	  
+	  // 다시시작을 클릭했을 경우
+	  $("button#btnRestart").bind("click", function(){
+		  
+		  $("input#answer").val("").focus();
+		  $("div.answerCheck").hide();
+		  
+	  });// end of $("button#btnRestart").bind()---------------------
+	  
+	  
+  }); // end of $(document).ready(function(){})---------------------------
+
+  
+</script>
+
+
+</head>
+<body>
+
+	문제 : 2+5*3=<input type="text" id="answer" />
+	<br><br>
+    <button type="button" id="btnOK">정답확인</button>	
+    <button type="button" id="btnRestart">다시시작</button>
+
+	<div class="answerCheck ok"><img src="images/ok.png" /></div>
+	<div class="answerCheck no"><img src="images/no.png" /></div>
+
+</body>
+</html>

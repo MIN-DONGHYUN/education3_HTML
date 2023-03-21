@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tab 메뉴를 작성하면서 :eq(index번호) 에 대해서 알아봅시다. </title>
+
+<style type="text/css">
+
+	body {
+      font-family: Arial;
+   }
+
+   div#container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+   }
+   
+   div#tab {
+      border: solid 1px red; 
+      
+      background-color: #f1f1f1; 
+      overflow: hidden;   /* 넘처 흐른것은 안보이게 */
+   }
+   
+   div#tab > button {
+      width: 100px;
+      border: none;
+      outline: none;   /*외부선*/
+      cursor: pointer;	/*손모양으로 */
+      padding: 14px 16px; 
+      font-size: 17px;
+      float: left; /* 버튼과 버튼사이의 여백없이 계속해서 붙여가면서 하려고 하는 것임 */
+      /* float: left 가 없으면 버튼 사이에 공간이 생김 */
+   }
+   
+   div#tab > button:hover {
+       background-color: #ddd; 
+   }
+   
+   div.content {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      border-top: none;
+   }
+   
+   .active {
+      background-color: navy;
+      color: white;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		// >>> 클릭한 탭(버튼)만 내용물이 보이도록 하는 첫번째 방법 <<< 
+		$("button.tablinks").click(function(event){
+			
+			const index = $("button.tablinks").index($(event.target));   // 실제로 클릭 한 곳 
+			// 런던을 클릭하면 const index는 0이다.
+			// 0,  1,  2 중 한개가 결과로 나옴 
+			
+			// 위에서 받아온 index를 보자 
+			//console.log($("div.content:eq("+ index + ")").html());
+			// 결과 잘 나옴
+			
+			$("div.content").css('display','none');    // 클릭 안한거는 보이지 않기
+  			$("div.content:eq("+ index + ")").css('display','block');   // 기본이 none이므로 block으로 변경한다.
+			
+		}); //end of $("button.tablinks").click(function(event){
+		
+			
+			
+	  //$("button.tablinks").eq(0).trigger('click');
+	  //또는	
+		$("button.tablinks:eq(0)").trigger('click');		// 기본 값을 0번 즉 런던으로 준다.
+			
+	});
+
+
+</script>
+
+
+
+</head>
+<body>
+	<div id="container">
+      <p>탭 메뉴를 선택해 보세요</p>
+      
+      <div id="tab">
+         <button class="tablinks">런던</button>
+         <button class="tablinks">파리</button>
+         <button class="tablinks">앙카라</button>
+      </div>
+      
+      <div id="London" class="content">
+         <h3>런던</h3>
+         <p>런던 (영어: London)은 잉글랜드와 영국의 수도이다.</p>
+      </div>
+      
+      <div id="Paris" class="content">
+         <h3>파리</h3>
+         <p>파리(Paris)는 프랑스의 수도이다.</p>
+      </div>
+      
+      <div id="ankara" class="content">
+         <h3>앙카라</h3>
+         <p>터키의 수도이다.</p>
+      </div>
+      
+   </div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>선택자.eq(index값)와 장도적으로 선택자에 event 종류가 동작하도록 실행하는 trigger에 대하여 알아본다.</title>
+
+<style type="text/css">
+
+   div#container {
+      /* border: solid 1px gray; */
+      width: 80%;
+      margin: 0 auto;
+   }
+   
+   span.buttons {
+      display: inline-block;
+      width: 100px;
+      border: solid 2px orange;
+      margin: 20px;
+      padding: 5px;
+      background-color: yellow;
+      color: #ff0000;
+      font-size: 15pt;
+      cursor: pointer;
+   }
+
+   div#comment {
+      /* border: solid 1px gray; */
+      width: 250px;
+      margin-top: 10px;
+   }
+
+   div#face > img {
+      width: 119px;
+      height: 149px;
+      border-radius: 50%;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		// 객체 배열
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", address:"서울 강동구", email:"kimth@gmail.com"}  
+        				  ,{name:"아이유", filename:"iyou.jpg", address:"서울 강서구", email:"iyou@gmail.com"}
+        				  ,{name:"박보영", filename:"parkby.jpg", address:"서울 강남구", email:"parkby@gmail.com"}]; 
+		
+		// 백틱 사용시
+		let html = ``;
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += `<span class='buttons'>${item.name}</span>`;
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+	
+		$("div#firstdiv").html(html);  // 값을 가져옴
+		
+		
+		
+		$("span.buttons").click(function(event) {
+		// 아래의 trigger()함수를 작동시키기 위해서는 파라미터에 반드시 event 를 넣어주어야만 $(event.target); 을 통해 타겟을 잡게된다.  
+	    // 파라미터에 event 를 안넣어주면 $(event.target); 을 쓰면 타켓을 올바르게 못잡는다.
+	         
+			const i = $("span.buttons").index($(event.target));
+			
+			
+			$("div#face").html(`<img src='./images/${arrPerson[i].filename}'/>`);  // 마우스가 올라가면 사진이 나오도록 해준다.
+
+        	html = `<ol> 
+        				<li>성명 : ${arrPerson[i].name}</li>
+        				<li>주소 : ${arrPerson[i].address}</li>
+        				<li>이메일 : ${arrPerson[i].email}</li>
+        	
+        			</ol>`;				// 성명, 주소, 이메일을 출력한다.
+        	
+        	$("div#comment").html(html);
+        	
+        	$("span.buttons").css({'background-color' : '', 'color' : ''})   // 버튼 클릭한 곳 아니라면 css 초기화 
+        	$(event.target).css({'background-color':'navy', 'color':'white'});
+			
+		});  // $("span.buttons").click(function(event) {
+		
+		/* 
+			!!!!! 중요(기억하기) !!!!!
+			선택자.trigger(event종류);
+			==> 문서가 로드되어진 다음에는 자동적으로 선택자에 event종류가 동작하도록 실행하는 것이다.
+		*/
+		
+		/*
+			!!!!! 중요(기억하기) !!!!!
+	        선택자.eq(index값); 은 선택자(배열)중에서 index값에 해당하는 요소(선택자)를 얻어오는 것이다.
+	        마치 배열에서 특정 index에 해당하는 배열요소를 얻어오는 것과 같은 의미이다.
+		*/
+			
+		$("span.buttons").eq(2).trigger("click");   // eq에 0 은 김태희 1 은 아이유  2 는 박보영
+		// 지금은 eq가 2이므로 박보영이 먼저 나온다.  (default 값이 박보영으로 고정된 것이다.)
+		// trigger를 사용할 때는 function() 파라미터에 event를 꼭 사용해야 한다.
+		// 즉 trigger를 하려고 한다라면 $("span.buttons") 에 대한 이벤트(지금은 click) 핸들러에서 파라미터에 반드시 event를 꼭 넣어줘야 한다.
+		
+			
+			
+	}); // end of $(document).ready(function() {
+	
+
+</script>
+
+
+</head>
+<body>
+
+	<div id="container" align="center">
+	      <div id="firstdiv"></div>
+	      
+	      <div id="seconddiv">
+	         <div id="face"></div>
+	         <div id="comment" align="left"></div>
+	      </div>
+   </div>   
+
+</body>
+</html>

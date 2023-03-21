@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>인물 사진 보이기/감추기(mouseover, mouseout, each)</title>
+
+<style type="text/css">
+
+   div#container {
+      /* border: solid 1px gray; */
+      width: 80%;
+      margin: 0 auto;
+   }
+   
+   span.buttons {
+      display: inline-block;
+      width: 100px;
+      border: solid 2px orange;
+      margin: 20px;
+      padding: 5px;
+      background-color: yellow;
+      color: #ff0000;
+      font-size: 15pt;
+      cursor: pointer;
+   }
+
+   div#comment {
+      /* border: solid 1px gray; */
+      width: 250px;
+      margin-top: 10px;
+   }
+
+   div#face > img {
+      width: 119px;
+      height: 149px;
+      border-radius: 50%;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		// 객체 배열
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", address:"서울 강동구", email:"kimth@gmail.com"}  
+        				  ,{name:"아이유", filename:"iyou.jpg", address:"서울 강서구", email:"iyou@gmail.com"}
+        				  ,{name:"박보영", filename:"parkby.jpg", address:"서울 강남구", email:"parkby@gmail.com"}]; 
+		
+		
+		// 백틱 사용 안할 시
+		/*
+		let html = "";
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += "<span class='buttons' id='" + index + "'>" + item.name + "</span>";
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+		*/
+		
+		
+		// 백틱 사용시
+		let html = ``;
+		
+		arrPerson.forEach(function(item, index) {
+			
+			html += `<span class='buttons'>${item.name}</span>`;
+			
+		}); // end of arrPerson.forEach(function(elt, i, array) {
+			
+	
+		$("div#firstdiv").html(html);  // 값을 가져옴
+		
+		
+		// jquery의 반복문 each를 사용해 보자 (선택자가 복수개면 each 사용)
+		$("span.buttons").each(function(i, element) {   // each는 반복문 , i 는 index를 말한다.
+			
+			$(element).mouseover(function(event){   // 어떤 엘리먼트에 마우스가 올라갔으면  $(element) 와 event.target과 같다.
+				// mouseover 은 선택자에 마우스 포인터가 올라갈때 발생하는 이벤트이다.
+				
+				//alert($(element).text());   // span 테그의 이름을 찍어봐라 
+				//alert(i);  // 0 , 1 , 2 가 출력된다.
+				
+				
+				$("div#face").html(`<img src='./images/${arrPerson[i].filename}'/>`);  // 마우스가 올라가면 사진이 나오도록 해준다.
+				
+				html = `<ol> 
+    				<li>성명 : ${arrPerson[i].name}</li>
+    				<li>주소 : ${arrPerson[i].address}</li>
+    				<li>이메일 : ${arrPerson[i].email}</li>
+    	
+    			</ol>`;				// 성명, 주소, 이메일을 출력한다.
+				
+				$("div#comment").html(html);
+    			
+				$(this).css({'background-color':'navy', 'color':'white'});
+				// $(element) 와 $(this) 는 같은 것이다.
+				
+				$("div#seconddiv").show();  // 결과물을 보여줘라
+				
+			});  //end of $(element).mouseover(function(event){ 
+				
+				
+				
+			// 마우스 아웃 되었을때	
+			$(element).mouseout(function(event){
+				// mouseout 은 선택자에 마우스 포인터가 올라갔다가 빠지면 발생하는 이벤트이다.
+				$(this).css({'background-color':'', 'color':''});  // 왼상복구
+				$("div#seconddiv").hide();		// 결과물을 보이지 마라
+				
+			}); // end of $(element).mouseout(function(event){
+			
+		}); // end of $("span.buttons").each(function(i, element)
+				
+	});// end of $(document).ready(function() {
+	
+
+</script>
+
+
+</head>
+<body>
+
+	<div id="container" align="center">
+	      <div id="firstdiv"></div>
+	      
+	      <div id="seconddiv">
+	         <div id="face"></div>
+	         <div id="comment" align="left"></div>
+	      </div>
+   </div>   
+
+</body>
+</html>

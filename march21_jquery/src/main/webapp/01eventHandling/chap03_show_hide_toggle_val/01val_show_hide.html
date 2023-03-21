@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>val(), hide(), show() 에 대해서 알아봅니다.</title>
+
+<style type="text/css">
+
+	div.answerCheck {
+		margin: 10px;
+	}
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+  $(document).ready(function(){
+	  
+	  $("input#answer").focus();
+	  
+	  // 정답확인을 클릭했을 경우
+	  $("button#btnOK").bind("click", function(){
+		  
+		   const user_answer = $("input#answer").val().trim();
+		  
+		   if(user_answer == "") {
+			/* 
+			   const bool = window.confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?");
+			   window 는 생략가능함.    
+			   const bool = confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?");
+			   console.log(bool); // true 또는 false 
+			*/   
+			   
+			   if(confirm("정답을 미기입 하셨는데 정말로 진행하시겠습니까?")) {
+				   func_check(user_answer); // 채점한다.
+			   }
+			   else {
+				   $("input#answer").val("").focus(); 
+			   }
+			
+		   }
+		   
+		   else {
+			   func_check(user_answer); // 채점한다.
+		   }
+		   
+	  });// end of $("button#btnOK").bind()-------------------
+	  
+	  
+	  // 다시시작을 클릭했을 경우
+	  $("button#btnRestart").bind("click", function(){
+		  
+		  $("input#answer").val("").focus();
+		  $("div.answerCheck").hide();
+		  
+	  });// end of $("button#btnRestart").bind()---------------------
+	  
+	  
+  }); // end of $(document).ready(function(){})---------------------------
+
+  
+  // Function Declaration 
+  function func_check(answer) {
+	  
+	  if(answer == "17") { // 정답이라면 
+		  $("div.ok").html("<img src='images/ok.png' />");
+	      $("div.no").hide();
+	      $("div.ok").show();
+	  }
+	  
+	  else { // 오답이라면
+		  $("div.no").html("<img src='images/no.png' />");
+		  $("div.ok").hide();
+	      $("div.no").show();
+	  }
+	  	  
+  }// end of function func_check()----------------------------------------
+  
+</script>
+
+
+</head>
+<body>
+
+	문제 : 2+5*3=<input type="text" id="answer" />
+	<br><br>
+    <button type="button" id="btnOK">정답확인</button>	
+    <button type="button" id="btnRestart">다시시작</button>
+
+	<div class="answerCheck ok"></div>
+	<div class="answerCheck no"></div>
+
+</body>
+</html>
