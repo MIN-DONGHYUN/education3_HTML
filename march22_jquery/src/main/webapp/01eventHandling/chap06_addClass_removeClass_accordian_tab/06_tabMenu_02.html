@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>each()를 활용하여 tab 메뉴를 작성해봅니다. </title>
+
+<style type="text/css">
+
+	body {
+      font-family: Arial;
+   }
+
+   div#container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+   }
+   
+   div#tab {
+      /* border: solid 1px red;  */
+      
+      border: solid 1px #ccc;
+      background-color: #f1f1f1; 
+      overflow: hidden;   /* 넘처 흐른것은 안보이게 */
+   }
+   
+   div#tab > button {
+      width: 100px;
+      border: none;
+      outline: none;   /*외부선*/
+      cursor: pointer;	/*손모양으로 */
+      padding: 14px 16px; 
+      font-size: 17px;
+      float: left; /* 버튼과 버튼사이의 여백없이 계속해서 붙여가면서 하려고 하는 것임 */
+      				/* float: left 가 없으면 버튼 사이에 공간이 생김 */
+   }
+   /*
+   div#tab > button:hover {
+       background-color: #ddd; 
+   }
+   */
+   div.content {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      border-top: none;
+   }
+   
+   .active {
+      background-color: navy;
+      color: white;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		// >>> 클릭한 탭(버튼)만 내용물이 보이도록 하는 두번째 방법 <<< 
+		$("button.tablinks").click( event => {    // 화살표 함수 
+			
+			
+			const button_index = $(`button.tablinks`).index( $(event.target));   // 이벤트는 클릭 이벤트 
+			// 런던을 클릭하면 const index는 0이다.
+			// 0,  1,  2 중 한개가 결과로 나옴 
+			
+			// 위에서 받아온 index를 보자 
+			//console.log($("div.content:eq("+ index + ")").html());
+			// 결과 잘 나옴
+			
+			$(`div.content`).each( function(i, elmt) {   // 반복문  jquery 는 순서가 index, element 순이다.
+				
+				if(i == button_index) {   // 실제로 클릭한 인덱스와 div의 i(index) 와 같나?
+					$(elmt).css(`display`,`block`);    // display를 block 타입으로 출력 
+				}
+				else {
+					$(elmt).css(`display`,``);    // 다른것들은 none (기본값) 으로 
+				}
+				
+			});	// end of $(`div.content`).each( function(i, elmt) {  
+			
+			// tab 선택한것만 파란색 배경 색을 주자 
+			$("button.tablinks").removeClass('active');
+			$(event.target).addClass('active'); 	
+  		  
+		}); //end of $("button.tablinks").click( event => {  
+
+			
+		// 새로고침 할 때 처음 보여주는 것을 말한다 여기서 eq(0)은 런던을 뜻한다.
+	  //$(`button.tablinks`).eq(0).trigger('click');
+	  //또는 
+		$(`button.tablinks:eq(0)`).trigger('click');
+			
+			
+			
+	}); // end of $(document).ready(function() {
+
+
+</script>
+
+
+
+</head>
+<body>
+	<div id="container">
+      <p>탭 메뉴를 선택해 보세요</p>
+      
+      <div id="tab">
+         <button class="tablinks">런던</button>
+         <button class="tablinks">파리</button>
+         <button class="tablinks">앙카라</button>
+      </div>
+      
+      <div id="London" class="content">
+         <h3>런던</h3>
+         <p>런던 (영어: London)은 잉글랜드와 영국의 수도이다.</p>
+      </div>
+      
+      <div id="Paris" class="content">
+         <h3>파리</h3>
+         <p>파리(Paris)는 프랑스의 수도이다.</p>
+      </div>
+      
+      <div id="ankara" class="content">
+         <h3>앙카라</h3>
+         <p>터키의 수도이다.</p>
+      </div>
+      
+   </div>
+</body>
+</html>

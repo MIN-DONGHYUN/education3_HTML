@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>each()를 활용하여 tab 메뉴를 작성해봅니다. </title>
+
+<style type="text/css">
+
+	body {
+      font-family: Arial;
+   }
+
+   div#container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+   }
+   
+   div#tab {
+      /* border: solid 1px red;  */
+      
+      border: solid 1px #ccc;
+      background-color: #f1f1f1; 
+      overflow: hidden;   /* 넘처 흐른것은 안보이게 */
+   }
+   
+   div#tab > button {
+      width: 100px;
+      border: none;
+      outline: none;   /*외부선*/
+      cursor: pointer;	/*손모양으로 */
+      padding: 14px 16px; 
+      font-size: 17px;
+      float: left; /* 버튼과 버튼사이의 여백없이 계속해서 붙여가면서 하려고 하는 것임 */
+      				/* float: left 가 없으면 버튼 사이에 공간이 생김 */
+   }
+   /*
+   div#tab > button:hover {
+       background-color: #ddd; 
+   }
+   */
+   div.content {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      border-top: none;
+   }
+   
+   .active {
+      background-color: navy;
+      color: white;
+   }
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+		const arr_data = [{city:"런던",
+				           content:"런던 (영어: London)은 잉글랜드와 영국의 수도이다."
+				          }
+				         ,{city:"파리",
+				           content:"파리(Paris)는 프랑스의 수도이다."
+				          }
+				         ,{city:"앙카라",
+				          content:"터키의 수도이다."
+				         }];
+		
+		
+		
+		
+		
+		let html = ``;
+		
+		arr_data.forEach( item => {
+			html += `<button class="tab">${item.city}</button>
+					 <div class="content">
+				     	   <p>${item.content}</p>
+					 </div>
+			`;
+		});
+		
+		$("div#container").html(html);
+		
+		
+		$("div#container > div.content").hide();  // 안보이도록 한다.
+		
+		$("div#container > button.tab").click(function(e){
+			
+			// 내가 클릭한것만 색상을 바꿔주자 
+			$("button.tab").css({'background-color':'', 'color':''});
+			$(e.target).css({'background-color':'pink', 'color':'white'});
+			
+			
+			const $content = $(e.target).next();
+			// $(e.target).next(); 은 $(e.target) 엘리먼트 형제태그 중 $(e.target) 바로 다음에 나오는 태그를 의미한다. 다음다음이라면 next() 두번이다.
+			// 즉,  <div class="panel"></<div> 중에 하나를 말하는 것이다.
+			// 선택자.next(); 는 이벤트가 발생 되어진 곳의 바로 다음 형제태그(요소)를 선택자로 잡는 것이다.
+			
+			$("div#container > div.content").hide();  // 안보이도록 해라 
+			$content.toggle(); //
+		/*
+			선택자요소.toggle(); 은 선택자요소가 현재 사라진 상태라면 .show() 메소드의 동작을 수행하고, 
+			나타나 있는 상태라면 hide() 메소드의 동작을 수행한다.
+		*/
+			
+		}); // end of $("button.accordion").click(function(e)--------------------
+		
+		$("button.tab").eq(0).trigger('click'); // 웹페이지 로딩시에 자동으로 첫번째 아코디언이 클릭되어진 상태로 나타나게 해준다.
+			
+		
+		
+		
+		
+			
+	}); // end of $(document).ready(function() {
+
+
+</script>
+
+
+
+</head>
+<body>
+	<div id="container"></div>
+</body>
+</html>
