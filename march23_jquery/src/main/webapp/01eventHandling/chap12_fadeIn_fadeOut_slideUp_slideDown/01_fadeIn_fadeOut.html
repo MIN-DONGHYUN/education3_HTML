@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>fadeIn() 과 fadeOut()를 사용한 효과 주기</title>
+
+<style type="text/css">
+
+	div#container {
+	      width: 80%;
+	      margin: 0 auto;
+	      /* border: 1px solid red; */
+	}
+	
+	div#content {
+		display: flex;
+	}
+	
+	div.personInfo {
+		/*border: solid 1px red;*/
+	}
+	
+	span.buttons {
+	      display: inline-block;
+	      border: 2px solid orange;
+	      margin: 20px;
+	      padding: 5px;
+	      background-color: red;
+	      color: yellow;
+	      font-size: 15pt;
+	      cursor: pointer;
+	      width: 100px;
+	      text-align: center;
+	   }
+	
+	ul {
+	   border: solid 1px gray; 
+	   list-style-type: none;
+	   font-size: 14pt;
+	   text-align: left;
+	   padding: 0;
+	   
+	}
+	
+	
+	span#profileMore {
+	   display: block;
+	   margin-top: 30px;
+	   color: blue;
+	   font-style: italic;
+	   cursor: pointer;
+	}
+	
+	span#profileClose {
+	   display: block;
+	   margin-top: 30px;
+	   color: red;
+	   font-style: italic;
+	   cursor: pointer;
+	}
+
+</style>
+
+
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+ 
+	$(document).ready(function(){
+		
+		
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", filename2:"kimthLarge.jpg", address:"서울 강동구", email:"kimth@gmail.com", school:"우수대학교", age:30} 
+					      ,{name:"아이유", filename:"iyou.jpg", filename2:"iyouLarge.jpg", address:"서울 강서구", email:"iyou@gmail.com", school:"영재대학교", age:27}
+					      ,{name:"박보영", filename:"parkby.jpg", filename2:"parkbyLarge.jpg", address:"서울 강남구", email:"parkby@gmail.com", school:"일류대학교", age:29}];
+				
+		
+		// == 메뉴 널기 시작 == //
+		
+		let menu_html = ``;
+		
+		arrPerson.forEach((item) => {
+			menu_html += `<span class="buttons">${item.name}</span>`;   // 각각의 이름을 가져온다.
+		});
+		
+		$("div#menu").html(menu_html);   // 버튼 세개를 가져오기 위헤
+		
+		// == 메뉴 넣기 끝 == //
+		
+		
+		
+		// == 내용물 넣기 시작 == //
+		let content_html = ``;
+		
+		for(let i = 0; i<arrPerson.length; i++) {
+			
+			
+			content_html += `<div class="personInfo" style="position: relative; top: 50px; left: ${100+(i*50)}px;">
+						<img src='images/${arrPerson[i].filename2}' />
+						<ul>
+							<li>${arrPerson[i].name}</li>
+							<li>${arrPerson[i].address}</li>
+							<li>${arrPerson[i].email}</li>
+							<li style='margin: 30px; color:blue; cursor:pointer;'>프로필 더보기</li>
+						</ul>
+						
+						<ul id='moreProfile${i}' style="list-style-type: none; padding: 0px;">
+							<li>${arrPerson[i].school}</li>
+							<li>${arrPerson[i].age}세</li>
+							<li style="margin:30px; color: red; cursor:pointer;">프로필 감추기</li>
+						</ul>
+					</div>`;
+			
+		} // end of for
+		
+		
+		$("div#content").html(content_html);  //html 출력 
+		
+		// == 내용물 넣기 끝 == //
+		
+		
+		/*
+			개별 
+			$("div.personInfo:eq(0)").css('border','solid 1px red');
+			$("div.personInfo").eq(1).css('border','solid 1px green');
+			$("div.personInfo").eq(2).css('border','solid 1px blue');
+		*/
+		
+		// 전체
+		$("div.personInfo").hide();  // 전체 숨기기
+		
+		
+		$("div.personInfo:eq(0)").fadeIn(3000);  // 3초간 천천히 나옴
+		
+		$("div.personInfo").eq(1).fadeIn(7000);  // 7초간 천천히 나옴
+		
+		$("div.personInfo").eq(2).fadeIn(10000);  // 10초간 천천히 나옴
+		
+		/*
+			선택자.fadeIn(3000); 은 선택자에 해당되는 내용물을 숫자(단위는 밀리초) 밀리초 동안 천천히 나타내어라는 말이다.
+			3000 은 3초이다.
+		*/
+		
+		/*
+		$("div.personInfo:eq(0)").fadeIn('fast');
+		
+		$("div.personInfo").eq(1).fadeIn('normal');
+		
+		$("div.personInfo").eq(2).fadeIn('slow'); 
+		
+			숫자 3000 대신에 'slow' 를 쓰면은 600과 같다. 즉, 0.6초이다.
+			숫자 3000 대신에 'normal' 를 쓰면은 400과 같다. 즉, 0.4초이다.
+			숫자 3000 대신에 'fast' 를 쓰면은 200과 같다. 즉, 0.2초이다.
+		*/
+		
+		
+		// 확인용
+	  //$("div.personInfo 1. ul:last-child").css('border', 'solid 3px red')
+		
+	  
+		$("div.personInfo > ul:last-child").hide();
+		// 학력, 나이 정보를 감춘다.	
+			
+		
+		
+		
+		
+		// 프로필 더보기를 클릭했을대 감추어진 해당 인물의 학력, 나이, 정보를 3초동안 서서히 보여라
+		
+		// 확인용
+	   //$("div.personInfo > ul:nth-child(2) > li:last-child").css('border', 'solid 1px red')
+			
+		
+	     $("div.personInfo > ul:nth-child(2) > li:last-child").each(function(i, elmt){
+	    	
+	    	$(elmt).click(function(){     // 3개중 한개를 클릭해옴	 
+	    		
+	    		$("div.personInfo").find("ul#moreProfile"+i).fadeIn(3000);   // 프로필 더보기를 누르면 3초 동안 천천히 보여라
+	    		
+	    	}); // end of  $(elmt).click(function(){
+	    	
+	    	 
+	     }); // end of $("div.personInfo > ul:nth-child(2) > li:last-child").each(function(i, elmt){
+		
+		
+	    
+	    // 프로필 감추기를 클릭했을대 감추어진 해당 인물의 학력, 나이, 정보를 숨겨라
+	    
+	     $("div.personInfo > ul:last-child > li:last-child").each(function(i, elmt){
+		    	
+	    	$(elmt).click(function(){     // 3개중 한개를 클릭해옴	 
+	    		
+	    		//$(this).parent().fadeOut(3000);  // 3초 동안 천천히 숨겨라  
+	    		// 선택자.fadeOut(3000); 은 선택자에 해당되는 내용물을 숫자(단위는 밀리초) 밀리초 동안 천천히 보이지말라 라는 말이다.
+	    		
+	    		$(this).parent().fadeOut('slow');
+	    		/*
+		    		숫자 3000 대신에 'slow' 를 쓰면은 600과 같다. 즉, 0.6초이다.
+					숫자 3000 대신에 'normal' 를 쓰면은 400과 같다. 즉, 0.4초이다.
+					숫자 3000 대신에 'fast' 를 쓰면은 200과 같다. 즉, 0.2초이다.
+				*/
+	    		
+	    		
+	    	
+	    	}); // end of  $(elmt).click(function(){
+	    	
+	    	 
+	     }); // end of $("div.personInfo > ul:last-child > li:last-child").each(function(i, elmt){
+		
+	    	 
+			
+	}); // end of $(document).ready(function(){~~~~~
+	
+</script>
+
+</head>
+<body>
+	
+	<div id="container" align="center">
+	      <div id="menu"></div>
+	      <div id="content"></div>	      
+	</div>
+
+
+</body>
+</html>

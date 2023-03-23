@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>setTimerOut 을 사용하여 사진을 시간차이 간격으로 보여주기.</title>
+<!-- 
+   맨처음에는 버튼3개(김태희, 아이유, 박보영)는 희미하게 보이고,
+   사진은 아예 안보인다.
+   
+   특정 버튼에 마우스가 올라가면 그 버튼만 원래광도로 띄면서 내용은 클릭하세요로 변경된다.
+   그리고 동시에 버튼아래에 그 사람의 사진만 희미하게 보인다.
+   
+   특정버튼을 클릭하면 그 사람의 큰사진이 원래광도로 띈다.
+   그리고 동시에 그 사람의 사진아래에 프로필 약력이 보이고, "프로필 더보기" 버튼이 보여진다.
+   
+  "프로필 더보기" 버튼을 클릭하면 "프로필 더보기" 버튼을 삭제하고 "프로필 닫기" 버튼을 생성하여 바뀌면서 프로필 정보를 더 보여준다.
+  
+  "프로필 닫기" 버튼을 클릭하면 "프로필 닫기" 버튼을 삭제하고 "프로필 더보기" 버튼을 생성하여 바뀌면서 프로필 정보는 없어진다.
+-->
+
+<style type="text/css">
+
+	div#content {
+		display: flex;
+	}
+	
+	div.personInfo {
+		/* border: solid 1px red; */
+	}
+
+	div#container {
+      width: 80%;
+      margin: 0 auto;
+      /* border: 1px solid red; */
+	}
+	
+	span.buttons {
+	      display: inline-block;
+	      border: 2px solid orange;
+	      margin: 20px;
+	      padding: 5px;
+	      background-color: red;
+	      color: yellow;
+	      font-size: 15pt;
+	      cursor: pointer;
+	      width: 100px;
+	      text-align: center;
+	   }
+	
+	ul {
+	   border: solid 1px gray;
+	   list-style-type: none;
+	   font-size: 14pt;
+	   text-align: left;
+	   padding: 0px;
+	}
+	
+	span#profileMore {
+	   display: block;
+	   margin-top: 30px;
+	   color: blue;
+	   font-style: italic;
+	   cursor: pointer;
+	}
+	
+	span#profileClose {
+	   display: block;
+	   margin-top: 30px;
+	   color: red;
+	   font-style: italic;
+	   cursor: pointer;
+	}
+
+</style>
+
+<script type="text/javascript" src="../../js/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		const arrPerson = [{name:"김태희", filename:"kimth.jpg", filename2:"kimthLarge.jpg", address:"서울 강동구", email:"kimth@gmail.com", school:"우수대학교", age:30} 
+				          ,{name:"아이유", filename:"iyou.jpg", filename2:"iyouLarge.jpg", address:"서울 강서구", email:"iyou@gmail.com", school:"영재대학교", age:27}
+				          ,{name:"박보영", filename:"parkby.jpg", filename2:"parkbyLarge.jpg", address:"서울 강남구", email:"parkby@gmail.com", school:"일류대학교", age:29}];
+		
+		// ===== 메뉴 넣기 시작 ===== //
+		let menu_html = ``;
+		
+		arrPerson.forEach( (item) => {
+			menu_html += `<span class='buttons'>${item.name}</span>`;
+		});
+		
+		$("div#menu").html(menu_html);
+		// ===== 메뉴 넣기 끝 ===== //
+		
+		
+		
+		// ===== 내용물 넣기 시작 ===== //
+		let content_html = ``;
+		for(let i=0; i<arrPerson.length; i++) {
+															// css를 직접 줘서 각각의 프로필을 떨어트려본다(배열을 이용하여 변수처리를 하고 이용한다.).									
+			content_html += `<div class="personInfo" style="position: relative; top: 50px; left: ${100+(i*100)}px;">
+								<img src='images/${arrPerson[i].filename2}' />
+								<ul>
+									<li>${arrPerson[i].name}</li>
+									<li>${arrPerson[i].address}</li>
+									<li>${arrPerson[i].email}</li>
+									<li style='margin: 30px; color:blue; cursor:pointer;'>프로필더보기</li>
+								</ul>
+								
+								<ul id='moreProfile${i}' style="list-style-type: none; padding: 0px;">
+									<li>${arrPerson[i].school}</li>
+									<li>${arrPerson[i].age}세</li>
+									<li style='margin: 30px; color:red; cursor:pointer;'>프로필감추기</li>
+								</ul>
+							</div>`;
+			
+		}// end of for()----------------------------------------		
+
+		$("div#content").html(content_html);
+		// ===== 내용물 넣기 끝 ===== //
+		
+	/*	
+		$("div.personInfo:eq(0)").css('border','solid 1px red'); // :eq(n)번째 배열에 해당하는 곳만 css적용
+		$("div.personInfo").eq(1).css('border','solid 1px green');
+		$("div.personInfo:eq(2)").css('border','solid 1px blue'); // :eq(n)번째 배열에 해당하는 곳만 css적용
+	*/	
+		$("div.personInfo").hide();	
+		
+		
+		for(let i=0; i<arrPerson.length; i++){
+			
+			setTimeout(function() {
+				$("div.personInfo").eq(i).show();
+			}, 1000+(i*500));
+			
+			
+		}// end of for 
+			
+		
+	/*
+		선택자.slideDown(); 은 선택자에 해당되는 내용물을 숫자(단위는 밀리초) 동안 블라인드 처럼 위에서부터 아래로 나타내라는 말이다.
+		3000은 3초이다.
+	/*	
+		숫자 3000 대신에 'slow' 를 사용하면 600과 같다. 즉, 0.6초 이다.
+		숫자 3000 대신에 'normal' 를 사용하면 400과 같다. 즉, 0.4초 이다.
+		숫자 3000 대신에 'fast' 를 사용하면 200과 같다. 즉, 0.2초 이다.
+	
+		$("div.personInfo:eq(0)").slideDown('slow');
+		$("div.personInfo").eq(1).slideDown('normal');
+		$("div.personInfo:eq(2)").slideDown('fast');
+	*/
+	
+//	$("div.personInfo > ul:last-child").css('border','solid 3px red');
+	
+	$("div.personInfo > ul:last-child").hide();
+	// 학력, 나이 정보를 감춘 것이다.
+	
+	
+	// ===== "프로필더보기" 를 클릭했을 떄 감추어진 해당 인물의 학력, 나이 정보를 3초 동안 블라인드 처럼 위에서 부터 아래로 보이게 하기 ===== //
+//	$("div.personInfo > ul:nth-child(2) > li:last-child").css('border','solid 3px red');
+	
+	$("div.personInfo > ul:nth-child(2) > li:last-child").each(function(i, elmt){ // 배열요소가 복수개라서 each 사용
+		
+		$(elmt).click(function(){
+			$("div.personInfo").find("ul#moreProfile"+i).slideDown(3000);
+		});
+		
+	}); // end of $("div.personInfo > ul:nth-child(2) > li:last-child").each(function(index, elmt)-------------
+
+			
+			
+	// ===== "프로필감추기" 를 클릭했을 때 ===== //
+	$("div.personInfo > ul:last-child > li:last-child").each(function(i, elmt){ // 배열요소가 복수개라서 each 사용
+			
+		$(elmt).click(function(){
+		//	$(this).parent().slideUp(3000);  		
+			/*								 			
+				선택자.slideUp(); 은 선택자에 해당되는 내용물을 숫자(단위는 밀리초) 동안 블라이드 처럼 아래서부터 위로 보이지 않게 하라는 말이다.
+				3000은 3초이다.
+			*/
+		$(this).parent().slideUp('slow'); // this 는 자기자신인 elmt 를 의미하고 parent()는 선택자로 잡은 li태그의 부모인 ul태그를 의미한다.	
+										  // 부모태그를 잡은 이유는 추가로 보여주는 프로필 전체를 감춰야하기 때문이다.
+			/*								
+				숫자 3000 대신에 'slow' 를 사용하면 600과 같다. 즉, 0.6초 이다.
+				숫자 3000 대신에 'normal' 를 사용하면 400과 같다. 즉, 0.4초 이다.
+				숫자 3000 대신에 'fast' 를 사용하면 200과 같다. 즉, 0.2초 이다.
+			*/
+				
+		})// end of $(elmt).click(function()----------------------------- 
+	});
+			
+	
+	}); // end of $(document).ready(function()----------------------
+
+</script>
+
+
+</head>
+<body>
+	<div id="container" align="center">
+      <div id="menu"></div>
+      <div id="content"></div>
+   </div>
+</body>
+</html>
